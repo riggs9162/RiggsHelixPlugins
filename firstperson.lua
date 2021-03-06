@@ -1,9 +1,3 @@
---[[---------------------------------------------------------------------------
-	** Copyright (c) 2021 Connor ---- (ZIKE)
-	** This file is private and may not be shared, downloaded, used, sold or even copied.
-	** Allowed Users to use any of this products code: ZIKE#7537
----------------------------------------------------------------------------]]--
-
 local PLUGIN = PLUGIN
 
 PLUGIN.name = "Immersive Firstperson"
