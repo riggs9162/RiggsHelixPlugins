@@ -24,6 +24,7 @@ function PLUGIN:CalcView(ply, origin, angles, fov)
     local head = ply:LookupAttachment("eyes")
     head = ply:GetAttachment(head)
     if not head or not head.Pos then return end
+	if IsValid(ix.gui.menu) or IsValid(ix.gui.characterMenu) then return end
     if not ix.option.Get("FirstPersonEnable", false) then return end
 	if (ply:GetMoveType() == MOVETYPE_NOCLIP) then return end
 
