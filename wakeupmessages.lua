@@ -6,12 +6,12 @@ function PLUGIN:CharacterLoaded(character)
 	local client = character:GetPlayer()
 	timer.Simple(2, function()
 		if not (client:IsValid() or client:Alive()) then return end
-        local wakeupmessages = {
-            "You awaken with sweat all over your body, its humid.",
-            "You awaken to the sound of sand in the air, somewhere theres a fight going on.",
-            "You awaken to the feeling of rage, you seek combat.",
-            "You open your eyes to the landscape, it feels different from home."
-        }
+		local wakeupmessages = {
+			"You awaken with sweat all over your body, its humid.",
+			"You awaken to the sound of sand in the air, somewhere theres a fight going on.",
+			"You awaken to the feeling of rage, you seek combat.",
+			"You open your eyes to the landscape, it feels different from home."
+		}
 		if (client:Health() < 50) then -- replaces the original messages with other messages depending on the function.
             wakeupmessages = {
                 "You awaken with wounds all over your body, its humid and painful.",
