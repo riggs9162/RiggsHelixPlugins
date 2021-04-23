@@ -1,6 +1,6 @@
 PLUGIN.name = "Spawn Notifications"
 PLUGIN.author = "SPURION - Messages, Riggs - All of the code."
-PLUGIN.desc = "A notification which tells the player their status on loading the character."
+PLUGIN.description = "A notification which tells the player their status on loading the character."
 
 function PLUGIN:CharacterLoaded(character)
 	local client = character:GetPlayer()
@@ -13,11 +13,11 @@ function PLUGIN:CharacterLoaded(character)
 			"You open your eyes to the landscape, it feels different from home."
 		}
 		if (client:Health() < 50) then -- replaces the original messages with other messages depending on the function.
-            wakeupmessages = {
-                "You awaken with wounds all over your body, its humid and painful.",
-                "The sound of gun fire has woke you up, your wounds sting your body.",
-                "You have woken up from a nightmare involving you getting shot, your wound from before has stung where you was shot in the dream."
-            }
+			wakeupmessages = {
+				"You awaken with wounds all over your body, its humid and painful.",
+				"The sound of gun fire has woke you up, your wounds sting your body.",
+				"You have woken up from a nightmare involving you getting shot, your wound from before has stung where you was shot in the dream."
+			}
 		end
 		client:ConCommand("stopsound")
 		client:ConCommand("play music/stingers/hl1_stinger_song16.mp3")
