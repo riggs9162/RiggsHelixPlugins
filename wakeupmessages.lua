@@ -19,9 +19,9 @@ function PLUGIN:CharacterLoaded(character)
 				"You have woken up from a nightmare involving you getting shot, your wound from before has stung where you was shot in the dream."
 			}
 		end
-		client:ConCommand("stopsound")
-		client:ConCommand("play music/stingers/hl1_stinger_song16.mp3")
 		client:ChatPrint(table.Random(wakeupmessages))
-		client:ScreenFade(SCREENFADE.IN, Color(0, 0, 0, 255), 2, 1)
 	end)
+	client:ConCommand("stopsound")
+	client:ConCommand("play music/stingers/hl1_stinger_song16.mp3")
+	client:ScreenFade(SCREENFADE.IN, Color(0, 0, 0, 255), 2, 1)
 end
