@@ -1,27 +1,26 @@
 PLUGIN.name = "Spawn Notifications"
-PLUGIN.author = "SPURION - Messages, Riggs - All of the code."
+PLUGIN.author = "Riggs"
 PLUGIN.description = "A notification which tells the player their status on loading the character."
 
-function PLUGIN:CharacterLoaded(character)
-	local client = character:GetPlayer()
-	timer.Simple(2, function()
-		if not (client:IsValid() or client:Alive()) then return end
-		local wakeupmessages = {
-			"You awaken with sweat all over your body, its humid.",
-			"You awaken to the sound of sand in the air, somewhere theres a fight going on.",
-			"You awaken to the feeling of rage, you seek combat.",
-			"You open your eyes to the landscape, it feels different from home."
-		}
-		if (client:Health() < 50) then -- replaces the original messages with other messages depending on the function.
-			wakeupmessages = {
-				"You awaken with wounds all over your body, its humid and painful.",
-				"The sound of gun fire has woke you up, your wounds sting your body.",
-				"You have woken up from a nightmare involving you getting shot, your wound from before has stung where you was shot in the dream."
-			}
-		end
-		client:ChatPrint(table.Random(wakeupmessages))
-	end)
+-- Feel free to change any of these messages.
+local wakeupmessages = {
+	"You wake up from a long nap and recover from your sleep.",
+	"You stand up and sniffing the fresh air from the world.",
+	"You start to stand up and recover from your sleep.",
+	"You are sweating from all the scare you have been getting from your deam and you wake up.",
+	"You were dreaming of someone and you heard their voice, you started to wake up.",
+	"You hear a small whisper in your ear, after that you hear loud footsteps fading away, you wake up being scared.",
+	"You hear a loud helicopter overhead of yourself and you instantly wake up.",
+	"You heard a growling and you started to wake up but scared.",
+	"You heard a loud siren and you are scared if the noise.",
+}
+
+function PLUGIN:CharacterLoaded(char)
+	if not (char:GetPlayer():IsValid() or char:GetPlayer():Alive()) then return end
+	if not (char) then return end
+	local client = char:GetPlayer()
 	client:ConCommand("stopsound")
 	client:ConCommand("play music/stingers/hl1_stinger_song16.mp3")
-	client:ScreenFade(SCREENFADE.IN, Color(0, 0, 0, 255), 2, 1)
+	client:ScreenFade(SCREENFADE.IN, color_black, 3, 2)
+	client:ChatPrint(table.Random(wakeupmessages))
 end
