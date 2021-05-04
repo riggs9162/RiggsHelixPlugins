@@ -9,4 +9,7 @@ A Plugin which disables the default flashlight and replaces it with a dynamic li
 A Plugin which adds options for you to enable full body camera that can add to immersion for passive roleplay or even combat roleplay when you feel like it.
 
 ## Wakeup Messages
-A Simple Plugin which on character load, displays a message depending on your character's health and will fade out with stinger music playing.
+A Simple Plugin which on character load, displays a random message which you can change yourself and will fade out with stinger music playing.
+
+## Allowflashlight
+Simply allows everyone to use a flashlight.
