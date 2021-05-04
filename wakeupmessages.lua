@@ -12,7 +12,7 @@ local wakeupmessages = {
 	"You hear a small whisper in your ear, after that you hear loud footsteps fading away, you wake up being scared.",
 	"You hear a loud helicopter overhead of yourself and you instantly wake up.",
 	"You heard a growling and you started to wake up but scared.",
-	"You heard a loud siren and you are scared if the noise.",
+	"You heard a loud siren and you are scared of the noise.",
 }
 
 function PLUGIN:CharacterLoaded(char)
