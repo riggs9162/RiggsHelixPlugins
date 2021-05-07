@@ -15,8 +15,9 @@ local wakeupmessages = {
 	"You heard a loud siren and you are scared of the noise.",
 }
 
-function PLUGIN:CharacterLoaded(char)
-	if not (char:GetPlayer():IsValid() or char:GetPlayer():Alive()) then return end
+function PLUGIN:PlayerSpawn(ply)
+	local char = ply:GetCharacter()
+	if not (ply:IsValid() or ply:Alive()) then return end
 	if not (char) then return end
 	local client = char:GetPlayer()
 	client:ConCommand("stopsound")
