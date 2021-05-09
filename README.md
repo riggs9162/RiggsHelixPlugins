@@ -13,3 +13,6 @@ A Simple Plugin which on character load, displays a random message which you can
 
 ## Allowflashlight
 Simply allows everyone to use a flashlight.
+
+## Spawnmenu Restrictor
+Restricts people from using the spawnmenu if they don't have the 'e' flag.
