@@ -22,16 +22,25 @@ function PLUGIN:PlayerTick(ply)
 end
 
 if CLIENT then
-	local staminabluramount = 0
-	
-	function PLUGIN:HUDPaint()
-		local frametime = RealFrameTime()
-		if (ix.StaminaBreathe == true) then
-			staminabluramount = Lerp(frametime / 2, staminabluramount, 255)
-		else
-			staminabluramount = Lerp(frametime / 2, staminabluramount, 0)
-		end
-		
-		ix.util.DrawBlurAt(0, 0, ScrW(), ScrH(), 5, 0.2, staminabluramount)
-	end
+    local staminabluralpha = 0
+    local staminabluramount = 0
+    local staminablurmaxamount = 5
+    
+    function PLUGIN:HUDPaint()
+            local frametime = RealFrameTime()
+            
+            if (ix.option.Get("cheapBlur", false)) then
+                staminablurmaxamount = 10
+            end
+            
+            if (ix.StaminaBreathe == true) then
+                staminabluralpha = Lerp(frametime / 2, staminabluralpha, 255)
+                staminabluramount = Lerp(frametime / 2, staminabluramount, staminablurmaxamount)
+            else
+                staminabluralpha = Lerp(frametime / 2, staminabluralpha, 0)
+                staminabluramount = Lerp(frametime / 2, staminabluramount, 0)
+            end
+            
+            ix.util.DrawBlurAt(0, 0, ScrW(), ScrH(), staminabluramount, 0.2, staminabluralpha)
+    end
 end
