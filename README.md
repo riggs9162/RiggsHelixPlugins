@@ -19,3 +19,6 @@ Restricts people from using the spawnmenu if they don't have the 'e' flag.
 
 ## Stamina Effect
 When you are about to run out of stamina your screen gets blurry and a breathing noise starts, I had no clue how to make it fade, DM me if you know how.
+
+## Extended Items
+A Plugin which creates items through 1 lua file.
