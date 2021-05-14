@@ -16,3 +16,6 @@ Simply allows everyone to use a flashlight.
 
 ## Spawnmenu Restrictor
 Restricts people from using the spawnmenu if they don't have the 'e' flag.
+
+## Stamina Effect
+When you are about to run out of stamina your screen gets blurry and a breathing noise starts, I had no clue how to make it fade, DM me if you know how.
