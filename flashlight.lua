@@ -1,7 +1,7 @@
 local PLUGIN = PLUGIN
 
 PLUGIN.name = "Dynamic Flashlight"
-PLUGIN.author = "ZIKE"
+PLUGIN.author = "Riggs"
 PLUGIN.description = "..."
 
 if CLIENT then
