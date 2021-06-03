@@ -1,7 +1,7 @@
 local PLUGIN = PLUGIN
 
 PLUGIN.name = "Immersive Firstperson"
-PLUGIN.author = "ZIKE"
+PLUGIN.author = "Riggs"
 PLUGIN.description = "Adds a Plugin which lets you view your full body and on your head."
 
 ix.option.Add("FirstPersonEnable", ix.type.bool, false, {
