@@ -19,7 +19,6 @@ function PLUGIN:PlayerSpawn(ply)
 	local char = ply:GetCharacter()
 	if not (ply:IsValid() or ply:Alive()) then return end
 	if not (char) then return end
-	ply:ConCommand("stopsound")
 	ply:ConCommand("play music/stingers/hl1_stinger_song16.mp3")
 	ply:ScreenFade(SCREENFADE.IN, color_black, 3, 2)
 	ply:ChatPrint(table.Random(wakeupmessages))
