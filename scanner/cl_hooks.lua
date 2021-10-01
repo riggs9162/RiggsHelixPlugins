@@ -34,7 +34,7 @@ local blackAndWhite = {
 
 function PLUGIN:CalcView(ply, origin, angles, fov)
 	if not ix then return end
-	if IsValid(ix.gui.menu) or IsValid(ix.gui.characterMenu) then return false end
+	if (ply:GetCharacter():GetClass() == CLASS_SCANNER) and (IsValid(ix.gui.menu) or IsValid(ix.gui.characterMenu)) then return false end
 	if (LocalPlayer():GetNetVar("curCamera", false) or LocalPlayer():GetNetVar("curVisor", false)) then return end -- Compatibility with my Dispatch Plugin.
 	local entity = ply:GetViewEntity()
 
