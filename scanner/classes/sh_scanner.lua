@@ -31,7 +31,9 @@ function CLASS:OnLeave(ply)
 
 		ply.ixScn.spawn = position
 		ply.ixScn:Remove()
-		ply:Spawn()
+		ply.ScannerActive = false
+
+		timer.Simple(0.1, function() ply:Spawn() end)
 	end
 end
 
