@@ -41,9 +41,9 @@ PLUGIN.gestures = { -- Mainly for the citizen_male models, or models that includ
 }
 
 function PLUGIN:DoAnimationEvent(ply, event, data)
-    if (event == PLAYERANIMEVENT_CUSTOM_GESTURE) then
+    if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
         for k, v in pairs(PLUGIN.gestures) do
-            if (data == v.id) then
+            if ( data == v.id ) then
                 ply:AddVCDSequenceToGestureSlot(GESTURE_SLOT_CUSTOM, ply:LookupSequence(v.gesture), 0, true)
 
                 return ACT_INVALID
@@ -70,9 +70,26 @@ for k, v in pairs(PLUGIN.gestures) do
             end
         end,
         OnRun = function(_, ply)
-            if SERVER then
+            if ( SERVER ) then
                 ply:ConCommand("ix_act_"..v.command)
             end
         end
     })
+end
+
+if ( SERVER ) then
+    local allowedChatTypes = {
+        ["ic"] = true,
+        ["w"] = true,
+        ["y"] = true,
+    }
+    function PLUGIN:PrePlayerMessageSend(ply, chatType, message, bAnonymous)
+        if ( allowedChatTypes[chatType] ) then
+            if ( message:find("!") ) then
+                ply:ConCommand("ix_act_fistswing")
+            elseif ( message:find("?") ) then
+                ply:ConCommand("ix_act_what")
+            end
+        end
+    end
 end
