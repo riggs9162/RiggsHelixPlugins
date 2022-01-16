@@ -49,7 +49,7 @@ if ( CLIENT ) then
 			return false
 		end
 
-		if ( ent:find("ix_loot") ) then
+		if not ( ent:find("ix_loot") ) then
 			return false
 		end
 
