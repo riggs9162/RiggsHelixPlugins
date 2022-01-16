@@ -14,7 +14,7 @@ function PLUGIN:PlayerTick(ply)
 	if ( ply:IsValid() and ply:GetCharacter() ) then
 		if not ply.ixHungerTick or ply.ixHungerTick <= CurTime() then
 			if ( factionIgnore[ply:Team()] ) then return false end
-			if ( ply:InNoclip() ) then return false end
+			if ( ply:GetMoveType() == MOVETYPE_NOCLIP ) then return false end
 
 			local char = ply:GetCharacter()
 
