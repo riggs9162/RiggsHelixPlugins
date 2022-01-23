@@ -16,7 +16,6 @@ ITEM.functions.Consume = {
 	OnRun = function(item)
 		local ply = item.player
 		local character = item.player:GetCharacter()
-		local bSpoiled = item:GetSpoiled()
 		local actiontext = "Invalid Action"
 
 		if ( ply.isEatingConsumeable == true ) then
@@ -32,7 +31,7 @@ ITEM.functions.Consume = {
 			end
 		end
 
-		local function EatFunction(ply, character, bSpoiled)
+		local function EatFunction(ply, character)
 			if not ( ply:IsValid() and ply:Alive() and character ) then return end
 	
 			if ( item.useSound ) then
@@ -51,12 +50,12 @@ ITEM.functions.Consume = {
 		if ( item.useTime ) then
 			ply.isEatingConsumeable = true
 			ply:SetAction(actiontext, item.useTime, function()
-				EatFunction(ply, character, bSpoiled)
+				EatFunction(ply, character)
 
 				ply.isEatingConsumeable = false
 			end)
 		else
-			EatFunction(ply, character, bSpoiled)
+			EatFunction(ply, character)
 		end
 	end
 }
