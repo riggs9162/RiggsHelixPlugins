@@ -83,6 +83,7 @@ if ( SERVER ) then
         ["w"] = true,
         ["y"] = true,
     }
+    
     function PLUGIN:PrePlayerMessageSend(ply, chatType, message, bAnonymous)
         if ( allowedChatTypes[chatType] ) then
             if ( message:find("!") ) then

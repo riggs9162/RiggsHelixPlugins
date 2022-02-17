@@ -1,47 +1,57 @@
 local PLUGIN = PLUGIN
 
 PLUGIN.name = "Hunger System"
-PLUGIN.author = "Riggs Mackay"
 PLUGIN.description = "Adds a Hunger System, simliar to the Apex Gamemode."
+PLUGIN.author = "Riggs Mackay"
+PLUGIN.schema = "Any"
+PLUGIN.license = [[
+Copyright 2022 Riggs Mackay
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+]]
 
 ix.config.Add("hungerTime", 120, "How many seconds between each time a player's needs are calculated", nil, {
-	data = {min = 1, max = 600},
-	category = "Hunger System"
+    data = {min = 1, max = 600},
+    category = "Hunger System"
 })
 
 ix.char.RegisterVar("hunger", {
-	field = "hunger",
-	fieldType = ix.type.number,
-	default = 0,
-	isLocal = true,
-	bNoDisplay = true
+    field = "hunger",
+    fieldType = ix.type.number,
+    default = 0,
+    isLocal = true,
+    bNoDisplay = true
 })
 
 ix.util.Include("sv_hooks.lua")
 
 ix.command.Add("CharSetHunger", {
-	description = "Set character's hunger",
-	privilege = "Manage Hunger System",
-	arguments = {ix.type.character, bit.bor(ix.type.number, ix.type.optional)},
-	OnRun = function(self, ply, char, level)
-		if not ( ply:IsAdmin() ) then
-			ply:Notify("Nice try.")
-			return false
-		end
-		char:SetHunger(level or 0)
-		ply:Notify(char:GetName().."'s hunger was set to "..(level or 0))
-	end
+    description = "Set character's hunger",
+    privilege = "Manage Hunger System",
+    arguments = {ix.type.character, bit.bor(ix.type.number, ix.type.optional)},
+    OnRun = function(self, ply, char, level)
+        if not ( ply:IsAdmin() ) then
+            ply:Notify("Nice try.")
+            return false
+        end
+        char:SetHunger(level or 0)
+        ply:Notify(char:GetName().."'s hunger was set to "..(level or 0))
+    end
 })
 
 ix.command.Add("SetHunger", {
-	description = "Set character's hunger",
-	privilege = "Manage Hunger System",
-	arguments = {ix.type.character, bit.bor(ix.type.number, ix.type.optional)},
-	OnRun = function(self, ply, char, level)
-		if not ( ply:IsAdmin() ) then
-			return "Nice try."
-		end
-		char:SetHunger(level or 0)
-		ply:Notify(char:GetName().."'s hunger was set to "..(level or 0))
-	end
+    description = "Set character's hunger",
+    privilege = "Manage Hunger System",
+    arguments = {ix.type.character, bit.bor(ix.type.number, ix.type.optional)},
+    OnRun = function(self, ply, char, level)
+        if not ( ply:IsAdmin() ) then
+            return "Nice try."
+        end
+        char:SetHunger(level or 0)
+        ply:Notify(char:GetName().."'s hunger was set to "..(level or 0))
+    end
 })

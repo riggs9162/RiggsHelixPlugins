@@ -77,9 +77,9 @@ function PANEL:Init()
         PaintPanel(self, w, h)
     end
 
-	self.musicplayer = self.musicpanel:Add("DScrollPanel")
-	self.musicplayer:SetSize(0, 700)
-	self.musicplayer:Dock(TOP)
+    self.musicplayer = self.musicpanel:Add("DScrollPanel")
+    self.musicplayer:SetSize(0, 700)
+    self.musicplayer:Dock(TOP)
 
     for k, v in pairs(ix.adminSystem.music) do
         CreateCatergory(self.musicplayer, k)

@@ -28,11 +28,11 @@ ENT.spotlightLocalAngles = Angle(7.5, 0, 0)
 ENT.spotlightHDRColorScale = 0.67
 ENT.maxHealth = 100
 
-function ENT:SpawnFunction(client, trace, className)
+function ENT:SpawnFunction(ply, trace, className)
     local entity = ents.Create(className)
     entity:SetPos(trace.HitPos + Vector(0, 0, 32))
     entity:Spawn()
-    entity:SetPilotEntity(client)
+    entity:SetPilotEntity(ply)
 
     return entity
 end

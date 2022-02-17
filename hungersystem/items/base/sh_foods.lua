@@ -11,51 +11,51 @@ ITEM.useName = "Consume"
 ITEM.RestoreHunger = 0
 
 ITEM.functions.Consume = {
-	icon = "icon16/user.png",
-	name = "Consume",
-	OnRun = function(item)
-		local ply = item.player
-		local character = item.player:GetCharacter()
-		local actiontext = "Invalid Action"
+    icon = "icon16/user.png",
+    name = "Consume",
+    OnRun = function(item)
+        local ply = item.player
+        local char = item.player:GetCharacter()
+        local actiontext = "Invalid Action"
 
-		if ( ply.isEatingConsumeable == true ) then
-			ply:Notify("You can't stuff too much food in your mouth, bruh.") -- bruh
-			return false
-		end
+        if ( ply.isEatingConsumeable == true ) then
+            ply:Notify("You can't stuff too much food in your mouth, bruh.") -- bruh
+            return false
+        end
 
-		if (item.useSound) then
-			if ( string.find(item.useSound, "drink") ) then -- if you have custom sounds for drinking / eating, change this.
-				actiontext = "Drinking.."
-			else
-				actiontext = "Eating.."
-			end
-		end
+        if (item.useSound) then
+            if ( string.find(item.useSound, "drink") ) then -- if you have custom sounds for drinking / eating, change this.
+                actiontext = "Drinking.."
+            else
+                actiontext = "Eating.."
+            end
+        end
 
-		local function EatFunction(ply, character)
-			if not ( ply:IsValid() and ply:Alive() and character ) then return end
-	
-			if ( item.useSound ) then
-				if ( istable(item.useSound) ) then
-					ply:EmitSound(table.Random(item.useSound))
-				else
-					ply:EmitSound(item.useSound)
-				end
-			end
-	
-			if ( item.RestoreHunger > 0 ) then
-				character:SetHunger(math.Clamp(character:GetHunger() + item.RestoreHunger, 0, 100))
-			end
-		end
+        local function EatFunction(ply, char)
+            if not ( ply:IsValid() and ply:Alive() and char ) then return end
+    
+            if ( item.useSound ) then
+                if ( istable(item.useSound) ) then
+                    ply:EmitSound(table.Random(item.useSound))
+                else
+                    ply:EmitSound(item.useSound)
+                end
+            end
+    
+            if ( item.RestoreHunger > 0 ) then
+                char:SetHunger(math.Clamp(char:GetHunger() + item.RestoreHunger, 0, 100))
+            end
+        end
 
-		if ( item.useTime ) then
-			ply.isEatingConsumeable = true
-			ply:SetAction(actiontext, item.useTime, function()
-				EatFunction(ply, character)
+        if ( item.useTime ) then
+            ply.isEatingConsumeable = true
+            ply:SetAction(actiontext, item.useTime, function()
+                EatFunction(ply, char)
 
-				ply.isEatingConsumeable = false
-			end)
-		else
-			EatFunction(ply, character)
-		end
-	end
+                ply.isEatingConsumeable = false
+            end)
+        else
+            EatFunction(ply, char)
+        end
+    end
 }

@@ -3,6 +3,16 @@ local PLUGIN = PLUGIN
 PLUGIN.name = "Overwatch Shove"
 PLUGIN.author = "Riggs Mackay"
 PLUGIN.description = "A Command which gives the Overwatch the ability to knock players out with the /shove command."
+PLUGIN.schema = "HL2 RP"
+PLUGIN.license = [[
+Copyright 2022 Riggs Mackay
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+]]
 
 ix.config.Add("shoveTime", 20, "How long should a character be unconscious after being knocked out?", nil, {
     data = {min = 5, max = 60},
