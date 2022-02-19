@@ -20,9 +20,11 @@ function PLUGIN:PlayerTick(ply)
             ply:EmitSound("player/breathe1.wav", 60)
             ply.ixStaminaBreathe = true
             timer.Simple(3.9, function()
-                ply:StopSound("player/heartbeat1.wav")
-                ply:StopSound("player/breathe1.wav")
-                ply.ixStaminaBreathe = false
+                if ( ply:IsValid() ) then
+                    ply:StopSound("player/heartbeat1.wav")
+                    ply:StopSound("player/breathe1.wav")
+                    ply.ixStaminaBreathe = false
+                end
             end)
             ply.NextStaminaBreathe = CurTime() + 4
         end
