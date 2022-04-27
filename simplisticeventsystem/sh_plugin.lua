@@ -18,8 +18,6 @@ ix.util.Include("sv_plugin.lua")
 
 if ( CLIENT ) then
     net.Receive("ixPlaySound", function(len, ply)
-        if not ( ply:IsSuperAdmin() ) then return end
-
         LocalPlayer():EmitSound(tostring(net.ReadString()), tonumber(net.ReadUInt(7)) or 100)
     end)
     
