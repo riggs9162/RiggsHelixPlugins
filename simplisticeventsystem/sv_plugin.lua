@@ -39,7 +39,9 @@ concommand.Add("ix_eventmenu", function(ply, cmd, args)
 end)
 
 util.AddNetworkString("ixPlaySoundAll")
-net.Receive("ixPlaySoundAll", function()
+net.Receive("ixPlaySoundAll", function(len, ply)
+    if not ( ply:IsSuperAdmin() ) then return end
+   
     local stringSound = Sound(net.ReadString())
     for k, v in pairs(player.GetAll()) do
         v:PlaySound(stringSound)
