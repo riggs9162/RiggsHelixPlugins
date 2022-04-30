@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 util.AddNetworkString("ixScannerData")
 util.AddNetworkString("ixScannerPicture")
 
