@@ -28,8 +28,6 @@ if ( SERVER ) then
             local ent = ents.Create("npc_metropolice")
             if ( ply:Team() == FACTION_OTA ) then
                 ent = ents.Create("npc_combine_s")
-            else
-                ent = ents.Create("npc_metropolice")
             end
 
             ent:SetModel(ply:GetModel())
@@ -75,8 +73,8 @@ if ( SERVER ) then
                 end
             end)
 
-            ply:SetNWEntity("ixRappelingEntity", ent)
-            ply:SetNWBool("ixRappeling", true)
+            ply:SetLocalVar("ixRappelingEntity", ent)
+            ply:SetLocalVar("ixRappeling", true)
             
             ply:Freeze(true)
             ply:SetNoDraw(true)
@@ -95,26 +93,26 @@ end
 ix.command.Add("Rappel", {
     description = "Rappel down a ledge.",
     OnRun = function(self, ply)
-        if (ply:IsCombine()) then
-            if ply:OnGround() then
-                if ( SERVER ) and PLUGIN.BeginRappel then
-                    PLUGIN:BeginRappel(ply)
-                end
-            else
-                ply:Notify("You can't rappel whilst falling.")
-                return false
-            end
-        else
+        if not ( ply:IsCombine() ) then
             ply:Notify("You are unable to use this!")
             return false
+        end
+        
+        if not ( ply:OnGround() ) then
+            ply:Notify("You can't rappel whilst falling.")
+            return false
+        end
+        
+        if ( SERVER ) and PLUGIN.BeginRappel then
+            PLUGIN:BeginRappel(ply)
         end
     end
 })
 
 if (CLIENT) then
     function PLUGIN:CalcView(ply, pos, angles, fov)
-        if ply:GetNWEntity("ixRappelingEntity") and IsValid(ply:GetNWEntity("ixRappelingEntity")) then
-            local ent =  ply:GetNWEntity("ixRappelingEntity")
+        if ( ply:GetLocalVar("ixRappelingEntity") and IsValid( ply:GetLocalVar("ixRappelingEntity") ) ) then
+            local ent =  ply:GetLocalVar("ixRappelingEntity")
             local view = {}
             view.origin = ent:EyePos() - (angles:Forward() * 50)
             view.angles = angles
