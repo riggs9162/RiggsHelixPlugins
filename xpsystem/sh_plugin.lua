@@ -26,7 +26,7 @@ local PLAYER = FindMetaTable("Player")
 
 function PLAYER:GetXP()
     -- Player's XP might not have loaded so we check PData too
-    return self:GetNWInt("ixXP") or ( SERVER and self:GetPData("ixXP", 0) or 0 )
+    return self:GetLocalVar("ixXP", 0)
 end
 
 do
