@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 include("shared.lua")
 
 local knots = {

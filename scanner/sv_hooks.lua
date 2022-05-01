@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 local SCANNER_SOUNDS = {
     "npc/scanner/scanner_blip1.wav",
     "npc/scanner/scanner_scan1.wav",

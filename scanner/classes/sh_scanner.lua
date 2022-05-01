@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 CLASS.name = "Scanner"
 CLASS.faction = FACTION_MPF
 CLASS.isDefault = true

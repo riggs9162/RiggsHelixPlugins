@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 ENT.Type = "anim"
 ENT.PrintName = "Scanner"
 ENT.Category = "HL2 RP"
