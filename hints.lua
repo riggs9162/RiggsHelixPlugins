@@ -14,6 +14,33 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
+ix.lang.AddTable("english", {
+	optHints = "Toggle hints",
+	optHintsSound = "Toggle hints Sound",
+	optHintsDelay = "Hints delay",
+	optdHints = "Wether or not hints should be shown.",
+	optdHintsSound = "Wether or not hints should play a sound.",
+	optdHintsDelay = "The delay between hints.",
+})
+
+ix.option.Add("hints", ix.type.bool, true, {
+    category = "Hint System",
+    default = true,
+})
+
+ix.option.Add("hintsSound", ix.type.bool, true, {
+    category = "Hint System",
+    default = true,
+})
+
+ix.option.Add("hintsDelay", ix.type.number, 300, {
+    category = "Hint System",
+    min = 30,
+    max = 1800,
+    decimals = 1,
+    default = 300,
+})
+
 ix.hints = ix.hints or {}
 ix.hints.stored = ix.hints.stored or {}
 
@@ -43,7 +70,7 @@ ix.hints.Register("Don't piss off Civil Protection, or you'll find yourself bein
 if ( CLIENT ) then
     surface.CreateFont("HintFont", {
         font = "Arial",
-        size = 24,
+        size = 20,
         weight = 500,
         blursize = 0.5,
         shadow = true,
@@ -56,11 +83,17 @@ if ( CLIENT ) then
     local hintShow = false
     local hintAlpha = 0
     function PLUGIN:HUDPaint()
+        if not ( ix.option.Get("hints", true) ) then return end
+
         if ( nextHint < CurTime() ) then
             hint = ix.hints.stored[math.random(#ix.hints.stored)]
-            nextHint = CurTime() + math.random(60,360)
+            nextHint = CurTime() + ( ix.option.Get("hintsDelay") or math.random(60,360) )
             hintShow = true
             hintEndRender = CurTime() + 15
+
+            if ( ix.option.Get("hintsSound", true) ) then
+                LocalPlayer():EmitSound("ui/hint.wav", 40, 100, 0.1)
+            end
         end
     
         if not ( hint ) then return end
@@ -70,9 +103,9 @@ if ( CLIENT ) then
         end
     
         if ( hintShow == true ) then
-            hintAlpha = Lerp(0.08, hintAlpha, 255)
+            hintAlpha = Lerp(0.01, hintAlpha, 255)
         else
-            hintAlpha = Lerp(0.05, hintAlpha, 0)
+            hintAlpha = Lerp(0.01, hintAlpha, 0)
         end
         
         draw.DrawText(hint, "HintFont", ScrW() / 2, 0, ColorAlpha(color_white, hintAlpha), TEXT_ALIGN_CENTER)
