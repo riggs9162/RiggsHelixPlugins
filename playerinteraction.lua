@@ -84,6 +84,7 @@ if ( CLIENT ) then
 				local trace = {}
 				trace.start = LocalPlayer():EyePos()
 				trace.endpos = trace.start + LocalPlayer():GetAimVector() * 96
+				trace.filter = LocalPlayer()
 
                 ix.gui.interactionMenu = vgui.Create("ixInteractionMenu")
                 ix.gui.interactionMenu:SetTarget(util.TraceLine(trace).Entity)
