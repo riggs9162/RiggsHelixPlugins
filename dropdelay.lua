@@ -28,13 +28,17 @@ if ( SERVER ) then
             ply.dropDelay = true
             
             timer.Create("ixDropDelay."..ply:SteamID64(), ix.config.Get("dropDelay", 1), 1, function()
-                ply.dropDelay = nil
+                if ( IsValid(ply) ) then
+                    ply.dropDelay = nil
+                end
             end)
         elseif ( action == "take" ) then
             ply.takeDelay = true
 
             timer.Create("ixTakeDelay."..ply:SteamID64(), ix.config.Get("takeDelay", 1), 1, function()
-                ply.takeDelay = nil
+                if ( IsValid(ply) ) then
+                    ply.takeDelay = nil
+                end
             end)
         end
     end
