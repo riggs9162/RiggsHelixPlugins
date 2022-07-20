@@ -3,7 +3,7 @@ local PLUGIN = PLUGIN
 PLUGIN.name = "Player Scanners Util"
 PLUGIN.description = "Adds functions that allow players to control scanners."
 PLUGIN.author = "Chessnut, Riggs"
-PLUGIN.schema = "Any"
+PLUGIN.schema = "HL2 RP"
 PLUGIN.license = [[
 Copyright 2022 Riggs Mackay
 
