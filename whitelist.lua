@@ -8,8 +8,8 @@ PLUGIN.version = "1.0"
 
 PLUGIN.whitelists = {
     ["STEAM_0:1:1395956"] = {
-        discord = "Riggs.mackay™#0001",
-        whitelisted = true,
+        discord = "Riggs.mackay™#0001", -- Discord ID & Name incase you want to note it down.
+        whitelisted = true, -- Allow/Disallow
     },
 }
 
