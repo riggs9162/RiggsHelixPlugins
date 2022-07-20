@@ -19,7 +19,7 @@ if ( SERVER ) then
             ply:Kick("You are not whitelisted.")
             
             for k, v in pairs(player.GetAll()) do
-                if ( v:IsAdmin() ) then
+                if ( IsValid(v) and v:IsAdmin() ) then
                     if ( self.whitelists[steamid].discord ) then
                         v:ChatNotify("[WHITELIST] " .. ply:SteamName() .. " has been kicked for not being whitelisted. Their noted discord name is: ".. self.whitelists[steamid].discord)
                     else
