@@ -30,5 +30,5 @@ function PLUGIN:PlayerSpawn(ply)
 
     ply:ConCommand("play music/stingers/hl1_stinger_song16.mp3")
     ply:ScreenFade(SCREENFADE.IN, color_black, 3, 2)
-    ply:ChatPrint(math.random(1, #wakeupmessages))
+    ply:ChatPrint(table.Random(wakeupmessages))
 end
