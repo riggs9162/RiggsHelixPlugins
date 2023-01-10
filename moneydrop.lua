@@ -15,7 +15,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ]]
 
 if ( CLIENT ) then
-	return
+    return
 end
 
 function PLUGIN:DoPlayerDeath(ply, inflicter, attacker)
