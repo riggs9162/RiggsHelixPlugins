@@ -81,10 +81,10 @@ if ( CLIENT ) then
     function PLUGIN:Think()
         if ( input.IsKeyDown(KEY_F6) ) then
             if not ( ix.gui.interactionMenu ) then
-				local trace = {}
-				trace.start = LocalPlayer():EyePos()
-				trace.endpos = trace.start + LocalPlayer():GetAimVector() * 96
-				trace.filter = LocalPlayer()
+                local trace = {}
+                trace.start = LocalPlayer():EyePos()
+                trace.endpos = trace.start + LocalPlayer():GetAimVector() * 96
+                trace.filter = LocalPlayer()
 
                 ix.gui.interactionMenu = vgui.Create("ixInteractionMenu")
                 ix.gui.interactionMenu:SetTarget(util.TraceLine(trace).Entity)

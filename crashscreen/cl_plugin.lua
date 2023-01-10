@@ -11,62 +11,62 @@ local nextCrashAnalysis
 local crashAnalysisAttempts = 0
 
 function PLUGIN:Think()
-	if not SERVER_DOWN and nextCrashAnalysis and nextCrashAnalysis < CurTime() then
-		nextCrashAnalysis = CurTime() + 0.05
+    if not SERVER_DOWN and nextCrashAnalysis and nextCrashAnalysis < CurTime() then
+        nextCrashAnalysis = CurTime() + 0.05
 
-		local a, b = engine.ServerFrameTime()
+        local a, b = engine.ServerFrameTime()
 
-		if (crashAnalysisAttempts or 0) <= 15 then
-			if a != (lastServerData1 or 0) or b != (lastServerData2 or 0) then
-				nextCrashAnalysis = nil
-				crashAnalysisAttempts = 0
-				return
-			end
+        if (crashAnalysisAttempts or 0) <= 15 then
+            if a != (lastServerData1 or 0) or b != (lastServerData2 or 0) then
+                nextCrashAnalysis = nil
+                crashAnalysisAttempts = 0
+                return
+            end
 
-			crashAnalysisAttempts = crashAnalysisAttempts + 1
+            crashAnalysisAttempts = crashAnalysisAttempts + 1
 
-			if crashAnalysisAttempts == 15 then
-				nextCrashAnalysis = nil
-				crashAnalysisAttempts = 0
-				SERVER_DOWN = true
-			end
-		else
-			nextCrashAnalysis = nil
-			crashAnalysisAttempts = 0
-		end
+            if crashAnalysisAttempts == 15 then
+                nextCrashAnalysis = nil
+                crashAnalysisAttempts = 0
+                SERVER_DOWN = true
+            end
+        else
+            nextCrashAnalysis = nil
+            crashAnalysisAttempts = 0
+        end
 
-		lastServerData1 = a
-		lastServerData2 = b
-	end
+        lastServerData1 = a
+        lastServerData2 = b
+    end
 
-	if ( nextCrashThink or 0 ) < CurTime() then
-		nextCrashThink = CurTime() + 0.66
+    if ( nextCrashThink or 0 ) < CurTime() then
+        nextCrashThink = CurTime() + 0.66
 
-		local a, b = engine.ServerFrameTime()
+        local a, b = engine.ServerFrameTime()
 
-		if a == (lastServerData1 or 0) and b == (lastServerData2 or 0) then
-			nextCrashAnalysis = CurTime()
-		else
-			SERVER_DOWN = false
-			nextCrashAnalysis = nil
-		end
+        if a == (lastServerData1 or 0) and b == (lastServerData2 or 0) then
+            nextCrashAnalysis = CurTime()
+        else
+            SERVER_DOWN = false
+            nextCrashAnalysis = nil
+        end
 
-		lastServerData1 = a
-		lastServerData2 = b
-	end
+        lastServerData1 = a
+        lastServerData2 = b
+    end
 end
 
 function PLUGIN:HUDPaint()
-	if ( SERVER_DOWN and CRASHSCREEN_ALLOW ) then
-		if not ( IsValid(CRASH_SCREEN) ) then
-			CRASH_SCREEN = vgui.Create("ixCrashScreen")
-		end
-	elseif ( IsValid(CRASH_SCREEN) ) and not ( CRASH_SCREEN.fadin ) then
-		CRASH_SCREEN.fadin = true
-		CRASH_SCREEN:AlphaTo(0, 1.2, nil, function()
-			if ( IsValid(CRASH_SCREEN) ) then
-				CRASH_SCREEN:Remove()
-			end
-		end)
-	end
+    if ( SERVER_DOWN and CRASHSCREEN_ALLOW ) then
+        if not ( IsValid(CRASH_SCREEN) ) then
+            CRASH_SCREEN = vgui.Create("ixCrashScreen")
+        end
+    elseif ( IsValid(CRASH_SCREEN) ) and not ( CRASH_SCREEN.fadin ) then
+        CRASH_SCREEN.fadin = true
+        CRASH_SCREEN:AlphaTo(0, 1.2, nil, function()
+            if ( IsValid(CRASH_SCREEN) ) then
+                CRASH_SCREEN:Remove()
+            end
+        end)
+    end
 end

@@ -60,17 +60,17 @@ ix.lang.AddTable("english", {
 })
 
 ix.option.Add("introMusic", ix.type.array, "hl1", {
-	category = PLUGIN.name,
+    category = PLUGIN.name,
     bNetworked = true,
-	populate = function()
-		local entries = {}
+    populate = function()
+        local entries = {}
 
-		for k, v in pairs(PLUGIN.introMusic) do
-			entries[k] = v.name
-		end
+        for k, v in pairs(PLUGIN.introMusic) do
+            entries[k] = v.name
+        end
 
-		return entries
-	end
+        return entries
+    end
 })
 
 ix.util.Include("sv_plugin.lua")

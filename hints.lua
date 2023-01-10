@@ -15,12 +15,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ]]
 
 ix.lang.AddTable("english", {
-	optHints = "Toggle hints",
-	optHintsSound = "Toggle hints Sound",
-	optHintsDelay = "Hints delay",
-	optdHints = "Wether or not hints should be shown.",
-	optdHintsSound = "Wether or not hints should play a sound.",
-	optdHintsDelay = "The delay between hints.",
+    optHints = "Toggle hints",
+    optHintsSound = "Toggle hints Sound",
+    optHintsDelay = "Hints delay",
+    optdHints = "Wether or not hints should be shown.",
+    optdHintsSound = "Wether or not hints should play a sound.",
+    optdHintsDelay = "The delay between hints.",
 })
 
 ix.option.Add("hints", ix.type.bool, true, {
