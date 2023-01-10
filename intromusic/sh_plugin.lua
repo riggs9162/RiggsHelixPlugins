@@ -2,7 +2,7 @@ local PLUGIN = PLUGIN
 
 PLUGIN.name = "Intro Music"
 PLUGIN.description = "Plays music on character load."
-PLUGIN.author = "Riggs.mackay"
+PLUGIN.author = "Riggs Mackay"
 PLUGIN.schema = "HL2 RP"
 PLUGIN.version = "1.0"
 

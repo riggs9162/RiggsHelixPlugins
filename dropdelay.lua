@@ -2,7 +2,7 @@ local PUGIN = PLUGIN
 
 PLUGIN.name = "Item Pickup & Drop Delay"
 PLUGIN.description = "Adds delays between dropping / taking items again."
-PLUGIN.author = "Riggs.mackay"
+PLUGIN.author = "Riggs Mackay"
 
 ix.config.Add("dropDelay", 1, "The Delay of dropping items in seconds.", nil, {
     category = PLUGIN.name,

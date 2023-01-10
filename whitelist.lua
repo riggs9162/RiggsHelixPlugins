@@ -2,13 +2,13 @@ local PLUGIN = PLUGIN
 
 PLUGIN.name = "Whitelist System"
 PLUGIN.description = "Allows players who are whitelisted, to join the server."
-PLUGIN.author = "Riggs.mackay"
+PLUGIN.author = "Riggs Mackay"
 PLUGIN.schema = "Any"
 PLUGIN.version = "1.0"
 
 PLUGIN.whitelists = {
     ["STEAM_0:1:1395956"] = {
-        discord = "Riggs.mackay™#0001", -- Discord ID & Name incase you want to note it down.
+        discord = "Riggs Mackay™#0001", -- Discord ID & Name incase you want to note it down.
         whitelisted = true, -- Allow/Disallow
     },
 }
