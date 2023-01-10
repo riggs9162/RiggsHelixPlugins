@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 PLUGIN.name = "Spawnmenu and Context Menu Restrictor"
 PLUGIN.description = "Restricts people from using the spawnmenu for people who don't have the 'e' flag."
 PLUGIN.author = "Riggs Mackay"

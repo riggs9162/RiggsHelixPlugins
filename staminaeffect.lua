@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 PLUGIN.name = "Stamina Effect"
 PLUGIN.description = "Creates a Effect for when you are about and when you are out of Stamina."
 PLUGIN.author = "Riggs Mackay"

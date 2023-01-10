@@ -14,21 +14,22 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
+// this is useless
+
 local gnomeClasses = {
     ["prop_physics"] = true,
     ["ix_item"] = true,
 }
 function PLUGIN:EntityTakeDamage(ent)
-    if ( gnomeClasses[ent:GetClass()] ) then
-        if ( ent:GetModel():find("gnome") ) then
-            ent:EmitSound("vo/npc/male01/pain0"..math.random(1,9)..".wav", 75, 150)
-            local explosion = ents.Create("env_explosion")
-            explosion:SetPos(ent:GetPos())
-            explosion:SetOwner(ent)
-            explosion:Spawn()
-            explosion:SetKeyValue("iMagnitude", "100")
-            explosion:Fire("Explode", 0, 0)
-            ent:Remove()
-        end
+    if ( gnomeClasses[ent:GetClass()] and ent:GetModel():find("gnome") ) then
+        local explosion = ents.Create("env_explosion")
+        explosion:SetPos(ent:GetPos())
+        explosion:SetOwner(ent)
+        explosion:Spawn()
+        explosion:SetKeyValue("iMagnitude", "100")
+        explosion:Fire("Explode", 0, 0)
+
+        ent:EmitSound("vo/npc/male01/pain0"..math.random(1, 9)..".wav", nil, 150)
+        ent:Remove()
     end
 end

@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 PLUGIN.name = "Allow Flashlights"
 PLUGIN.description = "Allows everyone to use flashlights."
 PLUGIN.author = "Riggs Mackay"

@@ -1,9 +1,8 @@
 local PLUGIN = PLUGIN
 
--- use this plugin at your own risk, don't really wanna be bothered to fix or remake this..
 PLUGIN.name = "Rappel"
-PLUGIN.author = "Riggs Mackay"
 PLUGIN.description = "Allows Combine to rappel down from ledges."
+PLUGIN.author = "Riggs Mackay"
 PLUGIN.schema = "HL2 RP"
 PLUGIN.license = [[
 Copyright 2022 Riggs Mackay
@@ -14,6 +13,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
+
+// use this plugin at your own risk, dont recommend it but ehh...
 
 if ( SERVER ) then
     function PLUGIN:BeginRappel(ply, char)

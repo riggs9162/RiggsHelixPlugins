@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 PLUGIN.name = "Extended Items"
 PLUGIN.description = "A Plugin which creates items through 1 lua file."
 PLUGIN.author = "Riggs Mackay"

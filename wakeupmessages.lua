@@ -1,3 +1,5 @@
+local PLUGIN = PLUGIN
+
 PLUGIN.name = "Spawn Notifications"
 PLUGIN.description = "A notification which tells the player their status on loading the character."
 PLUGIN.author = "Riggs Mackay"
