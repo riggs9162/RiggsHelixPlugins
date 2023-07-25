@@ -1,7 +1,7 @@
 # Riggs Mackay Helix Plugins
 dont edit the plugin information, thx.
 
-### User Interface (Tab Menu)
+### User Interface Rework (Tab Menu)
 My First release of the user interface rework series I'll be doing.
 
 ![image](https://github.com/riggs9162/RiggsHelixPlugins/assets/49407096/37e93fdf-32e5-43d7-85c7-ac47120f7206)
