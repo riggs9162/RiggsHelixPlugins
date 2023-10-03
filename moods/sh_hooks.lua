@@ -5,6 +5,14 @@ function PLUGIN:CalcMainActivity(ply, vel)
         if not ( ply:IsOnGround() ) then
             return
         end
+
+        if not ( IsValid(ply:GetActiveWeapon()) ) then
+            return
+        end
+
+        if not ( self.moodAffectedWeapons[ply:GetActiveWeapon():GetClass()] ) then
+            return
+        end
         
         local char = ply:GetCharacter()
         if not ( char ) then
