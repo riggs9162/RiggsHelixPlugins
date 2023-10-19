@@ -18,7 +18,7 @@ if ( CLIENT ) then
     return
 end
 
-//couldve been better imo
+// couldve been better imo
 function PLUGIN:PlayerSwitchWeapon(ply, oldWep, newWep)
     if not ( IsValid(newWep) and newWep:GetClass() ) then
         return
