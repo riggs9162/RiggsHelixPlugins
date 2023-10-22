@@ -2,7 +2,7 @@ local PLUGIN = PLUGIN
 
 -- messy but idc.
 function PLUGIN:SearchLootContainer(ent, ply)
-    if not ( ply:IsCombine() or ply:IsDispatch() ) then
+    if not ( ( ply.IsCombine and ply:IsCombine() ) or ( ply.IsDispatch and ply:IsDispatch() ) ) then
         if not ent.containerAlreadyUsed or ent.containerAlreadyUsed <= CurTime() then
             if not ( ply.isEatingConsumeable == true ) then -- support for my plugin
                 local randomChance = math.random(1,20)
