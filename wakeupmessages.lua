@@ -37,5 +37,5 @@ function PLUGIN:PlayerLoadedCharacter(ply, char, oldChar)
     end
 
     local message = wakeUpMessages[math.random(#wakeUpMessages)]
-    ply:ChatNotify(message)
+    ix.chat.Send(ply, "me", message)
 end
