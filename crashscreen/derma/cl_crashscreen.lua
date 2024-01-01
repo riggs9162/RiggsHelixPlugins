@@ -5,11 +5,11 @@ local waits = {}
 function PANEL:Init()
     self:SetSize(ScrW(), ScrH())
     self:Center()
-     self:MoveToFront()
-     self:SetAlpha(0)
-     self:AlphaTo(255, 1.2)
+    self:MoveToFront()
+    self:SetAlpha(0)
+    self:AlphaTo(255, 1.2)
 
-     local function wait(s, f)
+    local function wait(s, f)
         table.insert(waits, {SysTime() + s, function()
             if IsValid(self) then
                 f()
@@ -18,27 +18,27 @@ function PANEL:Init()
     end
 
     wait(3.33, function()
-         http.Fetch("http://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr="..game.GetIPAddress(), function(json)
-             if not IsValid(self) then
-                 return
-             end
-             
-             local data = util.JSONToTable(json)
+        http.Fetch("http://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr="..game.GetIPAddress(), function(json)
+            if not IsValid(self) then
+                return
+            end
+            
+            local data = util.JSONToTable(json)
 
-             if not data["response"]["servers"] or not data["response"]["servers"][0] then
-                 self.ServerIsOff = true
-                 self:DoLamar()
-             else
-                 self.ServerIsOff = false
-             end
-         end, function()
-             if not IsValid(self) then
-                 return
-             end
-             
-             self.ServerIsOff = false
-         end)
-     end)
+            if not data["response"]["servers"] or not data["response"]["servers"][0] then
+                self.ServerIsOff = true
+                self:DoLamar()
+            else
+                self.ServerIsOff = false
+            end
+        end, function()
+            if not IsValid(self) then
+                return
+            end
+            
+            self.ServerIsOff = false
+        end)
+    end)
 end
 
 function PANEL:DoLamar()
@@ -52,23 +52,23 @@ function PANEL:DoLamar()
 
     local function doAnim()
         self.lamar = vgui.Create("ixModelPanel", self)
-         self.lamar:Dock(FILL)
-         self.lamar:SetFOV(90)
-         self.lamar:SetModel("models/lamarr.mdl")
-         self.lamar:SetAnimated(true)
+        self.lamar:Dock(FILL)
+        self.lamar:SetFOV(90)
+        self.lamar:SetModel("models/lamarr.mdl")
+        self.lamar:SetAnimated(true)
 
-         function self.lamar:LayoutEntity(ent)
-             ent:FrameAdvance()
-             return
-         end
+        function self.lamar:LayoutEntity(ent)
+            ent:FrameAdvance()
+            return
+        end
 
-         local badcarb = self.lamar:GetEntity():LookupSequence("lamarr_crow")
+        local badcarb = self.lamar:GetEntity():LookupSequence("lamarr_crow")
 
-         self.lamar:GetEntity():ResetSequence(badcarb)
+        self.lamar:GetEntity():ResetSequence(badcarb)
 
-         local pos = Vector(120, 50, 50)
-         self.lamar:SetCamPos(pos)
-         self.lamar:SetLookAt(pos + Vector(-10, -70, -10))
+        local pos = Vector(120, 50, 50)
+        self.lamar:SetCamPos(pos)
+        self.lamar:SetLookAt(pos + Vector(-10, -70, -10))
     end
 
     local function doPostText()

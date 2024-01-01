@@ -5,7 +5,7 @@ AddCSLuaFile()
 ENT.Base             = "base_gmodentity"
 ENT.Type             = "anim"
 ENT.PrintName        = "Loot Dumpster"
-ENT.Author            = "Riggs Mackay"
+ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
 ENT.Category         = "IX:HL2RP"

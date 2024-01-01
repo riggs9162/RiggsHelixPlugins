@@ -1,11 +1,11 @@
 local PLUGIN = PLUGIN
 
-PLUGIN.name = "Spawn Notifications"
-PLUGIN.description = "A notification which tells the player their status on loading the character."
-PLUGIN.author = "Riggs Mackay"
+PLUGIN.name = "Wake Up Messages"
+PLUGIN.description = "Adds a random message when a player loads their character."
+PLUGIN.author = "Riggs"
 PLUGIN.schema = "Any"
 PLUGIN.license = [[
-Copyright 2023 Riggs Mackay
+Copyright 2024 Riggs Mackay
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -14,23 +14,28 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
--- Feel free to change any of these messages.
-local wakeupmessages = {
-    "You wake up from a long nap and recover from your sleep.",
-    "You stand up and sniffing the fresh air from the world.",
-    "You start to stand up and recover from your sleep.",
-    "You are sweating from all the scare you have been getting from your deam and you wake up.",
-    "You were dreaming of someone and you heard their voice, you started to wake up.",
-    "You hear a small whisper in your ear, after that you hear loud footsteps fading away, you wake up being scared.",
-    "You hear a loud helicopter overhead of yourself and you instantly wake up.",
-    "You heard a growling and you started to wake up but scared.",
-    "You heard a loud siren and you are scared of the noise.",
+local wakeUpMessages = {
+    "blinks groggily, adjusting to the light as the world comes back into focus.",
+    "leisurely rises from their nap, ready to face the world with renewed energy.",
+    "luxuriates in the comfort of waking up, relishing the sensation of a well-deserved nap.",
+    "opens their eyes, greeted by the tranquility that follows a restorative period of sleep.",
+    "reflects on the dreamy haze of slumber, slowly reconnecting with the waking world.",
+    "rubs sleep from their eyes, feeling the warmth of waking after a restful nap.",
+    "shakes off the remnants of sleep, ready to tackle the day with refreshed enthusiasm.",
+    "smiles contentedly, embracing the serenity that lingers after a satisfying nap.",
+    "stretches and yawns, slowly emerging from a peaceful slumber.",
+    "takes a deep breath, savoring the fresh feeling of a new beginning after a long nap."
 }
 
-function PLUGIN:PlayerSpawn(ply)
-    if not ( ply:IsValid() or ply:Alive() or ply:GetCharacter() ) then return end
+function PLUGIN:PlayerLoadedCharacter(ply, char, oldChar)
+    if not ( IsValid(ply) ) then
+        return
+    end
 
-    ply:ConCommand("play music/stingers/hl1_stinger_song16.mp3")
-    ply:ScreenFade(SCREENFADE.IN, color_black, 3, 2)
-    ply:ChatPrint(table.Random(wakeupmessages))
+    if not ( char ) then
+        return
+    end
+
+    local message = wakeUpMessages[math.random(#wakeUpMessages)]
+    ply:ChatNotify(message)
 end

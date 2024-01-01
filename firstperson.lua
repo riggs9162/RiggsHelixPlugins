@@ -2,10 +2,10 @@ local PLUGIN = PLUGIN
 
 PLUGIN.name = "Immersive Firstperson"
 PLUGIN.description = "Adds a Plugin which lets you view your full body and on your head."
-PLUGIN.author = "Riggs Mackay"
+PLUGIN.author = "Riggs"
 PLUGIN.schema = "Any"
 PLUGIN.license = [[
-Copyright 2023 Riggs Mackay
+Copyright 2024 Riggs Mackay
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
