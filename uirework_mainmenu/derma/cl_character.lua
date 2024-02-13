@@ -119,12 +119,18 @@ end
 function PANEL:SizeToContents()
 	self:GetCanvas():InvalidateLayout(true)
 
-	-- if the canvas has extra space, forcefully dock to the bottom so it doesn't anchor to the top
-	if (self:GetTall() > self:GetCanvas():GetTall()) then
-		self:GetCanvas():Dock(BOTTOM)
-	else
-		self:GetCanvas():Dock(NODOCK)
+	local wide = 0
+	local tall = 0
+	for k, v in pairs(self:GetCanvas():GetChildren()) do
+		if (IsValid(v)) then
+			v:SizeToContents()
+			
+			wide = math.max(wide, v:GetWide())
+			tall = tall + v:GetTall()
+		end
 	end
+
+	self:SetSize(wide, tall)
 end
 
 vgui.Register("ixCharMenuButtonList", PANEL, "DScrollPanel")
@@ -143,6 +149,7 @@ function PANEL:Init()
 
 	self.bUsingCharacter = LocalPlayer().GetCharacter and LocalPlayer():GetCharacter()
 	self:DockPadding(padding, padding, padding, padding)
+	self.buttons = {}
 
 	local infoLabel = self:Add("DLabel")
 	infoLabel:SetTextColor(Color(255, 255, 255, 25))
@@ -152,8 +159,7 @@ function PANEL:Init()
 	infoLabel:SetPos(ScrW() - infoLabel:GetWide() - 4, ScrH() - infoLabel:GetTall() - 4)
 	
 	local titleLabel = self:Add("DLabel")
-	titleLabel:Dock(TOP)
-	titleLabel:DockMargin(0, self:GetTall() * 0.25, 0, 0)
+	titleLabel:SetPos(padding, self:GetTall() * 0.5 - padding * 2)
 	titleLabel:SetText(L2("schemaName") or Schema.name or L"unknown")
 	titleLabel:SetTextColor(ix.config.Get("mainMenuTitleColor") and ix.config.Get("color") or color_white)
 	titleLabel:SetFont("ixTitleFont")
@@ -162,7 +168,8 @@ function PANEL:Init()
 	local subtitle = L2("schemaDesc") or Schema.description
 	if (subtitle) then
 		local subtitleLabel = self:Add("DLabel")
-		subtitleLabel:Dock(TOP)
+		subtitleLabel:MoveBelow(titleLabel)
+		subtitleLabel:SetX(padding)
 		subtitleLabel:SetText(subtitle)
 		subtitleLabel:SetTextColor(color_white)
 		subtitleLabel:SetFont("ixSubTitleFont")
@@ -171,13 +178,17 @@ function PANEL:Init()
 
 	-- button list
 	self.mainButtonList = self:Add("ixCharMenuButtonList")
-	self.mainButtonList:Dock(LEFT)
-	self.mainButtonList:DockMargin(0, 16, 0, 0)
+	self.mainButtonList.Paint = function(this, width, height)
+		surface.SetDrawColor(ColorAlpha(ix.config.Get("color"), 66))
+		surface.DrawRect(0, 0, ScreenScale(1), height)
+	end
 
 	-- create character button
-	local createButton = self.mainButtonList:Add("ixMenuButton")
+	local createButton = self.mainButtonList:Add("ixMenuSelectionButton")
 	createButton:SetText("create")
+	createButton:SetBackgroundColor(ix.config.Get("color"))
 	createButton:SizeToContents()
+	createButton:SetButtonList(self.buttons)
 	createButton.DoClick = function()
 		local maximum = hook.Run("GetMaxPlayerCharacter", LocalPlayer()) or ix.config.Get("maxCharacters", 5)
 		-- don't allow creation if we've hit the character limit
@@ -192,9 +203,11 @@ function PANEL:Init()
 	end
 
 	-- load character button
-	self.loadButton = self.mainButtonList:Add("ixMenuButton")
+	self.loadButton = self.mainButtonList:Add("ixMenuSelectionButton")
 	self.loadButton:SetText("load")
+	self.loadButton:SetBackgroundColor(ix.config.Get("color"))
 	self.loadButton:SizeToContents()
+	self.loadButton:SetButtonList(self.buttons)
 	self.loadButton.DoClick = function()
 		self:Dim()
 		parent.loadCharacterPanel:SlideUp()
@@ -213,16 +226,19 @@ function PANEL:Init()
 			extraText = L(extraText:sub(2))
 		end
 
-		local extraButton = self.mainButtonList:Add("ixMenuButton")
+		local extraButton = self.mainButtonList:Add("ixMenuSelectionButton")
 		extraButton:SetText(extraText, true)
+		extraButton:SetBackgroundColor(ix.config.Get("color"))
 		extraButton:SizeToContents()
+		extraButton:SetButtonList(self.buttons)
 		extraButton.DoClick = function()
 			gui.OpenURL(extraURL)
 		end
 	end
 
 	-- leave/return button
-	self.returnButton = self.mainButtonList:Add("ixMenuButton")
+	self.returnButton = self.mainButtonList:Add("ixMenuSelectionButton")
+	self.returnButton:SetButtonList(self.buttons)
 	self:UpdateReturnButton()
 	self.returnButton.DoClick = function()
 		if (self.bUsingCharacter) then
@@ -231,6 +247,11 @@ function PANEL:Init()
 			RunConsoleCommand("disconnect")
 		end
 	end
+
+	self.mainButtonList:SizeToContents()
+	self.mainButtonList:MoveBelow(subtitle and subtitleLabel or titleLabel)
+	self.mainButtonList:SetX(padding)
+	self.mainButtonList:SetY(self.mainButtonList:GetY() + padding * 0.5)
 end
 
 function PANEL:UpdateReturnButton(bValue)
@@ -239,6 +260,7 @@ function PANEL:UpdateReturnButton(bValue)
 	end
 
 	self.returnButton:SetText(self.bUsingCharacter and "return" or "leave")
+	self.returnButton:SetBackgroundColor(self.bUsingCharacter and ix.config.Get("color") or derma.GetColor("Error", self))
 	self.returnButton:SizeToContents()
 end
 

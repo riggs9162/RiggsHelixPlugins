@@ -29,35 +29,22 @@ function PANEL:Init()
 	self.currentAlpha = 0
 	self.currentBlur = 0
 
+	self.currentSubpanelX = ScreenScale(16)
+	self.targetSubpanelX = ScreenScale(16)
+	self.padding = ScreenScale(16)
+
 	-- setup
 	self:SetSize(ScrW(), ScrH())
 	self:SetPos(0, 0)
 
 	-- main button panel
 	self.buttons = self:Add("Panel")
-	self.buttons:SetSize(self:GetWide(), self:GetPadding() * 0.75)
+	self.buttons:SetSize(self:GetWide(), self.padding)
 	self.buttons:Dock(TOP)
 	self.buttons:SetPaintedManually(true)
-
-	local close = self.buttons:Add("ixMenuButton")
-	close:SetText("X")
-	close:SetTextInset(0, 0)
-	close:SetContentAlignment(5)
-	close:SizeToContents()
-	close:Dock(RIGHT)
-	close.DoClick = function()
-		self:Remove()
-	end
-
-	local characters = self.buttons:Add("ixMenuButton")
-	characters:SetText("<")
-	characters:SetTextInset(0, 0)
-	characters:SetContentAlignment(5)
-	characters:SizeToContents()
-	characters:Dock(LEFT)
-	characters.DoClick = function()
-		self:Remove()
-		vgui.Create("ixCharMenu")
+	self.buttons.Paint = function(panel, width, height)
+		surface.SetDrawColor(ColorAlpha(ix.config.Get("color"), 66))
+		surface.DrawRect(0, height - ScreenScale(1), width, ScreenScale(1))
 	end
 
 	-- tabs
@@ -65,6 +52,31 @@ function PANEL:Init()
 	self.tabs.buttons = {}
 	self.tabs:Dock(FILL)
 	self:PopulateTabs()
+
+	local close = self.buttons:Add("ixMenuSelectionButtonTop")
+	close:SetText("X")
+	close:SetTextInset(0, 0)
+	close:SetContentAlignment(5)
+	close:SizeToContents()
+	close:Dock(RIGHT)
+	close:SetBackgroundColor(derma.GetColor("Error", close))
+	close:SetButtonList(self.tabs.buttons)
+	close.DoClick = function()
+		self:Remove()
+	end
+
+	local characters = self.buttons:Add("ixMenuSelectionButtonTop")
+	characters:SetText("<")
+	characters:SetTextInset(0, 0)
+	characters:SetContentAlignment(5)
+	characters:SizeToContents()
+	characters:Dock(LEFT)
+	characters:SetBackgroundColor(derma.GetColor("Info", close))
+	characters:SetButtonList(self.tabs.buttons)
+	characters.DoClick = function()
+		self:Remove()
+		vgui.Create("ixCharMenu")
+	end
 
 	self:MakePopup()
 	self:OnOpened()
@@ -201,7 +213,7 @@ function PANEL:GetOverviewInfo(origin, angles, fov)
 	local target = LocalPlayer():GetObserverTarget()
 	local fraction = self.overviewFraction
 	local bDrawPlayer = ((fraction > 0.2) or (!self.bOverviewOut and (fraction > 0.2))) and !IsValid(target)
-    local forward = originAngles:Forward() * 48 - originAngles:Right() * 24 + originAngles:Up() * 16
+    local forward = originAngles:Forward() * 64 + originAngles:Right() * 32 + originAngles:Up() * 8
 
 	local newOrigin
 
@@ -212,10 +224,11 @@ function PANEL:GetOverviewInfo(origin, angles, fov)
 	end
 
 	local newAngles = originAngles + self.rotationOffset
-	newAngles.pitch = 5
+	newAngles.pitch = -5
 	newAngles.roll = 0
+	newAngles.yaw = newAngles.yaw - 45
 
-	return LerpVector(fraction, origin, newOrigin), LerpAngle(fraction, angles, newAngles), Lerp(fraction, fov, 90), bDrawPlayer
+	return LerpVector(fraction, origin, newOrigin), LerpAngle(fraction, angles, newAngles), Lerp(fraction, fov, 50), bDrawPlayer
 end
 
 function PANEL:HideBackground()
@@ -235,7 +248,7 @@ function PANEL:ShowBackground()
 end
 
 function PANEL:GetStandardSubpanelSize()
-	return ScrW() - self:GetPadding() * 2, ScrH() - self:GetPadding() * 2
+	return ScrW() - self.padding * 2, ScrH() - self.padding * 2 - self.buttons:GetTall() * 0.5
 end
 
 function PANEL:SetupTab(name, info, sectionParent)
@@ -255,7 +268,7 @@ function PANEL:SetupTab(name, info, sectionParent)
 	subpanel:SetSize(self:GetStandardSubpanelSize())
 
 	subpanel:Center()
-	subpanel:SetY(self:GetTall() - subpanel:GetTall() - self:GetPadding() * 0.75)
+	subpanel:SetY(self:GetTall() - subpanel:GetTall() - self.padding * 0.75)
 
     if not (sectionParent) then
         -- this is called while the subpanel has not been populated
@@ -400,26 +413,17 @@ function PANEL:Think()
 	end
 end
 
+local vignette = ix.util.GetMaterial("helix/gui/vignette.png")
 function PANEL:Paint(width, height)
-	derma.SkinFunc("PaintMenuBackground", self, width, height, self.currentBlur)
+	derma.SkinFunc("PaintMenuBackground", self, width, height, self.currentBlur / 5)
 
-	local bShouldScale = self.currentAlpha != 255
-
-	if (bShouldScale) then
-		local currentScale = Lerp(self.currentAlpha / 255, 0.9, 1)
-		local matrix = Matrix()
-
-		matrix:Scale(matrixZScale * currentScale)
-		matrix:Translate(Vector(
-			ScrW() * 0.5 - (ScrW() * currentScale * 0.5),
-			ScrH() * 0.5 - (ScrH() * currentScale * 0.5),
-			1
-		))
-
-		cam.PushModelMatrix(matrix)
-	end
+	surface.SetDrawColor(0, 0, 0, self.currentAlpha)
+	surface.SetMaterial(vignette)
+	surface.DrawTexturedRect(0, 0, width, height)
+	surface.DrawTexturedRect(0, 0, width, height)
 
 	BaseClass.Paint(self, width, height)
+
 	self:PaintSubpanels(width, height)
 	self.buttons:PaintManual()
 
@@ -435,10 +439,6 @@ function PANEL:Paint(width, height)
 				panel:PaintManual()
 			end
 		end
-	end
-
-	if (bShouldScale) then
-		cam.PopModelMatrix()
 	end
 end
 

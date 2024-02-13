@@ -1,7 +1,7 @@
 local PLUGIN = PLUGIN
 
-PLUGIN.name = "User Interface Rework (Tab Menu)"
-PLUGIN.description = "Reworks the tab menu to be more user friendly."
+PLUGIN.name = "User Interface Rework (Inventory)"
+PLUGIN.description = "Reworks the inventory to be more user friendly."
 PLUGIN.author = "Riggs"
 PLUGIN.schema = "Any"
 PLUGIN.license = [[
@@ -13,13 +13,3 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
-
-ix.config.Add("tabMenuTitle", false, "Wether or not there should be titles on tabs within the tab menu. (NOTE: THIS CAN BE BUGGY ON PLUGINS THAT ADD CUSTOM TABS)", function()
-    if ( SERVER ) then
-        for k, v in ipairs(player.GetAll()) do
-            v:SendLua([[if not ix.gui.menu then return end ix.gui.menu:Remove() vgui.Create("ixMenu")]])
-        end
-    end
-end, {
-    category = "Appearance (User Interface)",
-})
