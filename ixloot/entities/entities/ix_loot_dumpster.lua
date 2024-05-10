@@ -8,7 +8,7 @@ ENT.PrintName        = "Loot Dumpster"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "IX:HL2RP"
+ENT.Category         = "Helix: HL2 RP"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true

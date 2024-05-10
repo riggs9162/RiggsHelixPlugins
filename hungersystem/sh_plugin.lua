@@ -5,7 +5,7 @@ PLUGIN.description = "Adds a Hunger System, simliar to the Apex Gamemode."
 PLUGIN.author = "Riggs"
 PLUGIN.schema = "Any"
 PLUGIN.license = [[
-Copyright 2024 Riggs Mackay
+Copyright 2024 Riggs
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -31,27 +31,21 @@ ix.util.Include("sv_hooks.lua")
 
 ix.command.Add("CharSetHunger", {
     description = "Set character's hunger",
-    privilege = "Manage Hunger System",
     arguments = {ix.type.character, bit.bor(ix.type.number, ix.type.optional)},
+    adminOnly = true,
     OnRun = function(self, ply, char, level)
-        if not ( ply:IsAdmin() ) then
-            ply:Notify("Nice try.")
-            return false
-        end
         char:SetHunger(level or 0)
-        ply:Notify(char:GetName().."'s hunger was set to "..(level or 0))
+        ply:Notify(char:GetName() .. "'s hunger was set to " .. ( level or 0 ))
     end
 })
 
-ix.command.Add("SetHunger", {
-    description = "Set character's hunger",
-    privilege = "Manage Hunger System",
-    arguments = {ix.type.character, bit.bor(ix.type.number, ix.type.optional)},
-    OnRun = function(self, ply, char, level)
-        if not ( ply:IsAdmin() ) then
-            return "Nice try."
-        end
+ix.command.Add("PlySetHunger", {
+    description = "Set player's hunger",
+    arguments = {ix.type.player, bit.bor(ix.type.number, ix.type.optional)},
+    adminOnly = true,
+    OnRun = function(self, ply, target, level)
+        local char = target:GetCharacter()
         char:SetHunger(level or 0)
-        ply:Notify(char:GetName().."'s hunger was set to "..(level or 0))
+        ply:Notify(target:SteamName() .. "'s hunger was set to " .. ( level or 0 ))
     end
 })

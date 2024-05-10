@@ -2,7 +2,7 @@ local PLUGIN = PLUGIN
 
 ENT.Type = "anim"
 ENT.PrintName = "Scanner"
-ENT.Category = "HL2 RP"
+ENT.Category = "Helix: HL2 RP"
 ENT.Spawnable = false -- no
 ENT.AdminOnly = true
 ENT.AutomaticFrameAdvance = true

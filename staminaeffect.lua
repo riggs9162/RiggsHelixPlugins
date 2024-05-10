@@ -5,7 +5,7 @@ PLUGIN.description = "Creates a Effect for when you are about and when you are o
 PLUGIN.author = "Riggs"
 PLUGIN.schema = "Any"
 PLUGIN.license = [[
-Copyright 2024 Riggs Mackay
+Copyright 2024 Riggs
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -52,6 +52,8 @@ if ( CLIENT ) then
             staminabluralpha = Lerp(frametime / 2, staminabluralpha, 0)
             staminabluramount = Lerp(frametime / 2, staminabluramount, 0)
         end
+
+        if ( staminabluralpha <= 0 ) then return end
         
         ix.util.DrawBlurAt(0, 0, ScrW(), ScrH(), staminabluramount, 0.2, staminabluralpha)
     end
