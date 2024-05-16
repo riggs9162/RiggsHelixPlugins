@@ -27,7 +27,7 @@ ix.command.Add("SetAnimClass", {
         end
 
         local modelTable = ix.anim.GetModelClass(model)
-        if not ( modelTable ) then
+        if ( modelTable ) then
             ply:Notify("This model already has a custom animation class, overwriting it...")
         end
 
