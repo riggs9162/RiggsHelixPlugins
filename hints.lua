@@ -45,7 +45,7 @@ ix.hints = ix.hints or {}
 ix.hints.stored = ix.hints.stored or {}
 
 function ix.hints.Register(message)
-    table.insert(ix.hints.stored, message)
+    ix.hints.stored[#ix.hints.stored + 1] = message
 end
 
 ix.hints.Register("Bored? Try striking up a conversation with someone or creating a plot!")
@@ -75,7 +75,7 @@ if ( CLIENT ) then
         blursize = 0.5,
         shadow = true,
     })
-    
+
     local nextHint = 0
     local hintEndRender = 0
     local bInHint = false
@@ -96,13 +96,13 @@ if ( CLIENT ) then
                 LocalPlayer():EmitSound("ui/hint.wav", 40, 100, 0.1)
             end
         end
-    
+
         if not ( hint ) then return end
-    
+
         if ( hintEndRender < CurTime() ) then
             hintShow = false
         end
-    
+
         if ( hintShow == true ) then
             hintAlpha = Lerp(0.01, hintAlpha, 255)
         else
@@ -110,7 +110,7 @@ if ( CLIENT ) then
         end
 
         if ( hintAlpha < 1 ) then return end
-        
+
         draw.SimpleText(hint, "HintFont", ScrW() / 2, 0, ColorAlpha(color_white, hintAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
     end
 end

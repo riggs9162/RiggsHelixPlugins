@@ -17,8 +17,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 if ( CLIENT ) then
     function PLUGIN:PostDrawOpaqueRenderables()
         local ply = LocalPlayer()
-        if not ( ply:GetNWBool("ixFlashlight") ) then return end
-        
+        if not ( ply:GetNetVar("ixFlashlight") ) then
+            return
+        end
+
         local flashlight = DynamicLight( ply:EntIndex() )
         if ( flashlight ) then
             flashlight.pos = ply:GetShootPos()
@@ -35,22 +37,22 @@ end
 
 if ( SERVER ) then
     function PLUGIN:Initialize(ply)
-        ply:SetNWBool("ixFlashlight", false)
+        ply:SetNetVar("ixFlashlight", false)
     end
 
     function PLUGIN:PlayerSpawn(ply)
-        ply:SetNWBool("ixFlashlight", false)
+        ply:SetNetVar("ixFlashlight", false)
     end
 
     function PLUGIN:CharacterLoaded(character)
         local ply = character:GetPlayer()
-        ply:SetNWBool("ixFlashlight", false)
+        ply:SetNetVar("ixFlashlight", false)
     end
 
     function PLUGIN:PlayerSwitchFlashlight(ply, enabled)
-        ply:SetNWBool("ixFlashlight", !ply:GetNWBool("ixFlashlight", false))
+        ply:SetNetVar("ixFlashlight", !ply:GetNetVar("ixFlashlight", false))
 
-        if ( ply:GetNWBool("ixFlashlight", true) == true ) then
+        if ( ply:GetNetVar("ixFlashlight", true) ) then
             ply:EmitSound("buttons/button24.wav", 60, 100)
         else
             ply:EmitSound("buttons/button10.wav", 60, 70)
