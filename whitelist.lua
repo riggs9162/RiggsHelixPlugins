@@ -23,17 +23,30 @@ PLUGIN.whitelists = {
 
 if ( SERVER ) then
     function PLUGIN:PlayerAuthed(ply, steamid)
-        if not ( self.whitelists[steamid] and self.whitelists[steamid].whitelisted == true ) then
-            ply:Kick("You are not whitelisted.")
-            
-            for k, v in pairs(player.GetAll()) do
-                if ( IsValid(v) and v:IsAdmin() ) then
-                    if ( self.whitelists[steamid].discord ) then
-                        v:ChatNotify("[WHITELIST] " .. ply:SteamName() .. " has been kicked for not being whitelisted. Their noted discord name is: ".. self.whitelists[steamid].discord)
-                    else
-                        v:ChatNotify("[WHITELIST] " .. ply:SteamName() .. " has been kicked for not being whitelisted.")
-                    end
+        local steamID64 = util.SteamIDTo64(steamid)
+        local whitelistData = self.whitelists[steamid] or self.whitelists[steamID64]
+
+        if not ( whitelistData ) then
+            ply:Kick("You are not whitelisted!")
+
+            return
+        end
+
+        if ( whitelistData.whitelisted ) then
+            return
+        end
+
+        ply:Kick("You are not whitelisted.")
+
+        for k, v in player.Iterator() do
+            if ( IsValid(v) and v:IsAdmin() ) then
+                if ( whitelistData.discord ) then
+                    v:ChatNotify("[WHITELIST] " .. ply:SteamName() .. " has been kicked for not being whitelisted. Their noted discord name is: ".. self.whitelists[steamid].discord)
+
+                    return
                 end
+
+                v:ChatNotify("[WHITELIST] " .. ply:SteamName() .. " has been kicked for not being whitelisted.")
             end
         end
     end
