@@ -9,7 +9,7 @@ function PLUGIN:SearchLootContainer(ent, ply)
                 local randomAmountChance = math.random(1,3)
                 local lootAmount = 1
 
-                local randomLootItem = table.Random(PLUGIN.randomLoot.common)
+                local randomLootItem = self.randomLoot.common[math.random(1, #self.randomLoot.common)]
                 if ( randomAmountChance == 3 ) then
                     lootAmount = math.random(1,3)
                 else
@@ -21,11 +21,11 @@ function PLUGIN:SearchLootContainer(ent, ply)
                     ply:Freeze(false)
                     for i = 1, lootAmount do
                         if (randomChance == math.random(1,20)) then
-                            randomLootItem = table.Random(PLUGIN.randomLoot.rare)
+                            randomLootItem = self.randomLoot.rare[math.random(1, #self.randomLoot.rare)]
                             ply:ChatNotify("You have gained "..ix.item.Get(randomLootItem):GetName()..".")
                             ply:GetCharacter():GetInventory():Add(randomLootItem)
                         else
-                            randomLootItem = table.Random(PLUGIN.randomLoot.common)
+                            randomLootItem = self.randomLoot.common[math.random(1, #self.randomLoot.common)]
                             ply:ChatNotify("You have gained "..ix.item.Get(randomLootItem):GetName()..".")
                             ply:GetCharacter():GetInventory():Add(randomLootItem)
                         end
