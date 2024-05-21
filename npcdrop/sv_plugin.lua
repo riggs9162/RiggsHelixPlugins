@@ -13,9 +13,9 @@ function PLUGIN:OnNPCKilled(ent, ply)
     end
 
     if ( config.randomItems ) then
-        ix.item.Spawn(table.Random(config.items), ent:GetPos() + Vector(0, 0, 16), nil, ent:GetAngles())
+        ix.item.Spawn(config.items[math.random(1, #config.items)], ent:GetPos() + Vector(0, 0, 16), nil, ent:GetAngles())
     else
-        for k, v in pairs(config.items) do
+        for k, v in ipairs(config.items) do
             ix.item.Spawn(v, ent:GetPos() + Vector(0, 0, 16), nil, ent:GetAngles())
         end
     end
