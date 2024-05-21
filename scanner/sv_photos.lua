@@ -17,7 +17,11 @@ net.Receive("ixScannerData", function(length, ply)
 
         local receivers = {}
 
-        for k, v in ipairs(player.GetAll()) do
+        for k, v in player.Iterator() do
+            if not ( IsValid(v) ) then
+                continue
+            end
+
             if v:IsCombine() or v:IsDispatch() then
                 receivers[#receivers + 1] = v
                 ix.util.EmitQueuedSounds(v, {

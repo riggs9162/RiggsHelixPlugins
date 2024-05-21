@@ -16,7 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ix.config.Add("tabMenuTitle", false, "Wether or not there should be titles on tabs within the tab menu. (NOTE: THIS CAN BE BUGGY ON PLUGINS THAT ADD CUSTOM TABS)", function()
     if ( SERVER ) then
-        for k, v in ipairs(player.GetAll()) do
+        for k, v in player.Iterator() do
             v:SendLua([[if not ix.gui.menu then return end ix.gui.menu:Remove() vgui.Create("ixMenu")]])
         end
     end
