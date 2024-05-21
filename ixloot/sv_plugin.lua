@@ -4,9 +4,9 @@ local PLUGIN = PLUGIN
 function PLUGIN:SearchLootContainer(ent, ply)
     if not ( ( ply.IsCombine and ply:IsCombine() ) or ( ply.IsDispatch and ply:IsDispatch() ) ) then
         if not ent.containerAlreadyUsed or ent.containerAlreadyUsed <= CurTime() then
-            if not ( ply.isEatingConsumeable == true ) then -- support for my plugin
-                local randomChance = math.random(1,20)
-                local randomAmountChance = math.random(1,3)
+            if not ( ply.isEatingConsumeable ) then -- support for my plugin
+                local randomChance = math.random(1, 20)
+                local randomAmountChance = math.random(1 ,3)
                 local lootAmount = 1
 
                 local randomLootItem = self.randomLoot.common[math.random(1, #self.randomLoot.common)]
