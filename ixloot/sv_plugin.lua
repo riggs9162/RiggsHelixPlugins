@@ -52,11 +52,11 @@ function PLUGIN:SearchLootContainer(ent, ply)
     end
 end
 
-function Schema:SpawnRandomLoot(position, rareItem)
-    local randomLootItem = table.Random(PLUGIN.randomLoot.common)
+function PLUGIN:SpawnRandomLoot(position, rareItem)
+    local randomLootItem = self.randomLoot.common[math.random(1, #self.randomLoot.common)]
 
-    if (rareItem == true) then
-        randomLootItem = table.Random(PLUGIN.randomLoot.rare)
+    if ( rareItem ) then
+        randomLootItem = self.randomLoot.rare[math.random(1, #self.randomLoot.rare)]
     end
 
     ix.item.Spawn(randomLootItem, position)
