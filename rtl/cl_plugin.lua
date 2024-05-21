@@ -13,7 +13,7 @@ function PLUGIN:IsNightTime()
 end
 
 function PLUGIN:UpdateGlobalSun()
-    for k, v in pairs(ents.FindByClass("env_sun")) do
+    for k, v in ipairs(ents.FindByClass("env_sun")) do
         local sunPos = v:GetPos()
         local sunAng = v:GetAngles()
         local sunCol = v:GetColor()
@@ -140,14 +140,14 @@ function PLUGIN:Think()
         if ( self.projectedTexture ) then
             self.projectedTexture:Remove()
         end
-    
+
         if ( self.projectedTextureRing ) then
             self.projectedTextureRing:Remove()
         end
 
         return
     end
-    
+
     if ( ix.option.Get("realTimeLightingEnabled") ) then
         // might be unefficient but meh
         if not ( self.sunInfo ) then
@@ -160,7 +160,7 @@ function PLUGIN:Think()
         if ( self.projectedTexture ) then
             self.projectedTexture:Remove()
         end
-    
+
         if ( self.projectedTextureRing ) then
             self.projectedTextureRing:Remove()
         end
