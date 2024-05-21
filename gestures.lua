@@ -52,7 +52,7 @@ PLUGIN.gestures = { -- Mainly for the citizen_male models, or models that includ
 
 function PLUGIN:DoAnimationEvent(ply, event, data)
     if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
-        for k, v in pairs(PLUGIN.gestures) do
+        for k, v in ipairs(self.gestures) do
             if ( data == v.id ) then
                 ply:AddVCDSequenceToGestureSlot(GESTURE_SLOT_CUSTOM, ply:LookupSequence(v.gesture), 0, true)
 
@@ -62,7 +62,7 @@ function PLUGIN:DoAnimationEvent(ply, event, data)
     end
 end
 
-for k, v in pairs(PLUGIN.gestures) do
+for k, v in ipairs(PLUGIN.gestures) do
     local commandname = string.Replace(v.gesture, "hg_", "")
     commandname = string.Replace(commandname, "g_", "")
     commandname = string.Replace(commandname, "antman_", "")
@@ -93,7 +93,7 @@ if ( SERVER ) then
         ["w"] = true,
         ["y"] = true,
     }
-    
+
     function PLUGIN:PrePlayerMessageSend(ply, chatType, message, bAnonymous)
         if ( allowedChatTypes[chatType] ) then
             if ( message:find("!") ) then

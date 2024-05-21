@@ -45,13 +45,19 @@ net.Receive("ixScannerPicture", function(length, ply)
     ply.ixNextFlash = CurTime() + 1
     ply.ixScn:flash()
 
-    for k, v in pairs(ents.FindInSphere(ply.ixScn:GetPos(), 128)) do
-        if v:IsPlayer() then
-            if not (v:SteamID64() == ply:SteamID64()) then
-                v:ScreenFade(1, Color(255, 255, 255), 5, 2)
-                v:SetDSP(31)
-                timer.Simple(4, function() v:SetDSP(1) end)
-            end
+    for k, v in ipairs(ents.FindInSphere(ply.ixScn:GetPos(), 128)) do
+        if not ( IsValid(v) ) then
+            continue
+        end
+
+        if not ( v:IsPlayer() and v:Alive() ) then
+            continue
+        end
+
+        if not ( v == ply ) then
+            v:ScreenFade(1, Color(255, 255, 255), 5, 2)
+            v:SetDSP(31)
+            timer.Simple(4, function() v:SetDSP(1) end)
         end
     end
 end)
