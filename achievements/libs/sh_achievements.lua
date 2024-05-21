@@ -42,8 +42,8 @@ end
 
 function ix.achievements.Get(identifier)
     identifier = string.lower(identifier)
-    
-    for _, achievement in pairs(ix.achievements.stored) do
+
+    for _, achievement in ipairs(ix.achievements.stored) do
         if ( achievement.index == tonumber(identifier) ) then
             return achievement
         end
@@ -55,7 +55,7 @@ function ix.achievements.Get(identifier)
         if ( string.find(string.lower(achievement.icon), identifier) ) then
             return achievement
         end
-        
+
         if ( string.find(string.lower(achievement.description), identifier) ) then
             return achievement
         end
@@ -76,7 +76,7 @@ if ( SERVER ) then
                 end
 
                 char:SetData("achievements", data)
-                
+
                 char:GetPlayer():Notify("Your character has completed the following achievement \"" .. achievement.name .. "\"!")
             end
         else

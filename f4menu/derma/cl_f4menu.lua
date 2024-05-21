@@ -43,7 +43,7 @@ function PANEL:Init()
         net.SendToServer()
     end
 
-    for k, v in pairs(ix.faction.indices) do
+    for k, v in ipairs(ix.faction.indices) do
         if ( k == FACTION_UNASSIGNED ) then
             continue
         end
@@ -78,7 +78,7 @@ function PANEL:PopulateCategories()
 
     self.subCategories = {}
 
-    for k, v in pairs(ix.class.list) do
+    for k, v in ipairs(ix.class.list) do
         if ( v.faction != self.faction ) then
             continue
         end
@@ -94,7 +94,7 @@ function PANEL:PopulateCategories()
                 self:PopulateClasses()
                 break
             end
-            
+
             button = self.factionCategories:Add("ixMenuButton")
             button.padding = {12, 12, 12, 12} // left, top, right, bottom
             button:Dock(LEFT)
@@ -121,7 +121,7 @@ function PANEL:PopulateClasses(category)
     self.classes:Dock(LEFT)
     self.classes:SetWide(self:GetWide() * 0.35)
 
-    for k, v in pairs(ix.class.list) do
+    for k, v in ipairs(ix.class.list) do
         if ( v.faction != self.faction ) then
             continue
         end
