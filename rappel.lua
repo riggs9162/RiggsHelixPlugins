@@ -35,7 +35,7 @@ if ( SERVER ) then
             ent:SetSkin(ply:GetSkin())
             ent:SetBodyGroups(ply:GetBodyGroups())
 
-            ent:SetKeyValue("waitingtorappel", 1) 
+            ent:SetKeyValue("waitingtorappel", 1)
             ent:SetPos(pos)
             ent:SetAngles(Angle(0, ply:EyeAngles().yaw, 0))
 
@@ -47,7 +47,7 @@ if ( SERVER ) then
                 if ent:IsOnGround() then
                     ply:SetPos(ent:GetPos())
                     ply:SetEyeAngles(Angle(0, ent:GetAngles().yaw, 0))
-                    
+
                     ent:EmitSound("npc/combine_soldier/zipline_hitground"..math.random(1,2)..".wav", 80)
                     ent:Remove()
 
@@ -61,8 +61,8 @@ if ( SERVER ) then
                     ply:SetNoTarget(false)
                     ply:GodDisable()
 
-                    ply:SetNWEntity("ixRappelingEntity", nil)
-                    ply:SetNWBool("ixRappeling", false)
+                    ply:SetLocalVar("ixRappelingEntity", nil)
+                    ply:SetLocalVar("ixRappeling", false)
                 end
             end)
             ent:AddRelationship("player D_LI")
@@ -76,7 +76,7 @@ if ( SERVER ) then
 
             ply:SetLocalVar("ixRappelingEntity", ent)
             ply:SetLocalVar("ixRappeling", true)
-            
+
             ply:Freeze(true)
             ply:SetNoDraw(true)
             ply:SetNotSolid(true)
@@ -84,7 +84,7 @@ if ( SERVER ) then
             ply:DrawShadow(false)
             ply:GodEnable()
             ply:SetNoTarget(true)
-            
+
             ent:Fire("beginrappel")
             ent:Fire("addoutput", "OnRappelTouchdown rappelent,RunCode,0,-1", 0)
         end
@@ -98,12 +98,12 @@ ix.command.Add("Rappel", {
             ply:Notify("You are unable to use this!")
             return false
         end
-        
+
         if not ( ply:OnGround() ) then
             ply:Notify("You can't rappel whilst falling.")
             return false
         end
-        
+
         if ( SERVER ) and PLUGIN.BeginRappel then
             PLUGIN:BeginRappel(ply)
         end
