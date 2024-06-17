@@ -14,6 +14,8 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
+PLUGIN.dropAmount = -1 // -1 for all money, otherwise set to a number to drop that amount of money on death
+
 if ( CLIENT ) then
     return
 end
@@ -26,6 +28,12 @@ function PLUGIN:DoPlayerDeath(ply, inflicter, attacker)
     end
 
     if not ( char:GetMoney() == 0 ) then
+        local money = char:GetMoney()
+
+        if ( !self.dropAmount == -1 and char:HasMoney(self.dropAmount) ) then
+            money = math.Clamp(money - self.dropAmount, 0, money)
+        end
+
         local droppedTokens = ents.Create("ix_money")
         droppedTokens:SetModel(ix.currency.model)
         droppedTokens:SetPos(ply:GetPos())
@@ -33,6 +41,6 @@ function PLUGIN:DoPlayerDeath(ply, inflicter, attacker)
         droppedTokens:SetAmount(char:GetMoney())
         droppedTokens:Spawn()
 
-        char:SetMoney(0)                                 
+        char:SetMoney(0)
     end
 end
