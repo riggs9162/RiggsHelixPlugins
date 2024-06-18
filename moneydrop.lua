@@ -40,11 +40,11 @@ function PLUGIN:DoPlayerDeath(ply, inflicter, attacker)
     end
 
     local charMoney = char:GetMoney()
-    if not ( charMoney == 0 ) then
-        if ( ix.config.Get("moneyDropAmount") > 0 ) then
-            charMoney = math.Clamp(charMoney, 1, ix.config.Get("moneyDropAmount"))
-        end
+    if ( ix.config.Get("moneyDropAmount") > 0 ) then
+        charMoney = math.Clamp(charMoney, 1, ix.config.Get("moneyDropAmount"))
+    end
 
+    if not ( charMoney == 0 ) then
         local model, pos, ang = ix.currency.model, ply:GetPos(), ply:GetAngles()
         local ent = ents.Create("ix_money")
         ent:SetModel(model)
