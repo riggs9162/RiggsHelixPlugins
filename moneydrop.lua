@@ -19,7 +19,7 @@ function PLUGIN:InitializedConfig()
         category = "Money Drop"
     })
 
-    ix.config.Add("moneyDropAmount", 100, "The amount of money to drop on death. If set to 0, it will drop all money.", {
+    ix.config.Add("moneyDropAmount", 100, "The amount of money to drop on death. If set to 0, it will drop all money.", nil, {
         data = {min = 0, max = 10000, decimals = 0}
         category = "Money Drop"
     })
