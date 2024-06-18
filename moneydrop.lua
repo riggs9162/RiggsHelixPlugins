@@ -14,32 +14,44 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
-PLUGIN.dropAmount = -1 // -1 for all money, otherwise set to a number to drop that amount of money on death
+function PLUGIN:InitializedConfig()
+    ix.config.Add("moneyDrop", true, "Whether or not to drop money on death.", nil, {
+        category = "Money Drop"
+    })
+
+    ix.config.Add("moneyDropAmount", 100, "The amount of money to drop on death. If set to 0, it will drop all money.", nil, {
+        data = {min = 0, max = 10000, decimals = 0},
+        category = "Money Drop"
+    })
+end
 
 if ( CLIENT ) then
     return
 end
 
 function PLUGIN:DoPlayerDeath(ply, inflicter, attacker)
-    local char = ply:GetCharacter()
+    if not ( ix.config.Get("moneyDrop") ) then
+        return
+    end
 
+    local char = ply:GetCharacter()
     if not ( char ) then
         return
     end
 
-    if not ( char:GetMoney() == 0 ) then
-        local money = char:GetMoney()
+    local charMoney = char:GetMoney()
+    if ( ix.config.Get("moneyDropAmount") > 0 ) then
+        charMoney = math.Clamp(charMoney, 1, ix.config.Get("moneyDropAmount"))
+    end
 
-        if ( !self.dropAmount == -1 and char:HasMoney(self.dropAmount) ) then
-            money = math.Clamp(money - self.dropAmount, 0, money)
-        end
-
-        local droppedTokens = ents.Create("ix_money")
-        droppedTokens:SetModel(ix.currency.model)
-        droppedTokens:SetPos(ply:GetPos())
-        droppedTokens:SetAngles(ply:GetAngles())
-        droppedTokens:SetAmount(char:GetMoney())
-        droppedTokens:Spawn()
+    if not ( charMoney == 0 ) then
+        local model, pos, ang = ix.currency.model, ply:GetPos(), ply:GetAngles()
+        local ent = ents.Create("ix_money")
+        ent:SetModel(model)
+        ent:SetPos(pos)
+        ent:SetAngles(ang)
+        ent:SetAmount(charMoney)
+        ent:Spawn()
 
         char:SetMoney(0)
     end
