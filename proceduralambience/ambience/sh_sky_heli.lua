@@ -3,7 +3,7 @@ AMBIENCE.description = "Creates a helicopter in the skybox."
 AMBIENCE.map = "rp_city17_build210"
 
 AMBIENCE.onPlay = function()
-    for k, v in pairs(player.GetAll()) do
+    for k, v in player.Iterator() do
         v:ConCommand("play ambient/overhead/hel2.wav")
     end
 

@@ -28,10 +28,10 @@ ix.log.AddType("blacklistedWord", function(ply, word, text)
 end, FLAG_WARNING)
 
 function PLUGIN:PrePlayerMessageSend(ply, chatType, text)
-    for k, v in pairs(self.config) do
+    for k, v in ipairs(self.config) do
         if ( string.find(string.upper(text), string.upper(v)) ) then
             ix.log.Add(ply, "blacklistedWord", v, text)
-            
+
             return false
         end
     end

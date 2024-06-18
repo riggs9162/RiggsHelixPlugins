@@ -22,7 +22,7 @@ end
 
 concommand.Add("ix_stopsoundall", function(ply, cmd, args)
     if ( ply:IsSuperAdmin() ) then
-        for k, v in pairs(player.GetAll()) do
+        for k, v in player.Iterator() do
             v:ConCommand("stopsound")
         end
     else
@@ -41,9 +41,9 @@ end)
 util.AddNetworkString("ixPlaySoundAll")
 net.Receive("ixPlaySoundAll", function(len, ply)
     if not ( ply:IsSuperAdmin() ) then return end
-   
+
     local stringSound = Sound(net.ReadString())
-    for k, v in pairs(player.GetAll()) do
+    for k, v in player.Iterator() do
         v:PlaySound(stringSound)
     end
 end)

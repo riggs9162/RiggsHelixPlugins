@@ -91,7 +91,7 @@ function PANEL:Init()
     self.musiccontrol.Paint = function(self, w, h)
         PaintPanel(self, w, h)
     end
-    
+
     self.stopsound = self.musiccontrol:Add("ixMenuButton")
     self.stopsound:Dock(TOP)
     self.stopsound:SetSize(0, 30)
@@ -100,7 +100,7 @@ function PANEL:Init()
     self.stopsound.DoClick = function()
         RunConsoleCommand("stopsound")
     end
-    
+
     self.stopsoundall = self.musiccontrol:Add("ixMenuButton")
     self.stopsoundall:Dock(TOP)
     self.stopsoundall:SetSize(0, 30)
@@ -130,37 +130,37 @@ function PANEL:Init()
     self.soundtree.Paint = function(self, w, h)
         PaintPanel(self, w, h)
     end
-    
+
     self.playsound = self.soundplayer:Add("ixMenuButton")
     self.playsound:Dock(TOP)
     self.playsound:SetSize(0, 30)
     self.playsound:SetText("Play Sound")
     self.playsound:SetFont("ixSmallFont")
-    
+
     self.stopsound = self.soundplayer:Add("ixMenuButton")
     self.stopsound:Dock(TOP)
     self.stopsound:SetSize(0, 30)
     self.stopsound:SetText("Stop Sound")
     self.stopsound:SetFont("ixSmallFont")
-    
+
     self.copyfile = self.soundplayer:Add("ixMenuButton")
     self.copyfile:Dock(TOP)
     self.copyfile:SetSize(0, 30)
     self.copyfile:SetText("Copy Filepath")
     self.copyfile:SetFont("ixSmallFont")
-    
+
     self.refreshlist = self.soundplayer:Add("ixMenuButton")
     self.refreshlist:Dock(TOP)
     self.refreshlist:SetSize(0, 30)
     self.refreshlist:SetText("Refresh List")
     self.refreshlist:SetFont("ixSmallFont")
-    
+
     self.playtoall = self.soundplayer:Add("ixMenuButton")
     self.playtoall:Dock(TOP)
     self.playtoall:SetSize(0, 30)
     self.playtoall:SetText("Play to all")
     self.playtoall:SetFont("ixSmallFont")
-    
+
     self.stopsoundall = self.soundplayer:Add("ixMenuButton")
     self.stopsoundall:Dock(TOP)
     self.stopsoundall:SetSize(0, 30)
@@ -170,15 +170,15 @@ function PANEL:Init()
     self.soundtreenode = self.soundtree:AddNode("sound")
     self.soundtreenode.dir  = "sound/"
     self.soundtreenode.gen = false
-    
+
     local function FindSounds(node, dir)
         local files, dirs = file.Find(dir.."*", "GAME")
-    
-        for _, v in pairs(dirs) do
+
+        for _, v in ipairs(dirs) do
             local newNode = node:AddNode(v)
             newNode.dir = dir..v
             newNode.gen = false
-        
+
             newNode.DoClick = function()
                 if !newNode.gen then
                     FindSounds(newNode, dir..v.."/")
@@ -206,11 +206,11 @@ function PANEL:Init()
                     files[k] = ""
                 end
             end
-        
+
             if fileCount > fileLimit then
                 local newNode = node:AddNode("Click to load more files...")
                 newNode.Icon:SetImage("icon16/sound_add.png")
-                newNode.DoClick = function() 
+                newNode.DoClick = function()
                     newNode:Remove()
                     GenerateNodes()
                 end
@@ -243,7 +243,7 @@ function PANEL:Init()
         self.soundtreenode = self.soundtree:AddNode("sound")
         self.soundtreenode.dir  = "sound/"
         self.soundtreenode.gen = false
-    
+
         FindSounds(self.soundtreenode, "sound/")
     end
 
@@ -267,7 +267,7 @@ function PANEL:Init()
 
     self.OnClose = function()
         hook.Remove("Think", "ixEventMenuPressedSpace")
-    end 
+    end
 end
 
 vgui.Register("ixEventMenu", PANEL, "DFrame")

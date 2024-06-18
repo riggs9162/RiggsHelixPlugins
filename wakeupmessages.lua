@@ -14,7 +14,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
-local wakeUpMessages = {
+PLUGIN.wakeUpMessages = {
     "blinks groggily, adjusting to the light as the world comes back into focus.",
     "leisurely rises from their nap, ready to face the world with renewed energy.",
     "luxuriates in the comfort of waking up, relishing the sensation of a well-deserved nap.",
@@ -36,6 +36,6 @@ function PLUGIN:PlayerLoadedCharacter(ply, char, oldChar)
         return
     end
 
-    local message = wakeUpMessages[math.random(#wakeUpMessages)]
+    local message = self.wakeUpMessages[math.random(#self.wakeUpMessages)]
     ix.chat.Send(ply, "me", message)
 end

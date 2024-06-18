@@ -12,8 +12,8 @@ AMBIENCE.onPlay = function(ambienceTable)
     heli:SetAngles(ambienceTable.startAng)
     heli:Spawn()
 
-    for k, v in pairs(player.GetAll()) do
-        heli:AddEntityRelationship(v, D_FR, 99)
+    for k, v in player.Iterator() do
+        heli:AddEntityRelationship(v, D_FR, 0)
     end
 
     local helitrack = ents.Create("path_track")
