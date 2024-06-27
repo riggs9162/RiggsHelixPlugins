@@ -41,7 +41,7 @@ function PLUGIN:DoPlayerDeath(ply, inflicter, attacker)
 
     local charMoney = char:GetMoney()
     if ( ix.config.Get("moneyDropAmount") > 0 ) then
-        charMoney = math.Clamp(charMoney, 1, ix.config.Get("moneyDropAmount"))
+        charMoney = math.Clamp(charMoney, 0, ix.config.Get("moneyDropAmount"))
     end
 
     if not ( charMoney == 0 ) then
