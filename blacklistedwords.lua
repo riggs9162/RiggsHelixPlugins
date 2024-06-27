@@ -14,24 +14,26 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
-PLUGIN.config = {
-    "fag",
-    "nigg"
-}
-
 if ( CLIENT ) then
     return
 end
 
+PLUGIN.words = {}
+PLUGIN.words["fag"] = true
+PLUGIN.words["negro"] = true
+PLUGIN.words["nigg"] = true
+
 ix.log.AddType("blacklistedWord", function(ply, word, text)
-    return "Blacklisted word found from user '"..ply:SteamName().." / "..ply:Nick().."', with the word '"..tostring(word).."' with the message being '"..tostring(text).."'. Prevented from sending!"
-end, FLAG_WARNING)
+    local format = "%s has attempted to send a message with the blacklisted word \"%s\" (%s)."
+    format = format:format(ply:GetName(), word, text)
+
+    return format
+end)
 
 function PLUGIN:PrePlayerMessageSend(ply, chatType, text)
-    for k, v in ipairs(self.config) do
-        if ( string.find(string.upper(text), string.upper(v)) ) then
+    for k, v in pairs(self.words) do
+        if ( ix.util.StringMatches(text, k) ) then
             ix.log.Add(ply, "blacklistedWord", v, text)
-
             return false
         end
     end
