@@ -19,9 +19,31 @@ if ( CLIENT ) then
 end
 
 PLUGIN.words = {}
+PLUGIN.words["chink"] = true
+PLUGIN.words["coon"] = true
+PLUGIN.words["cracker"] = true
+PLUGIN.words["cunt"] = true
+PLUGIN.words["dyke"] = true
 PLUGIN.words["fag"] = true
+PLUGIN.words["faggot"] = true
+PLUGIN.words["gook"] = true
+PLUGIN.words["heeb"] = true
+PLUGIN.words["jap"] = true
+PLUGIN.words["kike"] = true
 PLUGIN.words["negro"] = true
 PLUGIN.words["nigg"] = true
+PLUGIN.words["porchmonkey"] = true
+PLUGIN.words["retard"] = true
+PLUGIN.words["sandnigger"] = true
+PLUGIN.words["shemale"] = true
+PLUGIN.words["slut"] = true
+PLUGIN.words["spic"] = true
+PLUGIN.words["towelhead"] = true
+PLUGIN.words["tranny"] = true
+PLUGIN.words["wetback"] = true
+PLUGIN.words["whore"] = true
+PLUGIN.words["wop"] = true
+PLUGIN.words["zipperhead"] = true
 
 ix.log.AddType("blacklistedWord", function(ply, word, text)
     local format = "%s has attempted to send a message with the blacklisted word \"%s\" (%s)."
