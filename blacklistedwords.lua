@@ -55,7 +55,7 @@ end)
 function PLUGIN:PrePlayerMessageSend(ply, chatType, text)
     for k, v in pairs(self.words) do
         if ( ix.util.StringMatches(text, k) ) then
-            ix.log.Add(ply, "blacklistedWord", v, text)
+            ix.log.Add(ply, "blacklistedWord", k, text)
             return false
         end
     end
