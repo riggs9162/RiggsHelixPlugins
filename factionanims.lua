@@ -37,7 +37,7 @@ If the key is not present, the default animations will be used if they exist.
 If you want to use the default animations, you can simply remove the "animClass" key from the faction file, and the default animations will be used, if they exist.
 ]]
 
-local oldGetModelClass = ix.anim.GetModelClass
+local oldGetModelClass = oldGetModelClass or ix.anim.GetModelClass
 
 /// Gets a model's animation class.
 // @realm shared
