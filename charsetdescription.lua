@@ -17,8 +17,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ix.lang.AddTable("english", {
     cmdCharSetDescription = "Changes someone's description to the specified description.",
     cChangeDescription = "%s changed %s's description to %s.",
-	chgDescription = "Change Description",
-	chgDescriptionDesc = "Enter the character's new description below.",
+    chgDescription = "Change Description",
+    chgDescriptionDesc = "Enter the character's new description below.",
 })
 
 ix.command.Add("CharSetDescription", {
