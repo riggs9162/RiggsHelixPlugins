@@ -18,32 +18,90 @@ if ( CLIENT ) then
     return
 end
 
-PLUGIN.words = {}
-PLUGIN.words["chink"] = true
-PLUGIN.words["coon"] = true
-PLUGIN.words["cracker"] = true
-PLUGIN.words["cunt"] = true
-PLUGIN.words["dyke"] = true
-PLUGIN.words["fag"] = true
-PLUGIN.words["faggot"] = true
-PLUGIN.words["gook"] = true
-PLUGIN.words["heeb"] = true
-PLUGIN.words["jap"] = true
-PLUGIN.words["kike"] = true
-PLUGIN.words["negro"] = true
-PLUGIN.words["nigg"] = true
-PLUGIN.words["porchmonkey"] = true
-PLUGIN.words["retard"] = true
-PLUGIN.words["sandnigger"] = true
-PLUGIN.words["shemale"] = true
-PLUGIN.words["slut"] = true
-PLUGIN.words["spic"] = true
-PLUGIN.words["towelhead"] = true
-PLUGIN.words["tranny"] = true
-PLUGIN.words["wetback"] = true
-PLUGIN.words["whore"] = true
-PLUGIN.words["wop"] = true
-PLUGIN.words["zipperhead"] = true
+PLUGIN.words = {
+    "#freetheboys",
+    "ackbar",
+    "akbar",
+    "anal",
+    "assfuck",
+    "ballsack",
+    "blowjob",
+    "brownskin",
+    "buttplug",
+    "chink",
+    "cock",
+    "coon",
+    "cracker",
+    "cum",
+    "cunt",
+    "cuntbag",
+    "dick",
+    "dildo",
+    "dyke",
+    "end your life",
+    "f a g g o t",
+    "fag",
+    "faggot",
+    "fagina",
+    "fat ass",
+    "free the boys",
+    "freetheboys",
+    "fuck yourself",
+    "fuck",
+    "fudgepacker",
+    "fuhrer",
+    "gaylord",
+    "goodman",
+    "gook",
+    "heeb",
+    "hentai",
+    "jap",
+    "jerk off",
+    "jerkoff",
+    "jizz",
+    "kike",
+    "kill yourself",
+    "mangina",
+    "mcfaggot",
+    "mcnigbig",
+    "mcnigga",
+    "mcnigger",
+    "mono-truth",
+    "monotruth",
+    "motherfucker",
+    "n 1 g g a",
+    "n 1 g g e r",
+    "n i g g a",
+    "n i g g e r",
+    "n i g",
+    "n1gga",
+    "n1gger",
+    "negan",
+    "neger",
+    "negro",
+    "negus",
+    "niga",
+    "niger",
+    "nigg",
+    "nigga",
+    "nigger",
+    "niggy",
+    "nigs",
+    "nlgger",
+    "porchmonkey",
+    "retard",
+    "sandnigger",
+    "shemale",
+    "skibidi",
+    "slut",
+    "spic",
+    "towelhead",
+    "tranny",
+    "wetback",
+    "whore",
+    "wop",
+    "zipperhead"
+}
 
 ix.log.AddType("blacklistedWord", function(ply, word, text)
     local format = "%s has attempted to send a message with the blacklisted word \"%s\" (%s)."
@@ -53,10 +111,16 @@ ix.log.AddType("blacklistedWord", function(ply, word, text)
 end)
 
 function PLUGIN:PrePlayerMessageSend(ply, chatType, text)
-    for k, v in pairs(self.words) do
-        if ( ix.util.StringMatches(text, k) ) then
-            ix.log.Add(ply, "blacklistedWord", k, text)
-            return false
+    local bFound = nil
+    for _, phrase in ipairs(self.words) do
+        if ( ix.util.StringMatches(text, phrase) ) then
+            bFound = phrase
+            break
         end
+    end
+
+    if ( bFound and isstring(bFound) and string.len(bFound) > 0 ) then
+        ix.log.Add(ply, "blacklistedWord", bFound, text)
+        return false
     end
 end
