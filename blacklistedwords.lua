@@ -102,8 +102,8 @@ PLUGIN.words = {
 }
 
 ix.log.AddType("blacklistedWord", function(ply, word, text)
-    local format = "%s has attempted to send a message with the blacklisted word \"%s\" (%s)."
-    format = format:format(ply:GetName(), word, text)
+    local format = "%s (%s) has attempted to send a message with the blacklisted word \"%s\" (%s)."
+    format = format:format(ply:GetName(), ply:SteamID64(), word, text)
 
     return format
 end)
