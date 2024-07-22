@@ -16,7 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 if ( CLIENT ) then return end
 
-PLUGIN.words = {
+PLUGIN.phrases = {
     "#freetheboys",
     "ackbar",
     "akbar",
@@ -32,14 +32,12 @@ PLUGIN.words = {
     "cracker",
     "cum",
     "cunt",
-    "cuntbag",
     "dick",
     "dildo",
     "dyke",
     "end your life",
-    "f a g g o t",
+    "f a g",
     "fag",
-    "faggot",
     "fagina",
     "fat ass",
     "free the boys",
@@ -62,15 +60,7 @@ PLUGIN.words = {
     "mangina",
     "mcfaggot",
     "mcnigbig",
-    "mcnigga",
-    "mcnigger",
-    "mono-truth",
-    "monotruth",
-    "motherfucker",
-    "n 1 g g a",
-    "n 1 g g e r",
-    "n i g g a",
-    "n i g g e r",
+    "n 1 g",
     "n i g",
     "n1gga",
     "n1gger",
@@ -101,7 +91,7 @@ PLUGIN.words = {
     "zipperhead"
 }
 
-ix.log.AddType("blacklistedWord", function(ply, word, text)
+ix.log.AddType("blacklistedPhraseSay", function(ply, word, text)
     local format = "%s (%s) has attempted to send a message with the blacklisted word \"%s\" (%s)."
     format = format:format(ply:GetName(), ply:SteamID64(), word, text)
 
@@ -110,7 +100,7 @@ end)
 
 function PLUGIN:PrePlayerMessageSend(ply, chatType, text)
     local bFound = nil
-    for _, phrase in ipairs(self.words) do
+    for _, phrase in ipairs(self.phrases) do
         if ( ix.util.StringMatches(text, phrase) ) then
             bFound = phrase
             break
@@ -118,7 +108,8 @@ function PLUGIN:PrePlayerMessageSend(ply, chatType, text)
     end
 
     if ( bFound and isstring(bFound) and string.len(bFound) > 0 ) then
-        ix.log.Add(ply, "blacklistedWord", bFound, text)
+        ix.log.Add(ply, "blacklistedPhraseSay", bFound, text)
+        ply:Notify("You cannot use the blacklisted phrase \"" .. bFound .. "\".")
         return false
     end
 end
