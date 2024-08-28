@@ -9,6 +9,8 @@ function PLUGIN:PlayerLoadedCharacter(ply, char, oldChar)
 end
 
 function PLUGIN:PlayerCanHearPlayersVoice(listener, talker)
+    if ( !ix.config.Get("allowVoice") ) then return end
+
     if ( !listener.ixAllowVoice ) then
         return false
     end
