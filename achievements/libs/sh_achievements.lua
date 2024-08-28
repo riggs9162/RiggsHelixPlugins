@@ -40,21 +40,50 @@ function ix.achievements:GetByIndex(index)
     return self.stored[index]
 end
 
+// Taken from my edit of the Helix Framework
+local function advancedSearch(a, b)
+    if (a and b) then
+        a = tostring(a)
+        b = tostring(b)
+        
+        local a2, b2 = a:utf8lower(), b:utf8lower()
+
+        -- Check if the actual letters match.
+        if (a == b) then return true end
+        if (a2 == b2) then return true end
+
+        -- Be less strict and search.
+        if (a:find(b)) then return true end
+        if (a2:find(b2)) then return true end
+
+        -- Take apart the strings into tables of words.
+        for _, v in ipairs(string.Explode("%s", a2, true)) do
+            for _, v2 in ipairs(string.Explode("%s", b2, true)) do
+                -- Now check if the words match.
+                if (ix.util.StringMatches(v, v2)) then
+                    return true
+                end
+            end
+        end
+    end
+
+    return false
+
 function ix.achievements:Get(identifier)
     for _, achievement in ipairs(self.stored) do
         if ( achievement.index == tonumber(identifier) ) then
             return achievement
         end
 
-        if ( ix.util.StringMatches(achievement.name, identifier) ) then
+        if ( advancedSearch(achievement.name, identifier) ) then
             return achievement
         end
 
-        if ( ix.util.StringMatches(achievement.icon, identifier) ) then
+        if ( advancedSearch(achievement.icon, identifier) ) then
             return achievement
         end
 
-        if ( ix.util.StringMatches(achievement.description, identifier) ) then
+        if ( advancedSearch(achievement.description, identifier) ) then
             return achievement
         end
     end
