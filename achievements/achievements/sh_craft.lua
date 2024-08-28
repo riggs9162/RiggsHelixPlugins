@@ -7,4 +7,4 @@ local achievement = {
     end
 }
 
-ix.achievements.Register(achievement)
+ix.achievements:Register(achievement)

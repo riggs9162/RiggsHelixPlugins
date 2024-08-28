@@ -23,7 +23,7 @@ Please keep in mind that this plugin requires you to have a basic understanding 
 
 ix.achievements = ix.achievements or {}
 
-ix.util.IncludeDir(PLUGIN.folder.."/libs/achievements", true)
+ix.util.IncludeDir(PLUGIN.folder .. "/achievements", true)
 
 ix.util.Include("cl_hooks.lua")
 ix.util.Include("sv_hooks.lua")

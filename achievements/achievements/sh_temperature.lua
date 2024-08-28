@@ -7,7 +7,7 @@ local achievement = {
     end
 }
 
-ix.achievements.Register(achievement)
+ix.achievements:Register(achievement)
 
 // hyperthermia
 achievement = {
@@ -18,4 +18,4 @@ achievement = {
     end
 }
 
-ix.achievements.Register(achievement)
+ix.achievements:Register(achievement)

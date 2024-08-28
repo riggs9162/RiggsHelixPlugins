@@ -7,7 +7,7 @@ local achievement = {
     end
 }
 
-ix.achievements.Register(achievement)
+ix.achievements:Register(achievement)
 
 // Kill a player with a headshot
 achievement = {
@@ -18,7 +18,7 @@ achievement = {
     end
 }
 
-ix.achievements.Register(achievement)
+ix.achievements:Register(achievement)
 
 // Kill a player with full health
 achievement = {
@@ -29,4 +29,4 @@ achievement = {
     end
 }
 
-ix.achievements.Register(achievement)
+ix.achievements:Register(achievement)
