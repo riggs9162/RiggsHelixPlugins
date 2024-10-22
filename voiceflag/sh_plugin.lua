@@ -14,11 +14,16 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
+ix.config.Add("giveOnCreate", false, "Whether or not to give the voice flag on character creation.", nil, {
+    category = "Voice Flag"
+})
+
 ix.flag.Add("v", "Access to voice chat.", function(ply, bGiven)
+    local playerTable = ply:GetTable()
     if ( bGiven ) then
-        ply.ixAllowVoice = true
+        playerTable.ixAllowVoice = true
     else
-        ply.ixAllowVoice = nil
+        playerTable.ixAllowVoice = nil
     end
 end)
 
