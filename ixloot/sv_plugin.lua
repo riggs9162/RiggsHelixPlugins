@@ -4,12 +4,12 @@ local PLUGIN = PLUGIN
 function PLUGIN:SearchLootContainer(ent, ply)
     if not ( ( ply.IsCombine and ply:IsCombine() ) or ( ply.IsDispatch and ply:IsDispatch() ) ) then
         if not ent.containerAlreadyUsed or ent.containerAlreadyUsed <= CurTime() then
-            if not ( ply.isEatingConsumeable == true ) then -- support for my plugin
-                local randomChance = math.random(1,20)
-                local randomAmountChance = math.random(1,3)
+            if not ( ply.isEatingConsumeable ) then -- support for my plugin
+                local randomChance = math.random(1, 20)
+                local randomAmountChance = math.random(1 ,3)
                 local lootAmount = 1
 
-                local randomLootItem = table.Random(PLUGIN.randomLoot.common)
+                local randomLootItem = self.randomLoot.common[math.random(1, #self.randomLoot.common)]
                 if ( randomAmountChance == 3 ) then
                     lootAmount = math.random(1,3)
                 else
@@ -21,11 +21,11 @@ function PLUGIN:SearchLootContainer(ent, ply)
                     ply:Freeze(false)
                     for i = 1, lootAmount do
                         if (randomChance == math.random(1,20)) then
-                            randomLootItem = table.Random(PLUGIN.randomLoot.rare)
+                            randomLootItem = self.randomLoot.rare[math.random(1, #self.randomLoot.rare)]
                             ply:ChatNotify("You have gained "..ix.item.Get(randomLootItem):GetName()..".")
                             ply:GetCharacter():GetInventory():Add(randomLootItem)
                         else
-                            randomLootItem = table.Random(PLUGIN.randomLoot.common)
+                            randomLootItem = self.randomLoot.common[math.random(1, #self.randomLoot.common)]
                             ply:ChatNotify("You have gained "..ix.item.Get(randomLootItem):GetName()..".")
                             ply:GetCharacter():GetInventory():Add(randomLootItem)
                         end
@@ -52,11 +52,11 @@ function PLUGIN:SearchLootContainer(ent, ply)
     end
 end
 
-function Schema:SpawnRandomLoot(position, rareItem)
-    local randomLootItem = table.Random(PLUGIN.randomLoot.common)
+function PLUGIN:SpawnRandomLoot(position, rareItem)
+    local randomLootItem = self.randomLoot.common[math.random(1, #self.randomLoot.common)]
 
-    if (rareItem == true) then
-        randomLootItem = table.Random(PLUGIN.randomLoot.rare)
+    if ( rareItem ) then
+        randomLootItem = self.randomLoot.rare[math.random(1, #self.randomLoot.rare)]
     end
 
     ix.item.Spawn(randomLootItem, position)
