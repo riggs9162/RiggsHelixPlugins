@@ -1,9 +1,9 @@
 local PLUGIN = PLUGIN
 
 PLUGIN.name = "Relations"
-PLUGIN.description = "Adds a system of relations between factions and NPCs."
+PLUGIN.description = "Handles NPC relations based on factions."
 PLUGIN.author = "Riggs"
-PLUGIN.schema = "Any"
+PLUGIN.schema = "HL2 RP"
 PLUGIN.license = [[
 Copyright 2024 Riggs
 
@@ -13,6 +13,19 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
+
+ix.config.Add("npcRelations", true, "Whether or not to enable NPC relations.", nil, {
+    category = PLUGIN.name
+})
+
+ix.config.Add("npcRelationsPriority", 0, "The priority of NPC relationships, which determines how strong the relationship is. Higher values mean stronger relationships.", nil, {
+    data = {
+        min = 0,
+        max = 100,
+        decimals = 0
+    },
+    category = PLUGIN.name
+})
 
 if ( CLIENT ) then
     return
@@ -60,86 +73,21 @@ local zombies = {
 
 PLUGIN.relations = {}
 
-if ( FACTION_CP ) then
-    PLUGIN.relations[FACTION_CP] = {
-        [D_HT] = antlions,
-        [D_HT] = zombies,
-        [D_LI] = combine,
-        [D_NU] = humans,
-    }
-end
+PLUGIN.relations[FACTION_CITIZEN] = {
+    [D_HT] = antlions,
+    [D_HT] = zombies,
+    [D_LI] = humans,
+    [D_NU] = combine,
+}
 
-if ( FACTION_TF ) then
-    PLUGIN.relations[FACTION_TF] = PLUGIN.relations[FACTION_CP]
-end
+PLUGIN.relations[FACTION_MPF] = {
+    [D_HT] = antlions,
+    [D_HT] = zombies,
+    [D_LI] = combine,
+    [D_NU] = humans,
+}
+PLUGIN.relations[FACTION_OTA] = PLUGIN.relations[FACTION_MPF]
+PLUGIN.relations[FACTION_ADMIN] = PLUGIN.relations[FACTION_MPF]
 
-if ( FACTION_STALKER ) then
-    PLUGIN.relations[FACTION_STALKER] = PLUGIN.relations[FACTION_CP]
-end
-
-if ( FACTION_CITIZEN ) then
-    PLUGIN.relations[FACTION_CITIZEN] = {
-        [D_HT] = antlions,
-        [D_HT] = zombies,
-        [D_LI] = humans,
-        [D_NU] = combine,
-    }
-end
-
-if ( FACTION_VORTIGAUNT ) then
-    PLUGIN.relations[FACTION_VORTIGAUNT] = {
-        [D_HT] = antlions,
-        [D_HT] = zombies,
-        [D_LI] = humans,
-        [D_NU] = combine,
-    }
-end
-
-if ( FACTION_ANTLION ) then
-    PLUGIN.relations[FACTION_ANTLION] = {
-        [D_HT] = combine,
-        [D_HT] = humans,
-        [D_HT] = zombies,
-        [D_LI] = antlions,
-    }
-end
-
-if ( FACTION_ZOMBIE ) then
-    PLUGIN.relations[FACTION_ZOMBIE] = {
-        [D_HT] = antlions,
-        [D_HT] = combine,
-        [D_HT] = humans,
-        [D_LI] = zombies,
-    }
-end
-
-function PLUGIN:OnSetRelationship(ply, ent, relationship)
-    if not ( IsValid(ent) and ent:IsNPC() ) then
-        return
-    end
-
-    local faction = ply:GetCharacter():GetFaction()
-    local relations = self.relations[faction]
-    if not ( relations ) then
-        return
-    end
-
-    if ( ply.IsCombine and ply:IsCombine() ) then
-        local find = string.find
-        local class = ent:GetClass()
-        local model = ent:GetModel()
-
-        if ( class == "npc_citizen" and ( find(model, "group02") or find(model, "group03") ) ) then
-            ent:AddEntityRelationship(ply, D_HT, 99)
-            return
-        end
-
-        if ( class == "npc_vortigaunt" and not find(model, "slave") ) then
-            ent:AddEntityRelationship(ply, D_HT, 99)
-            return
-        end
-    end
-end
-
+ix.util.Include("meta/sv_player.lua")
 ix.util.Include("sv_hooks.lua")
-ix.util.Include("sv_plugin.lua")
