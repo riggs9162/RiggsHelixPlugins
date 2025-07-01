@@ -8,25 +8,6 @@ If you like my work and want to support me you can do so by donating to Minerva 
 ## Installation
 To install these plugins you need to press the green "Code" button and select "Download ZIP". Once you've downloaded the zip file you need to open it, select the plugins you want to use and drag them into your Schema's "Plugins" folder. And that's it, you're done. You can now start your server and the plugins will be loaded. If you want to configure the plugins you can do so by editing the file itself or the sh_plugin.lua file in the respective plugin folder.
 
-## Faction Box
-Heavily inspired by the Synapse Faction Box. A relatively medium sized box will appear next to a player's head while looking at them, and if specified in a faction file it'll show an icon next to the character's name & faction name.
-
-Here is an example on how to implement an icon, just place this anywhere in your faction file.
-```lua
-FACTION.icon = "icon16/shield.png"
-```
-### Citizen
-Showing off how it would look without any icon.
-![image](https://github.com/user-attachments/assets/c3f38e01-b326-4db8-8484-f78f79cdd84c)
-
-### Civil Protection
-Example with a Civil Protection icon.
-![image](https://github.com/user-attachments/assets/0109d139-5085-488e-b6bc-55f5716f5d90)
-
-### Overwatch Transhuman Arm
-Example with a Overwatch Transhuman Arm icon.
-![image](https://github.com/user-attachments/assets/a0810d2e-ca5c-4385-87c8-8a9108e57707)
-
 ## User Interface Rework
 ### Main Menu
 A small rework of the default Main Menu from the Helix Framework.
