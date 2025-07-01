@@ -18,7 +18,7 @@ function PLUGIN:OnEntityCreated(entity)
 end
 
 function PLUGIN:ModifyNPCDisposition(ply, ent, relationship)
-    if ( !IsValid(ent) and ent:IsNPC() ) then return end
+    if ( !IsValid(ent) or !ent:IsNPC() ) then return end
 
     local faction = ply:GetCharacter():GetFaction()
     local relations = self.relations[faction]
