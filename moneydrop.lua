@@ -53,6 +53,6 @@ function PLUGIN:DoPlayerDeath(ply, inflicter, attacker)
         ent:SetAmount(charMoney)
         ent:Spawn()
 
-        char:SetMoney(0)                                 
+        char:SetMoney(0)
     end
 end

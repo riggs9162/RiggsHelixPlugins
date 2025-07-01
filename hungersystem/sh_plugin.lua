@@ -34,6 +34,8 @@ ix.command.Add("CharSetHunger", {
     arguments = {ix.type.character, bit.bor(ix.type.number, ix.type.optional)},
     adminOnly = true,
     OnRun = function(self, ply, char, level)
+        level = math.Clamp(level or 0, 0, 100)
+
         char:SetHunger(level or 0)
         ply:Notify(char:GetName() .. "'s hunger was set to " .. ( level or 0 ))
     end
@@ -45,6 +47,8 @@ ix.command.Add("PlySetHunger", {
     adminOnly = true,
     OnRun = function(self, ply, target, level)
         local char = target:GetCharacter()
+        level = math.Clamp(level or 0, 0, 100)
+
         char:SetHunger(level or 0)
         ply:Notify(target:SteamName() .. "'s hunger was set to " .. ( level or 0 ))
     end
