@@ -1,7 +1,7 @@
 local PLAYER = FindMetaTable("Player")
 
 function PLAYER:UpdateRelations(ply)
-    if ( ix.config.Get("npcRelations", false) ) then return end
+    if ( !ix.config.Get("npcRelations", false) ) then return end
 
     for k, v in ents.Iterator() do
         if ( !IsValid(v) or !v:IsNPC() ) then continue end
