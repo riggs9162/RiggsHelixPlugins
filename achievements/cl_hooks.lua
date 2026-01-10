@@ -8,17 +8,17 @@ end
 
 function PLUGIN:PopulateHelpMenu(tabs)
     local client = LocalPlayer()
-    local char = client:GetCharacter()
+    local character = client:GetCharacter()
 
     tabs["achievements"] = function(container)
         for k, v in ipairs(ix.achievements.stored) do
-            local bCompleted = ix.achievements.Completed(char, v.name)
+            local bCompleted = ix.achievements.Completed(character, v.name)
 
             local panel = container:Add("DPanel")
             panel:SetTall(ScreenScale(12) * 3)
             panel:Dock(TOP)
             panel:DockMargin(0, 0, 0, 8)
-            panel.Paint = function(self, width, height)
+            panel.Paint = function(_, width, height)
                 surface.SetDrawColor(0, 0, 0, 66)
                 surface.DrawRect(0, 0, width, height)
             end
@@ -29,7 +29,7 @@ function PLUGIN:PopulateHelpMenu(tabs)
             icon:Dock(LEFT)
             icon:DockMargin(0, 0, 8, 0)
             icon:SetSize(panel:GetTall(), panel:GetTall())
-            icon.Paint = function(self, width, height)
+            icon.Paint = function(_, width, height)
                 surface.SetDrawColor(color_white)
                 surface.SetMaterial(material)
                 surface.DrawTexturedRect(padding, padding, width - padding * 2, height - padding * 2)

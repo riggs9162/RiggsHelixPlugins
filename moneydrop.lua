@@ -30,21 +30,17 @@ if ( CLIENT ) then
 end
 
 function PLUGIN:DoPlayerDeath(client, inflicter, attacker)
-    if not ( ix.config.Get("moneyDrop") ) then
-        return
-    end
+    if ( !ix.config.Get("moneyDrop") ) then return end
 
-    local char = client:GetCharacter()
-    if not ( char ) then
-        return
-    end
+    local character = client:GetCharacter()
+    if ( !character ) then return end
 
-    local charMoney = char:GetMoney()
+    local charMoney = character:GetMoney()
     if ( ix.config.Get("moneyDropAmount") > 0 ) then
         charMoney = math.Clamp(charMoney, 0, ix.config.Get("moneyDropAmount"))
     end
 
-    if not ( charMoney == 0 ) then
+    if ( charMoney > 0 ) then
         local model, pos, ang = ix.currency.model, client:GetPos(), client:GetAngles()
         local ent = ents.Create("ix_money")
         ent:SetModel(model)
@@ -53,6 +49,6 @@ function PLUGIN:DoPlayerDeath(client, inflicter, attacker)
         ent:SetAmount(charMoney)
         ent:Spawn()
 
-        char:SetMoney(0)                                 
+        character:SetMoney(0)
     end
 end

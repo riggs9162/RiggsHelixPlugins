@@ -17,8 +17,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 -- use this plugin at your own risk, dont recommend it but ehh...
 
 if ( SERVER ) then
-    function PLUGIN:BeginRappel(client, char)
-        local movetype = client:GetMoveType()
+    function PLUGIN:BeginRappel(client, character)
         local pos = client:GetPos() + (client:GetForward() * 30)
         local trace = {}
         trace.start = pos
@@ -44,14 +43,14 @@ if ( SERVER ) then
             ent:CapabilitiesAdd(CAP_MOVE_GROUND)
 
             timer.Create("ixRappelCheck", 0.1, 0, function()
-                if ent:IsOnGround() then
+                if ( ent:IsOnGround() ) then
                     client:SetPos(ent:GetPos())
                     client:SetEyeAngles(Angle(0, ent:GetAngles().yaw, 0))
 
                     ent:EmitSound("npc/combine_soldier/zipline_hitground" .. math.random(1,2) .. ".wav", 80)
                     ent:Remove()
 
-                    timer.Destroy("ixRappelCheck")
+                    timer.Remove("ixRappelCheck")
 
                     client:Freeze(false)
                     client:SetNoDraw(false)
@@ -94,25 +93,25 @@ end
 ix.command.Add("Rappel", {
     description = "Rappel down a ledge.",
     OnRun = function(self, client)
-        if not ( client:IsCombine() ) then
+        if ( !client:IsCombine() ) then
             client:Notify("You are unable to use this!")
             return false
         end
 
-        if not ( client:OnGround() ) then
+        if ( !client:OnGround() ) then
             client:Notify("You can't rappel whilst falling.")
             return false
         end
 
-        if ( SERVER ) and PLUGIN.BeginRappel then
+        if ( SERVER and PLUGIN.BeginRappel ) then
             PLUGIN:BeginRappel(client)
         end
     end
 })
 
-if (CLIENT) then
+if ( CLIENT ) then
     function PLUGIN:CalcView(client, pos, angles, fov)
-        if ( client:GetLocalVar("ixRappelingEntity") and IsValid( client:GetLocalVar("ixRappelingEntity") ) ) then
+        if ( client:GetLocalVar("ixRappelingEntity") and IsValid(client:GetLocalVar("ixRappelingEntity") ) ) then
             local ent =  client:GetLocalVar("ixRappelingEntity")
             local view = {}
             view.origin = ent:EyePos() - (angles:Forward() * 50)

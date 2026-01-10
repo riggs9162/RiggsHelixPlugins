@@ -27,14 +27,8 @@ PLUGIN.wakeUpMessages = {
     "takes a deep breath, savoring the fresh feeling of a new beginning after a long nap."
 }
 
-function PLUGIN:PlayerLoadedCharacter(client, char, oldChar)
-    if not ( IsValid(client) ) then
-        return
-    end
-
-    if not ( char ) then
-        return
-    end
+function PLUGIN:PlayerLoadedCharacter(client, character, oldCharacter)
+    if ( !IsValid(client) or !character ) then return end
 
     local message = self.wakeUpMessages[math.random(#self.wakeUpMessages)]
     ix.chat.Send(client, "me", message)

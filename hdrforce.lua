@@ -18,16 +18,14 @@ if ( CLIENT ) then
     -- check if the player is pressing anything
     function PLUGIN:KeyPress()
         -- but dont run until we are actually playing
-        if ( vgui.CursorVisible() ) then
-            return
-        end
+        if ( vgui.CursorVisible() ) then return end
 
         local hdr = GetConVar("mat_hdr_level")
         if ( hdr:GetInt() != 2 ) then
             if ( IsValid(ix.gui.characterMenu) ) then
                 ix.gui.characterMenu:SetVisible(false)
             end
-    
+
             Derma_Query("This server requires you to enable HDR.", "Helix", "Ok!", function()
                 RunConsoleCommand("disconnect")
             end)

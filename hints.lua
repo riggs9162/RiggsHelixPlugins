@@ -78,13 +78,12 @@ if ( CLIENT ) then
 
     local nextHint = 0
     local hintEndRender = 0
-    local bInHint = false
     local hint = nil
     local hintShow = false
     local hintAlpha = 0
 
     function PLUGIN:HUDPaint()
-        if not ( ix.option.Get("hints", true) ) then return end
+        if ( !ix.option.Get("hints", true) ) then return end
 
         if ( nextHint < CurTime() ) then
             hint = ix.hints.stored[math.random(#ix.hints.stored)]
@@ -97,17 +96,13 @@ if ( CLIENT ) then
             end
         end
 
-        if not ( hint ) then return end
+        if ( !hint ) then return end
 
         if ( hintEndRender < CurTime() ) then
             hintShow = false
         end
 
-        if ( hintShow == true ) then
-            hintAlpha = Lerp(0.01, hintAlpha, 255)
-        else
-            hintAlpha = Lerp(0.01, hintAlpha, 0)
-        end
+        hintAlpha = Lerp(0.01, hintAlpha, hintShow == true and 255 or 0)
 
         if ( hintAlpha < 1 ) then return end
 

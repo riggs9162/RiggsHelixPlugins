@@ -45,7 +45,7 @@ local function advancedSearch(a, b)
     if (a and b) then
         a = tostring(a)
         b = tostring(b)
-        
+
         local a2, b2 = a:utf8lower(), b:utf8lower()
 
         -- Check if the actual letters match.
@@ -68,6 +68,7 @@ local function advancedSearch(a, b)
     end
 
     return false
+end
 
 function ix.achievements:Get(identifier)
     for _, achievement in ipairs(self.stored) do
@@ -90,22 +91,22 @@ function ix.achievements:Get(identifier)
 end
 
 if ( SERVER ) then
-    function ix.achievements:Complete(char, identifier)
+    function ix.achievements:Complete(character, identifier)
         local achievement = self:Get(identifier)
 
         if ( achievement ) then
-            local data = char:GetData("achievements", {})
+            local data = character:GetData("achievements", {})
             if ( !data[achievement.index] ) then
                 data[achievement.index] = true
 
                 if ( achievement.OnCompleted ) then
-                    achievement:OnCompleted(char:GetPlayer())
+                    achievement:OnCompleted(character:GetPlayer())
                 end
 
-                char:SetData("achievements", data)
-                char:Save()
+                character:SetData("achievements", data)
+                character:Save()
 
-                local client = char:GetPlayer()
+                local client = character:GetPlayer()
                 if ( IsValid(client) ) then
                     client:Notify("You have completed the following achievement \"" .. achievement.name .. "\"!")
                 end
@@ -116,11 +117,11 @@ if ( SERVER ) then
     end
 end
 
-function ix.achievements:Completed(char, identifier)
+function ix.achievements:Completed(character, identifier)
     local achievement = self:Get(identifier)
 
     if ( achievement ) then
-        local data = char:GetData("achievements", {})
+        local data = character:GetData("achievements", {})
         return data[achievement.index] or false
     else
         ErrorNoHaltWithStack("Attempt to check if an achievement is completed that doesn't exist!")
