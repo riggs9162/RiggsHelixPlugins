@@ -20,13 +20,8 @@ end
 
 -- couldve been better imo
 function PLUGIN:PlayerSwitchWeapon(client, oldWep, newWep)
-    if not ( IsValid(newWep) and newWep:GetClass() ) then
-        return
-    end
+    if ( !IsValid(newWep) or !newWep:GetClass() ) then return end
 
-    if ( ALWAYS_RAISED[newWep:GetClass()] ) then
-        return
-    end
-
+    if ( ALWAYS_RAISED[newWep:GetClass()] ) then return end
     ALWAYS_RAISED[newWep:GetClass()] = true
 end
