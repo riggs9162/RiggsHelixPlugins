@@ -22,7 +22,7 @@ function PANEL:Init()
             if not IsValid(self) then
                 return
             end
-            
+
             local data = util.JSONToTable(json)
 
             if not data["response"]["servers"] or not data["response"]["servers"][0] then
@@ -35,7 +35,7 @@ function PANEL:Init()
             if not IsValid(self) then
                 return
             end
-            
+
             self.ServerIsOff = false
         end)
     end)
@@ -170,7 +170,7 @@ function PANEL:PaintOver()
     draw.DrawText(":( Connection lost", "ixTitleFont", ScrW() / 2, 10, color_white, TEXT_ALIGN_CENTER)
 
     if self.ServerIsOff == nil then
-        draw.DrawText("Checking server status. .. ", "ixBigFont", ScrW() / 2, 130, color_white, TEXT_ALIGN_CENTER)
+        draw.DrawText("Checking server status...", "ixBigFont", ScrW() / 2, 130, color_white, TEXT_ALIGN_CENTER)
         return
     end
 
