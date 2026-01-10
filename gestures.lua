@@ -75,7 +75,7 @@ for k, v in ipairs(PLUGIN.gestures) do
     ix.command.Add("Gesture" .. v.command, {
         description = "Play the " .. commandname .. " gesture.",
         OnCanRun = function(_, client)
-            if client:IsFemale() then
+            if ( client:IsFemale() ) then
                 return "Female variants are not supported."
             end
         end,
