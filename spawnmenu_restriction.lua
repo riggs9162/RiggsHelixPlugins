@@ -16,13 +16,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 if ( CLIENT ) then
     function PLUGIN:OnSpawnMenuOpen()
-        if not ( LocalPlayer():GetCharacter():HasFlags("e") ) then
+        if ( !LocalPlayer():GetCharacter():HasFlags("e") ) then
             return false
         end
     end
 
     function PLUGIN:OnContextMenuOpen()
-        if not ( LocalPlayer():GetCharacter():HasFlags("e") ) then
+        if ( !LocalPlayer():GetCharacter():HasFlags("e") ) then
             return false
         end
     end
