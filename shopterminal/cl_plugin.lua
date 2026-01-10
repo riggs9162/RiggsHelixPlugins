@@ -1,11 +1,9 @@
-local PLUGIN = PLUGIN
-
 ix.command.Add("GetXPos", {
     description = "Get's your current X position and copies it.",
     adminOnly = true,
     OnRun = function(self, client)
         ix.util.Notify("Copied to Clipboard!")
-    
+
         local pos = LocalPlayer():GetPos()
         SetClipboardText(pos.x)
     end,
@@ -16,7 +14,7 @@ ix.command.Add("GetYPos", {
     adminOnly = true,
     OnRun = function(self, client)
         ix.util.Notify("Copied to Clipboard!")
-    
+
         local pos = LocalPlayer():GetPos()
         SetClipboardText(pos.y)
     end,
@@ -27,7 +25,7 @@ ix.command.Add("GetZPos", {
     adminOnly = true,
     OnRun = function(self, client)
         ix.util.Notify("Copied to Clipboard!")
-    
+
         local pos = LocalPlayer():GetPos()
         SetClipboardText(pos.z)
     end,
