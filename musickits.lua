@@ -211,7 +211,7 @@ ix.option.Add("musicKit", ix.type.array, "Default", {
 })
 
 concommand.Add("ix_reloadmusickits", function()
-    print("[Helix] Reloading music kits. .. ")
+    print("[Helix] Reloading music kits...")
     CUSTOM_MUSICKITS = {}
 
     GetMusicKits()
@@ -451,7 +451,7 @@ function PLUGIN:Think()
                 timer.Remove("ixMusicPassiveTrackTime")
                 currentPassive:FadeOut(6)
                 currentPassiveFading = true
-                DebugPrint("Fading out ambient to move to combat. .. ")
+                DebugPrint("Fading out ambient to move to combat...")
 
                 timer.Simple(6, function()
                     currentPassive:Stop()
@@ -469,13 +469,13 @@ function PLUGIN:Think()
             currentCombat:PlayEx(0, 100)
             currentCombat:ChangeVolume(ix.option.Get("musicCombatVol"), 6)
 
-            DebugPrint("Playing combat track. .. ")
+            DebugPrint("Playing combat track...")
 
             timer.Remove("ixMusicCombatTrackTime")
             timer.Create("ixMusicCombatTrackTime", l, 1, function()
                 if currentCombat then
                     currentCombat:Stop()
-                    DebugPrint("Stopping combat track (track complete). .. ")
+                    DebugPrint("Stopping combat track (track complete)...")
                 end
             end)
         end
@@ -486,7 +486,7 @@ function PLUGIN:Think()
             timer.Remove("ixMusicCombatTrackTime")
             currentCombat:ChangeVolume(0, 120)
             currentCombatFading = true
-            DebugPrint("Fading out combat to move to ambient. .. ")
+            DebugPrint("Fading out combat to move to ambient...")
 
             timer.Simple(8, function()
                 currentCombat:Stop()
@@ -506,13 +506,13 @@ function PLUGIN:Think()
         currentPassive:PlayEx(0, 100)
         currentPassive:ChangeVolume(ix.option.Get("musicAmbientVol"), 12)
 
-        DebugPrint("Playing ambient track. .. ")
+        DebugPrint("Playing ambient track...")
 
         timer.Remove("ixMusicPassiveTrackTime")
         timer.Create("ixMusicPassiveTrackTime", l, 1, function()
             if currentPassive then
                 currentPassive:Stop()
-                DebugPrint("Stopping ambient track (track complete). .. ")
+                DebugPrint("Stopping ambient track (track complete)...")
             end
         end)
     end
