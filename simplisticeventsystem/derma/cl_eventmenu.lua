@@ -208,7 +208,7 @@ function PANEL:Init()
             end
 
             if fileCount > fileLimit then
-                local newNode = node:AddNode("Click to load more files. .. ")
+                local newNode = node:AddNode("Click to load more files...")
                 newNode.Icon:SetImage("icon16/sound_add.png")
                 newNode.DoClick = function()
                     newNode:Remove()
