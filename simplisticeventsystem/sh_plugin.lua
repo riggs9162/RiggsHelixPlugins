@@ -20,7 +20,7 @@ if ( CLIENT ) then
     net.Receive("ixPlaySound", function(len, client)
         LocalPlayer():EmitSound(tostring(net.ReadString()), tonumber(net.ReadUInt(7)) or 100)
     end)
-    
+
     net.Receive("ixCreateVGUI", function(len, client)
         vgui.Create(tostring(net.ReadString()))
     end)
