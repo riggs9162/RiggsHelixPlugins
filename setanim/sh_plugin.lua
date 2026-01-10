@@ -7,6 +7,9 @@ PLUGIN.schema = "Any"
 
 PLUGIN.stored = PLUGIN.stored or {}
 
+-- again, what crack was i smoking when i wrote this???
+-- and for who???
+
 ix.command.Add("SetAnimClass", {
     description = "Set a model's animation class.",
     adminOnly = true,
