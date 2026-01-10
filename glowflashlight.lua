@@ -17,11 +17,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 if ( CLIENT ) then
     function PLUGIN:PostDrawOpaqueRenderables()
         local client = LocalPlayer()
-        if not ( client:GetNetVar("ixFlashlight") ) then
-            return
-        end
+        if ( !client:GetNetVar("flashlight") ) then return end
 
-        local flashlight = DynamicLight( client:EntIndex() )
+        local flashlight = DynamicLight(client:EntIndex())
         if ( flashlight ) then
             flashlight.pos = client:GetShootPos()
             flashlight.r = 255
@@ -37,22 +35,22 @@ end
 
 if ( SERVER ) then
     function PLUGIN:Initialize(client)
-        client:SetNetVar("ixFlashlight", false)
+        client:SetNetVar("flashlight", false)
     end
 
     function PLUGIN:PlayerSpawn(client)
-        client:SetNetVar("ixFlashlight", false)
+        client:SetNetVar("flashlight", false)
     end
 
     function PLUGIN:CharacterLoaded(character)
         local client = character:GetPlayer()
-        client:SetNetVar("ixFlashlight", false)
+        client:SetNetVar("flashlight", false)
     end
 
     function PLUGIN:PlayerSwitchFlashlight(client, enabled)
-        client:SetNetVar("ixFlashlight", !client:GetNetVar("ixFlashlight", false))
+        client:SetNetVar("flashlight", !client:GetNetVar("flashlight", false))
 
-        if ( client:GetNetVar("ixFlashlight", true) ) then
+        if ( client:GetNetVar("flashlight", true) ) then
             client:EmitSound("buttons/button24.wav", 60, 100)
         else
             client:EmitSound("buttons/button10.wav", 60, 70)
