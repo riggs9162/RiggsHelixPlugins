@@ -1,6 +1,6 @@
 local PLUGIN = PLUGIN
 
-function PLUGIN:OnNPCKilled(ent, ply)
+function PLUGIN:OnNPCKilled(ent, client)
     local config = self.config[ent:GetClass()]
 
     if not ( config and config.items ) then

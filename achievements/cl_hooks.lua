@@ -7,8 +7,8 @@ function PLUGIN:HelpMenuScroller(key)
 end
 
 function PLUGIN:PopulateHelpMenu(tabs)
-    local ply = LocalPlayer()
-    local char = ply:GetCharacter()
+    local client = LocalPlayer()
+    local char = client:GetCharacter()
 
     tabs["achievements"] = function(container)
         for k, v in ipairs(ix.achievements.stored) do

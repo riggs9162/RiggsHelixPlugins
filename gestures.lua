@@ -50,11 +50,11 @@ PLUGIN.gestures = { -- Mainly for the citizen_male models, or models that includ
     --{gesture = "hg_nod_right", command = "HeadRight", id = 1473},
 }
 
-function PLUGIN:DoAnimationEvent(ply, event, data)
+function PLUGIN:DoAnimationEvent(client, event, data)
     if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
         for k, v in ipairs(self.gestures) do
             if ( data == v.id ) then
-                ply:AddVCDSequenceToGestureSlot(GESTURE_SLOT_CUSTOM, ply:LookupSequence(v.gesture), 0, true)
+                client:AddVCDSequenceToGestureSlot(GESTURE_SLOT_CUSTOM, client:LookupSequence(v.gesture), 0, true)
 
                 return ACT_INVALID
             end
@@ -68,20 +68,20 @@ for k, v in ipairs(PLUGIN.gestures) do
     commandname = string.Replace(commandname, "antman_", "")
     commandname = string.Replace(commandname, "_", " ")
 
-    concommand.Add("ix_act_"..v.command, function(ply, cmd, args)
-        ply:DoAnimationEvent(v.id)
+    concommand.Add("ix_act_"..v.command, function(client, cmd, args)
+        client:DoAnimationEvent(v.id)
     end)
 
     ix.command.Add("Gesture"..v.command, {
         description = "Play the "..commandname.." gesture.",
-        OnCanRun = function(_, ply)
-            if ply:IsFemale() then
+        OnCanRun = function(_, client)
+            if client:IsFemale() then
                 return "Female variants are not supported."
             end
         end,
-        OnRun = function(_, ply)
+        OnRun = function(_, client)
             if ( SERVER ) then
-                ply:ConCommand("ix_act_"..v.command)
+                client:ConCommand("ix_act_"..v.command)
             end
         end
     })
@@ -94,12 +94,12 @@ if ( SERVER ) then
         ["y"] = true,
     }
 
-    function PLUGIN:PrePlayerMessageSend(ply, chatType, message, bAnonymous)
+    function PLUGIN:PrePlayerMessageSend(client, chatType, message, bAnonymous)
         if ( allowedChatTypes[chatType] ) then
             if ( message:find("!") ) then
-                ply:ConCommand("ix_act_fistswing")
+                client:ConCommand("ix_act_fistswing")
             elseif ( message:find("?") ) then
-                ply:ConCommand("ix_act_what")
+                client:ConCommand("ix_act_what")
             end
         end
     end

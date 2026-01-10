@@ -89,8 +89,8 @@ net.Receive("ixScannerData", function()
     CURRENT_PHOTO = panel
 end)
 
-concommand.Add("ix_scanner_photocache", function(ply)
-    if ply:IsCombine() then
+concommand.Add("ix_scanner_photocache", function(client)
+    if client:IsCombine() then
         local frame = vgui.Create("DFrame")
         frame:SetTitle("Photo Cache")
         frame:SetSize(480, 360)
@@ -121,7 +121,7 @@ concommand.Add("ix_scanner_photocache", function(ply)
             end
         end
     else
-        ply:Notify("Only Combine Players can view the scanner photo cache!")
+        client:Notify("Only Combine Players can view the scanner photo cache!")
         return false
     end
 end)

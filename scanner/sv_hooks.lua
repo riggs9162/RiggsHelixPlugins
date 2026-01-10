@@ -15,8 +15,8 @@ local SCANNER_SOUNDS = {
     "npc/scanner/cbot_servochatter.wav",
 }
 
-function PLUGIN:createScanner(ply, isClawScanner)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:createScanner(client, isClawScanner)
+    if (IsValid(client.ixScn)) then
         return
     end
 
@@ -26,95 +26,95 @@ function PLUGIN:createScanner(ply, isClawScanner)
     end
 
     for _, scanner in ipairs(ents.FindByClass("ix_scanner")) do
-        if (scanner:GetPilot() == ply) then
+        if (scanner:GetPilot() == client) then
             scanner:SetPilot(NULL)
         end
     end
     
-    entity:SetPos(ply:GetPos())
-    entity:SetAngles(ply:GetAngles())
-    entity:SetColor(ply:GetColor())
+    entity:SetPos(client:GetPos())
+    entity:SetAngles(client:GetAngles())
+    entity:SetColor(client:GetColor())
     entity:Spawn()
     entity:Activate()
-    entity:setPilot(ply)
+    entity:setPilot(client)
 
     if (isClawScanner) then
         entity:setClawScanner()
     end
 
     -- Draw the player info when looking at the scanner.
-    entity:SetNetVar("player", ply)
-    ply.ixScn = entity
+    entity:SetNetVar("player", client)
+    client.ixScn = entity
 
     return entity
 end
 
-function PLUGIN:PlayerSpawn(ply)
-    if (IsValid(ply.ixScn)) then
-        ply.ixScn.noRespawn = true
-        ply.ixScn.spawn = ply:GetPos()
-        ply.ixScn:Remove()
-        ply.ixScn = nil
-        ply:SetViewEntity(NULL)
+function PLUGIN:PlayerSpawn(client)
+    if (IsValid(client.ixScn)) then
+        client.ixScn.noRespawn = true
+        client.ixScn.spawn = client:GetPos()
+        client.ixScn:Remove()
+        client.ixScn = nil
+        client:SetViewEntity(NULL)
     end
 end
 
-function PLUGIN:DoPlayerDeath(ply)
-    if (IsValid(ply.ixScn)) then
-        ply:AddDeaths(1)
+function PLUGIN:DoPlayerDeath(client)
+    if (IsValid(client.ixScn)) then
+        client:AddDeaths(1)
         return false -- Suppress ragdoll creation.
     end
 end
 
-function PLUGIN:PlayerDeath(ply)
-    if (IsValid(ply.ixScn) and ply.ixScn.health > 0) then
-        ply.ixScn:die()
-        ply.ixScn = nil
+function PLUGIN:PlayerDeath(client)
+    if (IsValid(client.ixScn) and client.ixScn.health > 0) then
+        client.ixScn:die()
+        client.ixScn = nil
     end
 end
 
-function PLUGIN:KeyPress(ply, key)
-    if (IsValid(ply.ixScn) and (ply.ixScnSoundDelay or 0) < CurTime()) then
+function PLUGIN:KeyPress(client, key)
+    if (IsValid(client.ixScn) and (client.ixScnSoundDelay or 0) < CurTime()) then
         local source
 
         if (key == IN_USE) then
             source = table.Random(SCANNER_SOUNDS)
-            ply.ixScnSoundDelay = CurTime() + 1.75
+            client.ixScnSoundDelay = CurTime() + 1.75
         elseif (key == IN_RELOAD) then
             source = "npc/scanner/scanner_talk"..math.random(1, 2)..".wav"
-            ply.ixScnSoundDelay = CurTime() + 8
+            client.ixScnSoundDelay = CurTime() + 8
         elseif (key == IN_DUCK) then
-            if (ply:GetViewEntity() == ply.ixScn) then
-                ply:SetViewEntity(NULL)
+            if (client:GetViewEntity() == client.ixScn) then
+                client:SetViewEntity(NULL)
             else
-                ply:SetViewEntity(ply.ixScn)
+                client:SetViewEntity(client.ixScn)
             end
         end
 
         if (source) then
-            ply.ixScn:EmitSound(source)
+            client.ixScn:EmitSound(source)
         end
     end
 end
 
-function PLUGIN:PlayerNoClip(ply)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PlayerNoClip(client)
+    if (IsValid(client.ixScn)) then
         return false
     end
 end
 
-function PLUGIN:PlayerUse(ply, entity)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PlayerUse(client, entity)
+    if (IsValid(client.ixScn)) then
         return false
     end
 end
 
-function PLUGIN:CanPlayerReceiveScan(ply, photographer)
-    return ply:IsCombine() or ply:IsDispatch()
+function PLUGIN:CanPlayerReceiveScan(client, photographer)
+    return client:IsCombine() or client:IsDispatch()
 end
 
-function PLUGIN:PlayerSwitchFlashlight(ply, enabled)
-    local scanner = ply.ixScn
+function PLUGIN:PlayerSwitchFlashlight(client, enabled)
+    local scanner = client.ixScn
     if (not IsValid(scanner)) then return end
 
     if ((scanner.nextLightToggle or 0) >= CurTime()) then return false end
@@ -133,59 +133,59 @@ function PLUGIN:PlayerSwitchFlashlight(ply, enabled)
     return false
 end
 
-function PLUGIN:PlayerCanPickupWeapon(ply, weapon)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PlayerCanPickupWeapon(client, weapon)
+    if (IsValid(client.ixScn)) then
         return false
     end
 end
 
-function PLUGIN:PlayerDropItem(ply, item)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PlayerDropItem(client, item)
+    if (IsValid(client.ixScn)) then
         return false
     end
 end
 
-function PLUGIN:PlayerEquipItem(ply, item)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PlayerEquipItem(client, item)
+    if (IsValid(client.ixScn)) then
         return false
     end
 end
 
-function PLUGIN:PlayerCanInteractItem(ply, item)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PlayerCanInteractItem(client, item)
+    if (IsValid(client.ixScn)) then
         return false
     end
 end
 
-function PLUGIN:PlayerCanTakeItem(ply, item)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PlayerCanTakeItem(client, item)
+    if (IsValid(client.ixScn)) then
         return false
     end
 end
 
-function PLUGIN:PlayerCanUnequipItem(ply, item)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PlayerCanUnequipItem(client, item)
+    if (IsValid(client.ixScn)) then
         return false
     end
 end
 
-function PLUGIN:PlayerFootstep(ply)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PlayerFootstep(client)
+    if (IsValid(client.ixScn)) then
         return true
     end
 end
 
-function PLUGIN:PostPlayerSay(ply, chatType, message, anonymous)
-    if (IsValid(ply.ixScn)) then
+function PLUGIN:PostPlayerSay(client, chatType, message, anonymous)
+    if (IsValid(client.ixScn)) then
         if (chatType == "ic" or chatType == "w" or chatType == "y") then
             return true -- Scanners cant talk!
         end
     end
 end
 
-function PLUGIN:PlayerJoinedClass(ply, class)
+function PLUGIN:PlayerJoinedClass(client, class)
     if not (class == CLASS_SCANNER) then return end
-    if (IsValid(ply.ixScn)) then
-        ply:Spawn()
+    if (IsValid(client.ixScn)) then
+        client:Spawn()
     end
 end

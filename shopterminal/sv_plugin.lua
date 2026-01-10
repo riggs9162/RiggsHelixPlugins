@@ -4,16 +4,16 @@ util.AddNetworkString("ixShopTerminal.Open")
 util.AddNetworkString("ixShopTerminal.Close")
 util.AddNetworkString("ixShopTerminal.Checkout")
 
-net.Receive("ixShopTerminal.Close", function(len, ply)
-    if not ( IsValid(ply) and IsValid(ply:GetEyeTrace().Entity) and ply:GetEyeTrace().Entity:GetClass() == "ix_shopterminal" ) then
+net.Receive("ixShopTerminal.Close", function(len, client)
+    if not ( IsValid(client) and IsValid(client:GetEyeTrace().Entity) and client:GetEyeTrace().Entity:GetClass() == "ix_shopterminal" ) then
         return
     end
-    ply:GetEyeTrace().Entity:SetNetVar("InUse", false)
+    client:GetEyeTrace().Entity:SetNetVar("InUse", false)
 end)
 
-net.Receive("ixShopTerminal.Checkout", function(len, ply)
-    local char = ply:GetCharacter()
-    if not ( IsValid(ply) and char and char:GetClass() == PLUGIN.cwuClass or CLASS_CWU ) then
+net.Receive("ixShopTerminal.Checkout", function(len, client)
+    local char = client:GetCharacter()
+    if not ( IsValid(client) and char and char:GetClass() == PLUGIN.cwuClass or CLASS_CWU ) then
         return
     end
 
@@ -55,7 +55,7 @@ net.Receive("ixShopTerminal.Checkout", function(len, ply)
 
     if ( char:HasMoney(cost) ) then
         char:TakeMoney(cost)
-        ply:Notify(ix.config.Get("shipmentDeliverMessage"))
+        client:Notify(ix.config.Get("shipmentDeliverMessage"))
 
         // this might be messy and horrid, but meh. in the future i will find a better way..
         local deliverPos = Vector(tonumber(ix.config.Get("shipmentDeliverPositionXValue")), tonumber(ix.config.Get("shipmentDeliverPositionYValue")), tonumber(ix.config.Get("shipmentDeliverPositionZValue")))
@@ -70,7 +70,7 @@ net.Receive("ixShopTerminal.Checkout", function(len, ply)
         table.insert(shipments, entity)
         char:SetVar("charEnts", shipments, true)
 
-		hook.Run("CreateShipment", ply, entity)
+		hook.Run("CreateShipment", client, entity)
     else
         ix.util.Notify("You do not have enough "..ix.currency.plural.." to buy your cart!")
     end

@@ -33,36 +33,36 @@ ix.config.Add("takeDelay", 1, "The Delay of taking items in seconds.", nil, {
 })
 
 if ( SERVER ) then
-    function PLUGIN:PlayerInteractItem(ply, action, item)
+    function PLUGIN:PlayerInteractItem(client, action, item)
         if ( action == "drop" ) then
-            ply.dropDelay = true
+            client.dropDelay = true
             
-            timer.Create("ixDropDelay."..ply:SteamID64(), ix.config.Get("dropDelay", 1), 1, function()
-                if ( IsValid(ply) ) then
-                    ply.dropDelay = nil
+            timer.Create("ixDropDelay."..client:SteamID64(), ix.config.Get("dropDelay", 1), 1, function()
+                if ( IsValid(client) ) then
+                    client.dropDelay = nil
                 end
             end)
         elseif ( action == "take" ) then
-            ply.takeDelay = true
+            client.takeDelay = true
 
-            timer.Create("ixTakeDelay."..ply:SteamID64(), ix.config.Get("takeDelay", 1), 1, function()
-                if ( IsValid(ply) ) then
-                    ply.takeDelay = nil
+            timer.Create("ixTakeDelay."..client:SteamID64(), ix.config.Get("takeDelay", 1), 1, function()
+                if ( IsValid(client) ) then
+                    client.takeDelay = nil
                 end
             end)
         end
     end
 
-    function PLUGIN:CanPlayerDropItem(ply)
-        if ( ply.dropDelay ) then
-            ply:Notify("You need to wait before dropping something again!")
+    function PLUGIN:CanPlayerDropItem(client)
+        if ( client.dropDelay ) then
+            client:Notify("You need to wait before dropping something again!")
             return false
         end
     end
 
-    function PLUGIN:CanPlayerTakeItem(ply)
-        if ( ply.takeDelay ) then
-            ply:Notify("You need to wait before picking something up again!")
+    function PLUGIN:CanPlayerTakeItem(client)
+        if ( client.takeDelay ) then
+            client:Notify("You need to wait before picking something up again!")
             return false
         end
     end

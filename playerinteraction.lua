@@ -20,34 +20,34 @@ PLUGIN.interactions = {
     ["search"] = {
         name = "Search",
         description = "Search the tied character infront of you.",
-        check = function(ply, target)
+        check = function(client, target)
             if not ( IsValid(target) and target:IsPlayer() and target:GetCharacter() and target:IsRestricted() ) then return false end
-            if ( ply:IsRestricted() ) then return false end
+            if ( client:IsRestricted() ) then return false end
     
             return true
         end,
-        action = function(ply, target)
-            Schema:SearchPlayer(ply, target)
+        action = function(client, target)
+            Schema:SearchPlayer(client, target)
         end,
     },
     ["untie"] = {
         name = "Untie",
         description = "Untie the tied character infront of you.",
-        check = function(ply, target)
+        check = function(client, target)
             if not ( IsValid(target) and target:IsPlayer() and target:GetCharacter() and target:IsRestricted() ) then return end
             if ( target:GetNetVar("untying") ) then return end
-            if ( ply:IsRestricted() ) then return end
+            if ( client:IsRestricted() ) then return end
     
             return true
         end,
-        action = function(ply, target)
+        action = function(client, target)
             target:SetRestricted(false)
             target:SetAction("You are being untied...", 5)
             target:SetNetVar("untying", true)
     
-            ply:SetAction("Untying...", 5)
+            client:SetAction("Untying...", 5)
     
-            ply:DoStaredAction(target, function()
+            client:DoStaredAction(target, function()
                 target:SetRestricted(false)
                 target:SetNetVar("untying")
             end, 5, function()
@@ -56,8 +56,8 @@ PLUGIN.interactions = {
                     target:SetAction()
                 end
     
-                if ( IsValid(ply) ) then
-                    ply:SetAction()
+                if ( IsValid(client) ) then
+                    client:SetAction()
                 end
             end)
         end,
@@ -65,13 +65,13 @@ PLUGIN.interactions = {
     ["recognise"] = {
         name = "Recognise",
         description = "Recognise the player infront of you.",
-        check = function(ply, target)
+        check = function(client, target)
             if not ( IsValid(target) and target:IsPlayer() and target:GetCharacter() ) then return end
     
             return true
         end,
-        action = function(ply, target)
-            target:GetCharacter():Recognize(ply:GetCharacter():GetID()) -- not sure if this actually works or not...
+        action = function(client, target)
+            target:GetCharacter():Recognize(client:GetCharacter():GetID()) -- not sure if this actually works or not...
         end,
     },
 }
@@ -144,12 +144,12 @@ if ( CLIENT ) then
 else
     util.AddNetworkString("ixInteraction")
 
-    net.Receive("ixInteraction", function(len, ply)
+    net.Receive("ixInteraction", function(len, client)
         local interaction = net.ReadString()
         local target = net.ReadEntity()
 
-        if ( PLUGIN.interactions[interaction] and PLUGIN.interactions[interaction].check(ply, target) ) then
-            PLUGIN.interactions[interaction].action(ply, target)
+        if ( PLUGIN.interactions[interaction] and PLUGIN.interactions[interaction].check(client, target) ) then
+            PLUGIN.interactions[interaction].action(client, target)
         end
     end)
 end

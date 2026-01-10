@@ -14,12 +14,12 @@ ITEM.functions.Consume = {
     icon = "icon16/user.png",
     name = "Consume",
     OnRun = function(item)
-        local ply = item.player
+        local client = item.player
         local char = item.player:GetCharacter()
         local actiontext = "Invalid Action"
 
-        if ( ply.isEatingConsumeable == true ) then
-            ply:Notify("You can't stuff too much food in your mouth, bruh.") -- bruh
+        if ( client.isEatingConsumeable == true ) then
+            client:Notify("You can't stuff too much food in your mouth, bruh.") -- bruh
             return false
         end
 
@@ -31,14 +31,14 @@ ITEM.functions.Consume = {
             end
         end
 
-        local function EatFunction(ply, char)
-            if not ( ply:IsValid() and ply:Alive() and char ) then return end
+        local function EatFunction(client, char)
+            if not ( client:IsValid() and client:Alive() and char ) then return end
     
             if ( item.useSound ) then
                 if ( istable(item.useSound) ) then
-                    ply:EmitSound(table.Random(item.useSound))
+                    client:EmitSound(table.Random(item.useSound))
                 else
-                    ply:EmitSound(item.useSound)
+                    client:EmitSound(item.useSound)
                 end
             end
     
@@ -48,14 +48,14 @@ ITEM.functions.Consume = {
         end
 
         if ( item.useTime ) then
-            ply.isEatingConsumeable = true
-            ply:SetAction(actiontext, item.useTime, function()
-                EatFunction(ply, char)
+            client.isEatingConsumeable = true
+            client:SetAction(actiontext, item.useTime, function()
+                EatFunction(client, char)
 
-                ply.isEatingConsumeable = false
+                client.isEatingConsumeable = false
             end)
         else
-            EatFunction(ply, char)
+            EatFunction(client, char)
         end
     end
 }

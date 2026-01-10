@@ -3,7 +3,7 @@ local achievement = {
     name = "Hypothermia",
     description = "Get hypothermia.",
     icon = "minerva/halflife2/icons/lambda.png",
-    OnCompleted = function(ply)
+    OnCompleted = function(client)
     end
 }
 
@@ -14,7 +14,7 @@ achievement = {
     name = "Hyperthermia",
     description = "Get hyperthermia.",
     icon = "minerva/halflife2/icons/lambda.png",
-    OnCompleted = function(ply)
+    OnCompleted = function(client)
     end
 }
 

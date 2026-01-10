@@ -28,17 +28,17 @@ ix.command.Add("CharSetDescription", {
         ix.type.character,
         bit.bor(ix.type.text, ix.type.optional)
     },
-    OnRun = function(self, ply, target, newDescription)
+    OnRun = function(self, client, target, newDescription)
         // display string request panel if no description was specified
         if ( newDescription:len() == 0 ) then
-            return ply:RequestString("@chgDescription", "@chgDescriptionDesc", function(text)
-                ix.command.Run(ply, "CharSetDescription", {target:GetName(), text})
+            return client:RequestString("@chgDescription", "@chgDescriptionDesc", function(text)
+                ix.command.Run(client, "CharSetDescription", {target:GetName(), text})
             end, target:GetName())
         end
 
         for _, v in player.Iterator() do
             if ( self:OnCheckAccess(v) or v == target:GetPlayer() ) then
-                v:NotifyLocalized("cChangeDescription", ply:GetName(), target:GetName(), newDescription)
+                v:NotifyLocalized("cChangeDescription", client:GetName(), target:GetName(), newDescription)
             end
         end
 

@@ -34,15 +34,15 @@ local blackAndWhite = {
     ["$pp_colour_mulb"] = 0
 }
 
-function PLUGIN:CalcView(ply, origin, angles, fov)
+function PLUGIN:CalcView(client, origin, angles, fov)
     if not ix then return end
-    if (ply:GetCharacter():GetClass() == CLASS_SCANNER) and (IsValid(ix.gui.menu) or IsValid(ix.gui.characterMenu)) then return false end
+    if (client:GetCharacter():GetClass() == CLASS_SCANNER) and (IsValid(ix.gui.menu) or IsValid(ix.gui.characterMenu)) then return false end
     if (LocalPlayer():GetNetVar("curCamera", false) or LocalPlayer():GetNetVar("curVisor", false)) then return end -- Compatibility with my Dispatch Plugin.
-    local entity = ply:GetViewEntity()
+    local entity = client:GetViewEntity()
 
-    if (IsValid(ply) and (ply:GetCharacter():GetClass() == CLASS_SCANNER)) then
+    if (IsValid(client) and (client:GetCharacter():GetClass() == CLASS_SCANNER)) then
         if not (input.IsKeyDown(KEY_C)) then
-            view.angles = ply:GetAimVector():Angle()
+            view.angles = client:GetAimVector():Angle()
             if (hidden) then
                 view.fov = fov - deltaZoom
             else
@@ -52,7 +52,7 @@ function PLUGIN:CalcView(ply, origin, angles, fov)
             if (hidden) then
                 if (math.abs(deltaZoom - zoom) > 5 and nextClick < RealTime()) then
                     nextClick = RealTime() + 0.05
-                    ply:EmitSound("common/talk.wav", 50, 180)
+                    client:EmitSound("common/talk.wav", 50, 180)
                 end
             end
 
@@ -183,7 +183,7 @@ function PLUGIN:RenderScreenspaceEffects()
     DrawColorModify(blackAndWhite)
 end
 
-function PLUGIN:PlayerBindPress(ply, bind, pressed)
+function PLUGIN:PlayerBindPress(client, bind, pressed)
     bind = bind:lower()
     if (bind:find("attack") and
         pressed and

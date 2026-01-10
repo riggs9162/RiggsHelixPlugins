@@ -1,25 +1,25 @@
 local PLUGIN = PLUGIN
 
-function PLUGIN:CalcMainActivity(ply, vel)
-    if ( IsValid(ply) and not ply:IsWepRaised() ) then
-        if not ( ply:IsOnGround() ) then
+function PLUGIN:CalcMainActivity(client, vel)
+    if ( IsValid(client) and not client:IsWepRaised() ) then
+        if not ( client:IsOnGround() ) then
             return
         end
 
-        if not ( IsValid(ply:GetActiveWeapon()) ) then
+        if not ( IsValid(client:GetActiveWeapon()) ) then
             return
         end
 
-        if not ( self.moodAffectedWeapons[ply:GetActiveWeapon():GetClass()] ) then
+        if not ( self.moodAffectedWeapons[client:GetActiveWeapon():GetClass()] ) then
             return
         end
         
-        local char = ply:GetCharacter()
+        local char = client:GetCharacter()
         if not ( char ) then
             return
         end
 
-        local class = ix.anim.GetModelClass(ply:GetModel())
+        local class = ix.anim.GetModelClass(client:GetModel())
         local moodData = self.moods[class]
         if not ( moodData ) then
             return
@@ -30,16 +30,16 @@ function PLUGIN:CalcMainActivity(ply, vel)
             return
         end
 
-        moodData = moodData[ply.CalcIdeal]
+        moodData = moodData[client.CalcIdeal]
         if not ( moodData ) then
             return
         end
 
         local sequence = moodData
-        if not ( ply:LookupSequence(sequence) ) then
+        if not ( client:LookupSequence(sequence) ) then
             return
         end
 
-        ply.CalcSeqOverride = ply:LookupSequence(sequence) or ply.CalcSeqOverride
+        client.CalcSeqOverride = client:LookupSequence(sequence) or client.CalcSeqOverride
     end
 end

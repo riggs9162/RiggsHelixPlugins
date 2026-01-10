@@ -19,7 +19,7 @@ if ( CLIENT ) then
 end
 
 // couldve been better imo
-function PLUGIN:PlayerSwitchWeapon(ply, oldWep, newWep)
+function PLUGIN:PlayerSwitchWeapon(client, oldWep, newWep)
     if not ( IsValid(newWep) and newWep:GetClass() ) then
         return
     end

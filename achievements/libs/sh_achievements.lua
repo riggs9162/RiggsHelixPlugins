@@ -105,9 +105,9 @@ if ( SERVER ) then
                 char:SetData("achievements", data)
                 char:Save()
 
-                local ply = char:GetPlayer()
-                if ( IsValid(ply) ) then
-                    ply:Notify("You have completed the following achievement \"" .. achievement.name .. "\"!")
+                local client = char:GetPlayer()
+                if ( IsValid(client) ) then
+                    client:Notify("You have completed the following achievement \"" .. achievement.name .. "\"!")
                 end
             end
         else

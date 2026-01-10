@@ -163,9 +163,9 @@ function PANEL:Close()
 end
 
 function PANEL:Think()
-    local ply = LocalPlayer()
+    local client = LocalPlayer()
 
-    if not ( IsValid(ply) and IsValid(ply:GetEyeTrace().Entity) and ply:GetEyeTrace().Entity:GetClass() == "ix_shopterminal" ) then
+    if not ( IsValid(client) and IsValid(client:GetEyeTrace().Entity) and client:GetEyeTrace().Entity:GetClass() == "ix_shopterminal" ) then
         self:Close()
     end
 end

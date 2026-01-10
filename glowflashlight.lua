@@ -16,14 +16,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 if ( CLIENT ) then
     function PLUGIN:PostDrawOpaqueRenderables()
-        local ply = LocalPlayer()
-        if not ( ply:GetNetVar("ixFlashlight") ) then
+        local client = LocalPlayer()
+        if not ( client:GetNetVar("ixFlashlight") ) then
             return
         end
 
-        local flashlight = DynamicLight( ply:EntIndex() )
+        local flashlight = DynamicLight( client:EntIndex() )
         if ( flashlight ) then
-            flashlight.pos = ply:GetShootPos()
+            flashlight.pos = client:GetShootPos()
             flashlight.r = 255
             flashlight.g = 255
             flashlight.b = 255
@@ -36,26 +36,26 @@ if ( CLIENT ) then
 end
 
 if ( SERVER ) then
-    function PLUGIN:Initialize(ply)
-        ply:SetNetVar("ixFlashlight", false)
+    function PLUGIN:Initialize(client)
+        client:SetNetVar("ixFlashlight", false)
     end
 
-    function PLUGIN:PlayerSpawn(ply)
-        ply:SetNetVar("ixFlashlight", false)
+    function PLUGIN:PlayerSpawn(client)
+        client:SetNetVar("ixFlashlight", false)
     end
 
     function PLUGIN:CharacterLoaded(character)
-        local ply = character:GetPlayer()
-        ply:SetNetVar("ixFlashlight", false)
+        local client = character:GetPlayer()
+        client:SetNetVar("ixFlashlight", false)
     end
 
-    function PLUGIN:PlayerSwitchFlashlight(ply, enabled)
-        ply:SetNetVar("ixFlashlight", !ply:GetNetVar("ixFlashlight", false))
+    function PLUGIN:PlayerSwitchFlashlight(client, enabled)
+        client:SetNetVar("ixFlashlight", !client:GetNetVar("ixFlashlight", false))
 
-        if ( ply:GetNetVar("ixFlashlight", true) ) then
-            ply:EmitSound("buttons/button24.wav", 60, 100)
+        if ( client:GetNetVar("ixFlashlight", true) ) then
+            client:EmitSound("buttons/button24.wav", 60, 100)
         else
-            ply:EmitSound("buttons/button10.wav", 60, 70)
+            client:EmitSound("buttons/button10.wav", 60, 70)
         end
 
         return false

@@ -50,17 +50,17 @@ ix.command.Add("SetMood", {
     arguments = {
         ix.type.number,
     },
-    OnCanRun = function(self, ply, moodType)
-        local moodData = PLUGIN.moods[ix.anim.GetModelClass(ply:GetModel())]
+    OnCanRun = function(self, client, moodType)
+        local moodData = PLUGIN.moods[ix.anim.GetModelClass(client:GetModel())]
         return moodData and moodType <= #moodData
     end,
-    OnRun = function(self, ply, moodType)
-        if not ( ply:GetCharacter() ) then
+    OnRun = function(self, client, moodType)
+        if not ( client:GetCharacter() ) then
             return
         end
         
-        ply:GetCharacter():SetMood(moodType)
-        ply:Notify("You set your character's mood type to "..moodType.."!")
+        client:GetCharacter():SetMood(moodType)
+        client:Notify("You set your character's mood type to "..moodType.."!")
     end,
 })
 

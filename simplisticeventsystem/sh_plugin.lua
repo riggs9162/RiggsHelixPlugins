@@ -17,11 +17,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ix.util.Include("sv_plugin.lua")
 
 if ( CLIENT ) then
-    net.Receive("ixPlaySound", function(len, ply)
+    net.Receive("ixPlaySound", function(len, client)
         LocalPlayer():EmitSound(tostring(net.ReadString()), tonumber(net.ReadUInt(7)) or 100)
     end)
     
-    net.Receive("ixCreateVGUI", function(len, ply)
+    net.Receive("ixCreateVGUI", function(len, client)
         vgui.Create(tostring(net.ReadString()))
     end)
 

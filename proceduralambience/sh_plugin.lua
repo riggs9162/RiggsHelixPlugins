@@ -47,15 +47,15 @@ function ix.ambience.LoadAmbiences(directory)
     end
 end
 
-concommand.Add("ix_ambience_play", function(ply, cmd, args)
-    if ( ply:IsSuperAdmin() and args[1] ) then
+concommand.Add("ix_ambience_play", function(client, cmd, args)
+    if ( client:IsSuperAdmin() and args[1] ) then
         if not ( ix.ambience.list[args[1]] ) then
-            ply:Notify("This Ambience type does not exist!")
+            client:Notify("This Ambience type does not exist!")
             return false
         end
 
         if not ( ix.ambience.list[args[1]].map and ix.ambience.list[args[1]].map == game.GetMap() ) then
-            ply:Notify("This Ambience type is not available on this map!")
+            client:Notify("This Ambience type is not available on this map!")
             return false
         end
 
@@ -64,8 +64,8 @@ concommand.Add("ix_ambience_play", function(ply, cmd, args)
 end)
 
 if ( CLIENT ) then
-    concommand.Add("ix_debug_pos", function(ply)
-        local pos = ply:GetPos()
+    concommand.Add("ix_debug_pos", function(client)
+        local pos = client:GetPos()
     
         local output = "Vector("..pos.x..", "..pos.y..", "..pos.z..")"
         chat.AddText(output)
@@ -73,8 +73,8 @@ if ( CLIENT ) then
         SetClipboardText(output)
     end)
     
-    concommand.Add("ix_debug_eyepos", function(ply)
-        local pos = ply:EyePos()
+    concommand.Add("ix_debug_eyepos", function(client)
+        local pos = client:EyePos()
     
         local output = "Vector("..pos.x..", "..pos.y..", "..pos.z..")"
         chat.AddText(output)
@@ -82,8 +82,8 @@ if ( CLIENT ) then
         SetClipboardText(output)
     end)
     
-    concommand.Add("ix_debug_ang", function(ply)
-        local pos = ply:EyeAngles()
+    concommand.Add("ix_debug_ang", function(client)
+        local pos = client:EyeAngles()
     
         local output = "Angle("..pos.p..", "..pos.y..", "..pos.r..")"
         chat.AddText(output)

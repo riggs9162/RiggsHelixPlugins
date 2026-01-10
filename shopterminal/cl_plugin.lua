@@ -3,7 +3,7 @@ local PLUGIN = PLUGIN
 ix.command.Add("GetXPos", {
     description = "Get's your current X position and copies it.",
     adminOnly = true,
-    OnRun = function(self, ply)
+    OnRun = function(self, client)
         ix.util.Notify("Copied to Clipboard!")
     
         local pos = LocalPlayer():GetPos()
@@ -14,7 +14,7 @@ ix.command.Add("GetXPos", {
 ix.command.Add("GetYPos", {
     description = "Get's your current Y position and copies it.",
     adminOnly = true,
-    OnRun = function(self, ply)
+    OnRun = function(self, client)
         ix.util.Notify("Copied to Clipboard!")
     
         local pos = LocalPlayer():GetPos()
@@ -25,7 +25,7 @@ ix.command.Add("GetYPos", {
 ix.command.Add("GetZPos", {
     description = "Get's your current Z position and copies it.",
     adminOnly = true,
-    OnRun = function(self, ply)
+    OnRun = function(self, client)
         ix.util.Notify("Copied to Clipboard!")
     
         local pos = LocalPlayer():GetPos()

@@ -37,9 +37,9 @@ do
     cmd.argumentNames = {"Player", "XP"}
     cmd.superAdminOnly = true
 
-    function cmd:OnRun(ply, target, xp)
+    function cmd:OnRun(client, target, xp)
         if ( xp < 0 ) then
-            ply:Notify("You cannot set someone's XP lower than 0!")
+            client:Notify("You cannot set someone's XP lower than 0!")
             return
         end
         target:SetXP(xp)
@@ -57,8 +57,8 @@ do
     cmd.argumentNames = {"Player"}
     cmd.superAdminOnly = true
 
-    function cmd:OnRun(ply, target)
-        ply:ChatNotify(target:Nick() .. " has an xp count of " .. target:GetXP())
+    function cmd:OnRun(client, target)
+        client:ChatNotify(target:Nick() .. " has an xp count of " .. target:GetXP())
     end
 
     ix.command.Add("GetXP", cmd)

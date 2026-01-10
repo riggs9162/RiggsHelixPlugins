@@ -14,23 +14,23 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
-function PLUGIN:PlayerTick(ply)
-    if not ply.NextStaminaBreathe or ply.NextStaminaBreathe <= CurTime() then
-        local stamina = ply:GetNetVar("stm", 100)
+function PLUGIN:PlayerTick(client)
+    if not client.NextStaminaBreathe or client.NextStaminaBreathe <= CurTime() then
+        local stamina = client:GetNetVar("stm", 100)
         if ( stamina <= 10 ) then
-            ply:EmitSound("player/heartbeat1.wav", 60)
-            ply:EmitSound("player/breathe1.wav", 60)
-            ply.ixStaminaBreathe = true
+            client:EmitSound("player/heartbeat1.wav", 60)
+            client:EmitSound("player/breathe1.wav", 60)
+            client.ixStaminaBreathe = true
 
             timer.Simple(3.9, function()
-                if ( IsValid(ply) ) then
-                    ply:StopSound("player/heartbeat1.wav")
-                    ply:StopSound("player/breathe1.wav")
-                    ply.ixStaminaBreathe = false
+                if ( IsValid(client) ) then
+                    client:StopSound("player/heartbeat1.wav")
+                    client:StopSound("player/breathe1.wav")
+                    client.ixStaminaBreathe = false
                 end
             end)
 
-            ply.NextStaminaBreathe = CurTime() + 4
+            client.NextStaminaBreathe = CurTime() + 4
         end
     end
 end

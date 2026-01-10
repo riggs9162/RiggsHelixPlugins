@@ -14,11 +14,11 @@ ix.command.Add("SetAnimClass", {
         ix.type.string,
         bit.bor(ix.type.text, ix.type.optional)
     },
-    OnRun = function(self, ply, animClass, model)
+    OnRun = function(self, client, animClass, model)
         animClass = string.lower(animClass)
 
         if not ( model ) then
-            local traceEnt = ply:GetEyeTrace().Entity
+            local traceEnt = client:GetEyeTrace().Entity
             if not ( IsValid(traceEnt) ) then
                 return "You must be looking at a valid entity."
             end
@@ -28,11 +28,11 @@ ix.command.Add("SetAnimClass", {
 
         local modelTable = ix.anim.GetModelClass(model)
         if ( modelTable ) then
-            ply:Notify("This model already has a custom animation class, overwriting it...")
+            client:Notify("This model already has a custom animation class, overwriting it...")
         end
 
         if not ( ix.anim[animClass] ) then
-            ply:SendLua([[gui.OpenURL("https://docs.gethelix.co/libraries/ix.anim/")]])
+            client:SendLua([[gui.OpenURL("https://docs.gethelix.co/libraries/ix.anim/")]])
             return "This is not a valid animation class."
         end
 

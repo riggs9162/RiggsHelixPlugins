@@ -24,31 +24,31 @@ ix.option.Add("FullBody", ix.type.bool, false, {
     phrase = "Full Body"
 })
 
-function PLUGIN:CalcView(ply, origin, angles, fov)
+function PLUGIN:CalcView(client, origin, angles, fov)
     local view = {
         origin = origin,
         angles = angles,
         fov = 90,
         drawviewer = true
     }
-    local head = ply:LookupAttachment("eyes")
-    head = ply:GetAttachment(head)
+    local head = client:LookupAttachment("eyes")
+    head = client:GetAttachment(head)
     if not head or not head.Pos then return end
     if IsValid(ix.gui.menu) or IsValid(ix.gui.characterMenu) then return end
     if not ix.option.Get("FirstPersonEnable", false) then return end
-    if (ply:GetMoveType() == MOVETYPE_NOCLIP) then return end
+    if (client:GetMoveType() == MOVETYPE_NOCLIP) then return end
 
-    if not ply.BonesRattled then
-        ply.BonesRattled = true
+    if not client.BonesRattled then
+        client.BonesRattled = true
 
-        ply:InvalidateBoneCache()
-        ply:SetupBones()
+        client:InvalidateBoneCache()
+        client:SetupBones()
 
         local matrix
 
-        for bone = 0, (ply:GetBoneCount() or 1) do
-            if ply:GetBoneName(bone):lower():find("head") then
-                matrix = ply:GetBoneMatrix(bone)
+        for bone = 0, (client:GetBoneCount() or 1) do
+            if client:GetBoneName(bone):lower():find("head") then
+                matrix = client:GetBoneMatrix(bone)
                 break
             end
         end

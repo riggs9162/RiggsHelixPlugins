@@ -47,16 +47,16 @@ function ENT:ejectPilot(no)
     self:SetPilot(NULL)
 end
 
-function ENT:setPilot(ply)
+function ENT:setPilot(client)
     self:ejectPilot()
-    self:SetPilot(ply)
+    self:SetPilot(client)
 
-    ply:Spectate(OBS_MODE_CHASE)
-    ply:SpectateEntity(self)
-    ply:StripWeapons()
-    ply:DrawViewModel(false)
-    ply:CrosshairDisable()
-    ply:Flashlight(false)
+    client:Spectate(OBS_MODE_CHASE)
+    client:SpectateEntity(self)
+    client:StripWeapons()
+    client:DrawViewModel(false)
+    client:CrosshairDisable()
+    client:Flashlight(false)
 end
 
 function ENT:createFlashSprite()

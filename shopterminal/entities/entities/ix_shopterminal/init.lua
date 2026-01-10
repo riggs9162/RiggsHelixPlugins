@@ -11,28 +11,28 @@ function ENT:Initialize()
     self:SetUseType(SIMPLE_USE)
 end
 
-function ENT:Use(ply)
-    if not ( PLUGIN.allowedFactions[ply:GetCharacter():GetFaction()] ) then
-        ply:Notify("You do not have access to this terminal!")
+function ENT:Use(client)
+    if not ( PLUGIN.allowedFactions[client:GetCharacter():GetFaction()] ) then
+        client:Notify("You do not have access to this terminal!")
         return
     end
 
-    if not ( PLUGIN.allowedClasses[ply:GetCharacter():GetClass()] ) then
-        ply:Notify("You do not have access to this terminal!")
+    if not ( PLUGIN.allowedClasses[client:GetCharacter():GetClass()] ) then
+        client:Notify("You do not have access to this terminal!")
         return
     end
 
-    ply:SetAction("Logging in...", 1)
-    ply:DoStaredAction(self, function()
+    client:SetAction("Logging in...", 1)
+    client:DoStaredAction(self, function()
         self:SetNetVar("InUse", true)
         net.Start("ixShopTerminal.Open")
-        net.Send(ply)
+        net.Send(client)
     end, 1, function()
-        if ( IsValid(ply) ) then
-            ply:SetAction()
+        if ( IsValid(client) ) then
+            client:SetAction()
         end
     end)
 
     self:EmitSound("buttons/button14.wav", 100, 50)
-    ply:SelectWeapon("ix_hands")
+    client:SelectWeapon("ix_hands")
 end

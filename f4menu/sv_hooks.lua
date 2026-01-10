@@ -1,6 +1,6 @@
 local PLUGIN = PLUGIN
 
-function PLUGIN:PlayerLoadedCharacter(ply, oldChar, char)
+function PLUGIN:PlayerLoadedCharacter(client, oldChar, char)
     if ( oldChar ) then
         oldChar:SetFaction(FACTION_UNASSIGNED)
     end

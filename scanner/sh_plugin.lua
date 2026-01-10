@@ -26,11 +26,11 @@ ix.util.Include("cl_hooks.lua")
 
 ix.command.Add("PhotoChache", {
     description = "Opens the scanner photo cache.",
-    OnRun = function(self, ply)
-        if !(ply:IsCombine() or IsValid(ply.ixScn)) then
+    OnRun = function(self, client)
+        if !(client:IsCombine() or IsValid(client.ixScn)) then
             return "Only Combine Players can view the scanner photo cache!"
         end
         
-        ply:ConCommand("ix_scanner_photocache")
+        client:ConCommand("ix_scanner_photocache")
     end
 })

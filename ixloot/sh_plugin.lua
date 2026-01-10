@@ -52,10 +52,10 @@ ix.util.Include("sv_plugin.lua")
 
 if ( CLIENT ) then
     function PLUGIN:PopulateEntityInfo(ent, tooltip)
-        local ply = LocalPlayer()
+        local client = LocalPlayer()
         local ent = ent:GetClass()
 
-        if ( ply:IsCombine() or ply:IsDispatch() ) then
+        if ( client:IsCombine() or client:IsDispatch() ) then
             return false
         end
 

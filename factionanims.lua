@@ -47,8 +47,8 @@ local oldGetModelClass = oldGetModelClass or ix.anim.GetModelClass
 // @usage ix.anim.GetModelClass("models/police.mdl")
 // > metrocop
 function ix.anim.GetModelClass(model)
-    local ply = LocalPlayer()
-    local faction = ply:Team()
+    local client = LocalPlayer()
+    local faction = client:Team()
     local factionData = ix.faction.indices[faction]
     if ( factionData and factionData.animClass and ix.anim[factionData.animClass] ) then
         return factionData.animClass

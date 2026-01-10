@@ -28,12 +28,12 @@ if ( SERVER ) then
         end
     end
 
-    function ENT:SpawnFunction(ply, trace)
-        local angles = ply:GetAngles()
+    function ENT:SpawnFunction(client, trace)
+        local angles = client:GetAngles()
 
         local entity = ents.Create("ix_loot_filecabinet")
         entity:SetPos(trace.HitPos)
-        entity:SetAngles(Angle(0, (entity:GetPos() - ply:GetPos()):Angle().y - 180, 0))
+        entity:SetAngles(Angle(0, (entity:GetPos() - client:GetPos()):Angle().y - 180, 0))
         entity:Spawn()
         entity:Activate()
 

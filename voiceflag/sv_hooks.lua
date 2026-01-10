@@ -1,6 +1,6 @@
 local PLUGIN = PLUGIN
 
-function PLUGIN:OnCharacterCreated(ply, char)
+function PLUGIN:OnCharacterCreated(client, char)
     if ( ix.config.Get("giveOnCreate") ) then
         if ( !char:HasFlags("v") ) then
             char:GiveFlags("v")
@@ -8,8 +8,8 @@ function PLUGIN:OnCharacterCreated(ply, char)
     end
 end
 
-function PLUGIN:PlayerLoadedCharacter(ply, char, oldChar)
-    local ply_table = ply:GetTable()
+function PLUGIN:PlayerLoadedCharacter(client, char, oldChar)
+    local ply_table = client:GetTable()
     if ( char:HasFlags("v") ) then
         ply_table.ixAllowVoice = true
     else

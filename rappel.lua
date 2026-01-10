@@ -17,27 +17,27 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 // use this plugin at your own risk, dont recommend it but ehh...
 
 if ( SERVER ) then
-    function PLUGIN:BeginRappel(ply, char)
-        local movetype = ply:GetMoveType()
-        local pos = ply:GetPos() + (ply:GetForward() * 30)
+    function PLUGIN:BeginRappel(client, char)
+        local movetype = client:GetMoveType()
+        local pos = client:GetPos() + (client:GetForward() * 30)
         local trace = {}
         trace.start = pos
         trace.endpos = pos - Vector(0, 0, 1000)
-        trace.filter = {ply}
+        trace.filter = {client}
         local traceLine = util.TraceLine(trace)
-        if ( traceLine.HitPos.z <= ply:GetPos().z ) then
+        if ( traceLine.HitPos.z <= client:GetPos().z ) then
             local ent = ents.Create("npc_metropolice")
-            if ( ply:Team() == FACTION_OTA ) then
+            if ( client:Team() == FACTION_OTA ) then
                 ent = ents.Create("npc_combine_s")
             end
 
-            ent:SetModel(ply:GetModel())
-            ent:SetSkin(ply:GetSkin())
-            ent:SetBodyGroups(ply:GetBodyGroups())
+            ent:SetModel(client:GetModel())
+            ent:SetSkin(client:GetSkin())
+            ent:SetBodyGroups(client:GetBodyGroups())
 
             ent:SetKeyValue("waitingtorappel", 1)
             ent:SetPos(pos)
-            ent:SetAngles(Angle(0, ply:EyeAngles().yaw, 0))
+            ent:SetAngles(Angle(0, client:EyeAngles().yaw, 0))
 
             ent:Spawn()
             ent:CapabilitiesClear()
@@ -45,24 +45,24 @@ if ( SERVER ) then
 
             timer.Create("ixRappelCheck", 0.1, 0, function()
                 if ent:IsOnGround() then
-                    ply:SetPos(ent:GetPos())
-                    ply:SetEyeAngles(Angle(0, ent:GetAngles().yaw, 0))
+                    client:SetPos(ent:GetPos())
+                    client:SetEyeAngles(Angle(0, ent:GetAngles().yaw, 0))
 
                     ent:EmitSound("npc/combine_soldier/zipline_hitground"..math.random(1,2)..".wav", 80)
                     ent:Remove()
 
                     timer.Destroy("ixRappelCheck")
 
-                    ply:Freeze(false)
-                    ply:SetNoDraw(false)
-                    ply:SetNotSolid(false)
-                    ply:DrawWorldModel(true)
-                    ply:DrawShadow(true)
-                    ply:SetNoTarget(false)
-                    ply:GodDisable()
+                    client:Freeze(false)
+                    client:SetNoDraw(false)
+                    client:SetNotSolid(false)
+                    client:DrawWorldModel(true)
+                    client:DrawShadow(true)
+                    client:SetNoTarget(false)
+                    client:GodDisable()
 
-                    ply:SetLocalVar("ixRappelingEntity", nil)
-                    ply:SetLocalVar("ixRappeling", false)
+                    client:SetLocalVar("ixRappelingEntity", nil)
+                    client:SetLocalVar("ixRappeling", false)
                 end
             end)
             ent:AddRelationship("player D_LI")
@@ -74,16 +74,16 @@ if ( SERVER ) then
                 end
             end)
 
-            ply:SetLocalVar("ixRappelingEntity", ent)
-            ply:SetLocalVar("ixRappeling", true)
+            client:SetLocalVar("ixRappelingEntity", ent)
+            client:SetLocalVar("ixRappeling", true)
 
-            ply:Freeze(true)
-            ply:SetNoDraw(true)
-            ply:SetNotSolid(true)
-            ply:DrawWorldModel(false)
-            ply:DrawShadow(false)
-            ply:GodEnable()
-            ply:SetNoTarget(true)
+            client:Freeze(true)
+            client:SetNoDraw(true)
+            client:SetNotSolid(true)
+            client:DrawWorldModel(false)
+            client:DrawShadow(false)
+            client:GodEnable()
+            client:SetNoTarget(true)
 
             ent:Fire("beginrappel")
             ent:Fire("addoutput", "OnRappelTouchdown rappelent,RunCode,0,-1", 0)
@@ -93,27 +93,27 @@ end
 
 ix.command.Add("Rappel", {
     description = "Rappel down a ledge.",
-    OnRun = function(self, ply)
-        if not ( ply:IsCombine() ) then
-            ply:Notify("You are unable to use this!")
+    OnRun = function(self, client)
+        if not ( client:IsCombine() ) then
+            client:Notify("You are unable to use this!")
             return false
         end
 
-        if not ( ply:OnGround() ) then
-            ply:Notify("You can't rappel whilst falling.")
+        if not ( client:OnGround() ) then
+            client:Notify("You can't rappel whilst falling.")
             return false
         end
 
         if ( SERVER ) and PLUGIN.BeginRappel then
-            PLUGIN:BeginRappel(ply)
+            PLUGIN:BeginRappel(client)
         end
     end
 })
 
 if (CLIENT) then
-    function PLUGIN:CalcView(ply, pos, angles, fov)
-        if ( ply:GetLocalVar("ixRappelingEntity") and IsValid( ply:GetLocalVar("ixRappelingEntity") ) ) then
-            local ent =  ply:GetLocalVar("ixRappelingEntity")
+    function PLUGIN:CalcView(client, pos, angles, fov)
+        if ( client:GetLocalVar("ixRappelingEntity") and IsValid( client:GetLocalVar("ixRappelingEntity") ) ) then
+            local ent =  client:GetLocalVar("ixRappelingEntity")
             local view = {}
             view.origin = ent:EyePos() - (angles:Forward() * 50)
             view.angles = angles

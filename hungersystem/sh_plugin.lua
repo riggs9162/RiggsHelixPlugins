@@ -33,9 +33,9 @@ ix.command.Add("CharSetHunger", {
     description = "Set character's hunger",
     arguments = {ix.type.character, bit.bor(ix.type.number, ix.type.optional)},
     adminOnly = true,
-    OnRun = function(self, ply, char, level)
+    OnRun = function(self, client, char, level)
         char:SetHunger(level or 0)
-        ply:Notify(char:GetName() .. "'s hunger was set to " .. ( level or 0 ))
+        client:Notify(char:GetName() .. "'s hunger was set to " .. ( level or 0 ))
     end
 })
 
@@ -43,9 +43,9 @@ ix.command.Add("PlySetHunger", {
     description = "Set player's hunger",
     arguments = {ix.type.player, bit.bor(ix.type.number, ix.type.optional)},
     adminOnly = true,
-    OnRun = function(self, ply, target, level)
+    OnRun = function(self, client, target, level)
         local char = target:GetCharacter()
         char:SetHunger(level or 0)
-        ply:Notify(target:SteamName() .. "'s hunger was set to " .. ( level or 0 ))
+        client:Notify(target:SteamName() .. "'s hunger was set to " .. ( level or 0 ))
     end
 })

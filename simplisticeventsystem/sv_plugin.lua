@@ -20,27 +20,27 @@ function PLAYER:OpenVGUI(panel)
     net.Send(self)
 end
 
-concommand.Add("ix_stopsoundall", function(ply, cmd, args)
-    if ( ply:IsSuperAdmin() ) then
+concommand.Add("ix_stopsoundall", function(client, cmd, args)
+    if ( client:IsSuperAdmin() ) then
         for k, v in player.Iterator() do
             v:ConCommand("stopsound")
         end
     else
-        ply:Notify("You must be a Super Admin to forcefully stopsound everyone!")
+        client:Notify("You must be a Super Admin to forcefully stopsound everyone!")
     end
 end)
 
-concommand.Add("ix_eventmenu", function(ply, cmd, args)
-    if ( ply:IsSuperAdmin() ) then
-        ply:OpenVGUI("ixEventMenu")
+concommand.Add("ix_eventmenu", function(client, cmd, args)
+    if ( client:IsSuperAdmin() ) then
+        client:OpenVGUI("ixEventMenu")
     else
-        ply:Notify("You must be a Super Admin to have access to the event manager menu!")
+        client:Notify("You must be a Super Admin to have access to the event manager menu!")
     end
 end)
 
 util.AddNetworkString("ixPlaySoundAll")
-net.Receive("ixPlaySoundAll", function(len, ply)
-    if not ( ply:IsSuperAdmin() ) then return end
+net.Receive("ixPlaySoundAll", function(len, client)
+    if not ( client:IsSuperAdmin() ) then return end
 
     local stringSound = Sound(net.ReadString())
     for k, v in player.Iterator() do

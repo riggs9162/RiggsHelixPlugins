@@ -4,38 +4,38 @@ CLASS.name = "Scanner"
 CLASS.faction = FACTION_MPF
 CLASS.isDefault = true
 
-function ScannerCreate(ply)
+function ScannerCreate(client)
     local scanner = ix.plugin.list.scanner
 
     if (scanner) then
-        scanner:createScanner(ply)
-        ply.ScannerActive = true
+        scanner:createScanner(client)
+        client.ScannerActive = true
     else
-        ply:ChatPrint("The server is missing the 'scanner' plugin.")
+        client:ChatPrint("The server is missing the 'scanner' plugin.")
     end
 end
 
-function CLASS:OnSpawn(ply)
-    ScannerCreate(ply)
+function CLASS:OnSpawn(client)
+    ScannerCreate(client)
 end
 
-function CLASS:OnSet(ply)
-    ScannerCreate(ply)
+function CLASS:OnSet(client)
+    ScannerCreate(client)
 end
 
-function CLASS:OnLeave(ply)
-    if (IsValid(ply.ixScn)) then
+function CLASS:OnLeave(client)
+    if (IsValid(client.ixScn)) then
         local data = {}
-            data.start = ply.ixScn:GetPos()
+            data.start = client.ixScn:GetPos()
             data.endpos = data.start - Vector(0, 0, 1024)
-            data.filter = {ply, ply.ixScn}
+            data.filter = {client, client.ixScn}
         local position = util.TraceLine(data).HitPos
 
-        ply.ixScn.spawn = position
-        ply.ixScn:Remove()
-        ply.ScannerActive = false
+        client.ixScn.spawn = position
+        client.ixScn:Remove()
+        client.ScannerActive = false
 
-        timer.Simple(0.1, function() ply:Spawn() end)
+        timer.Simple(0.1, function() client:Spawn() end)
     end
 end
 

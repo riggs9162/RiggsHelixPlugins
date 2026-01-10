@@ -29,12 +29,12 @@ if ( CLIENT ) then
     return
 end
 
-function PLUGIN:DoPlayerDeath(ply, inflicter, attacker)
+function PLUGIN:DoPlayerDeath(client, inflicter, attacker)
     if not ( ix.config.Get("moneyDrop") ) then
         return
     end
 
-    local char = ply:GetCharacter()
+    local char = client:GetCharacter()
     if not ( char ) then
         return
     end
@@ -45,7 +45,7 @@ function PLUGIN:DoPlayerDeath(ply, inflicter, attacker)
     end
 
     if not ( charMoney == 0 ) then
-        local model, pos, ang = ix.currency.model, ply:GetPos(), ply:GetAngles()
+        local model, pos, ang = ix.currency.model, client:GetPos(), client:GetAngles()
         local ent = ents.Create("ix_money")
         ent:SetModel(model)
         ent:SetPos(pos)

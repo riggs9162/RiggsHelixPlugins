@@ -259,22 +259,22 @@ ix.option.Add("musicCombatVol", ix.type.number, 0.4, {
 })
 
 if ( SERVER ) then
-    function PLUGIN:PlayerHurt(ply, attacker, health, damage)
-        if ( IsValid(ply) and ply:GetChar() and IsValid(attacker) ) then
-            local uID = "ixMinerva.CombatTimer." .. ply:SteamID64()
+    function PLUGIN:PlayerHurt(client, attacker, health, damage)
+        if ( IsValid(client) and client:GetChar() and IsValid(attacker) ) then
+            local uID = "ixMinerva.CombatTimer." .. client:SteamID64()
 
             if not ( timer.Exists(uID) ) then
-                ply:SetNetVar("ixInCombat", true)
+                client:SetNetVar("ixInCombat", true)
 
                 timer.Create(uID, 60, 1, function()
-                    if not ( IsValid(ply) or ply:GetChar() ) then
-                        ply:SetNetVar("ixInCombat", false)
+                    if not ( IsValid(client) or client:GetChar() ) then
+                        client:SetNetVar("ixInCombat", false)
                         timer.Remove(uID)
 
                         return
                     end
 
-                    ply:SetNetVar("ixInCombat", false)
+                    client:SetNetVar("ixInCombat", false)
                 end)
             else
                 if ( timer.TimeLeft(uID) <= 5 ) then

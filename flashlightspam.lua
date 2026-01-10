@@ -17,9 +17,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 PLUGIN.delay = 0.33
 
 if ( SERVER ) then
-    function PLUGIN:PlayerSwitchFlashlight(ply, state)
-        if not ( ( ply.ixAntiSpamFlashlight or 0 ) < CurTime() ) then
-            ply.ixAntiSpamFlashlight = CurTime() + PLUGIN.delay
+    function PLUGIN:PlayerSwitchFlashlight(client, state)
+        if not ( ( client.ixAntiSpamFlashlight or 0 ) < CurTime() ) then
+            client.ixAntiSpamFlashlight = CurTime() + PLUGIN.delay
             
             return false
         end

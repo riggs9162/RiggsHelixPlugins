@@ -20,12 +20,12 @@ ix.config.Add("shoveTime", 20, "How long should a character be unconscious after
 
 ix.command.Add("shove", {
     description = "Knock someone out.",
-    OnRun = function(self, ply)
-        if not ( ply:Team() == FACTION_OTA ) then
+    OnRun = function(self, client)
+        if not ( client:Team() == FACTION_OTA ) then
             return false, "You need to be a Overwatch Soldier to run this command."
         end
 
-        local ent = ply:GetEyeTraceNoCursor().Entity
+        local ent = client:GetEyeTraceNoCursor().Entity
         local target
 
         if ( ent:IsPlayer() ) then 
@@ -34,16 +34,16 @@ ix.command.Add("shove", {
             return false, "You must be looking at someone!"     
         end
 
-        if ( target ) and ( target:GetPos():Distance(ply:GetPos()) >= 50 ) then
+        if ( target ) and ( target:GetPos():Distance(client:GetPos()) >= 50 ) then
             return false, "You need to be close to your target!"
         end 
 
-        ply:ForceSequence("melee_gunhit")
+        client:ForceSequence("melee_gunhit")
         timer.Simple(0.3, function()
-            target:SetVelocity(ply:GetAimVector() * 300)
+            target:SetVelocity(client:GetAimVector() * 300)
         end)
         timer.Simple(0.4, function()
-            ply:EmitSound("physics/body/body_medium_impact_hard6.wav")
+            client:EmitSound("physics/body/body_medium_impact_hard6.wav")
             target:SetRagdolled(true, ix.config.Get("shoveTime", 20))
         end)
     end,

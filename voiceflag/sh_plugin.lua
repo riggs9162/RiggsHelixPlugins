@@ -18,8 +18,8 @@ ix.config.Add("giveOnCreate", false, "Whether or not to give the voice flag on c
     category = "Voice Flag"
 })
 
-ix.flag.Add("v", "Access to voice chat.", function(ply, bGiven)
-    local playerTable = ply:GetTable()
+ix.flag.Add("v", "Access to voice chat.", function(client, bGiven)
+    local playerTable = client:GetTable()
     if ( bGiven ) then
         playerTable.ixAllowVoice = true
     else

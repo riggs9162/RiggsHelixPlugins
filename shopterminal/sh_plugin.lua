@@ -44,12 +44,12 @@ ix.config.Add("shipmentDeliverPositionZValue", "0", "The Z Position of where the
 ix.command.Add("SetShipmentDeliverPosition", {
     description = "Sets the "..PLUGIN.name.." Shipment Deliver Position.",
     adminOnly = true,
-    OnRun = function(self, ply)
-        ix.config.Set("shipmentDeliverPositionXValue", ply:GetPos().x)
-        ix.config.Set("shipmentDeliverPositionYValue", ply:GetPos().y)
-        ix.config.Set("shipmentDeliverPositionZValue", ply:GetPos().z)
+    OnRun = function(self, client)
+        ix.config.Set("shipmentDeliverPositionXValue", client:GetPos().x)
+        ix.config.Set("shipmentDeliverPositionYValue", client:GetPos().y)
+        ix.config.Set("shipmentDeliverPositionZValue", client:GetPos().z)
 
-        ply:Notify("Successfully Set!")
+        client:Notify("Successfully Set!")
     end,
 })
 

@@ -20,7 +20,7 @@ To bind a key to a command, you can use many different methods. Here are some ex
 
 Here is an example of binding the F1 key to the command "ix_togglethirdperson" as a function:
 ```lua
-PLUGIN.binds[KEY_F1] = function(ply, bind, pressed)
+PLUGIN.binds[KEY_F1] = function(client, bind, pressed)
     RunConsoleCommand("ix_togglethirdperson")
 end
 ```
@@ -42,18 +42,18 @@ end
 
 PLUGIN.binds = PLUGIN.binds or {}
 
-PLUGIN.binds[KEY_F1] = function(ply, bind, pressed)
+PLUGIN.binds[KEY_F1] = function(client, bind, pressed)
     RunConsoleCommand("ix_togglethirdperson")
 end
 
 PLUGIN.binds[KEY_F2] = "ix_togglethirdperson"
 
-function PLUGIN:PlayerBindPress(ply, bind, pressed)
+function PLUGIN:PlayerBindPress(client, bind, pressed)
     local data = self.binds[bind]
     if ( data ) then
         // comment: the power of yandere dev else if statements
         if ( type(data) == "function" ) then
-            return data(ply, bind, pressed)
+            return data(client, bind, pressed)
         elseif ( type(data) == "string" ) then
             RunConsoleCommand(data)
         elseif ( type(data) == "table" ) then

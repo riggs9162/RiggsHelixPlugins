@@ -281,14 +281,14 @@ PLUGIN.phrases = {
     "wtf",
 }
 
-ix.log.AddType("blacklistedPhraseCreate", function(ply, word, name)
+ix.log.AddType("blacklistedPhraseCreate", function(client, word, name)
     local format = "%s (%s) has attempted to create a character with the blacklisted word \"%s\" (%s)."
-    format = format:format(ply:GetName(), ply:SteamID64(), word, name)
+    format = format:format(client:GetName(), client:SteamID64(), word, name)
 
     return format
 end)
 
-function PLUGIN:CanPlayerCreateCharacter(ply, payload)
+function PLUGIN:CanPlayerCreateCharacter(client, payload)
     local bFound = nil
     for _, phrase in ipairs(self.phrases) do
         if ( ix.util.StringMatches(payload.name, phrase) or ix.util.StringMatches(payload.description, phrase) ) then
@@ -298,7 +298,7 @@ function PLUGIN:CanPlayerCreateCharacter(ply, payload)
     end
 
     if ( bFound and isstring(bFound) and string.len(bFound) > 0 ) then
-        ix.log.Add(ply, "blacklistedPhraseCreate", bFound, payload.name .. ", " .. payload.description)
+        ix.log.Add(client, "blacklistedPhraseCreate", bFound, payload.name .. ", " .. payload.description)
         return false, "You cannot use the blacklisted phrase \"" .. bFound .. "\"."
     end
 end

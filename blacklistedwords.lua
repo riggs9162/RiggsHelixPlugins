@@ -91,14 +91,14 @@ PLUGIN.phrases = {
     "zipperhead"
 }
 
-ix.log.AddType("blacklistedPhraseSay", function(ply, word, text)
+ix.log.AddType("blacklistedPhraseSay", function(client, word, text)
     local format = "%s (%s) has attempted to send a message with the blacklisted word \"%s\" (%s)."
-    format = format:format(ply:GetName(), ply:SteamID64(), word, text)
+    format = format:format(client:GetName(), client:SteamID64(), word, text)
 
     return format
 end)
 
-function PLUGIN:PrePlayerMessageSend(ply, chatType, text)
+function PLUGIN:PrePlayerMessageSend(client, chatType, text)
     local bFound = nil
     for _, phrase in ipairs(self.phrases) do
         if ( ix.util.StringMatches(text, phrase) ) then
@@ -108,8 +108,8 @@ function PLUGIN:PrePlayerMessageSend(ply, chatType, text)
     end
 
     if ( bFound and isstring(bFound) and string.len(bFound) > 0 ) then
-        ix.log.Add(ply, "blacklistedPhraseSay", bFound, text)
-        ply:Notify("You cannot use the blacklisted phrase \"" .. bFound .. "\".")
+        ix.log.Add(client, "blacklistedPhraseSay", bFound, text)
+        client:Notify("You cannot use the blacklisted phrase \"" .. bFound .. "\".")
         return false
     end
 end

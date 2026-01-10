@@ -1,29 +1,29 @@
 local PLUGIN = PLUGIN
 
-function PLUGIN:PlayerSpawn(ply)
-    if ( ply:IsValid() and ply:GetCharacter() ) then
-        ply.ixHungerTick = CurTime() + ( ix.config.Get("hungerTime", 120) )
-        ply:GetCharacter():SetHunger(100)
+function PLUGIN:PlayerSpawn(client)
+    if ( client:IsValid() and client:GetCharacter() ) then
+        client.ixHungerTick = CurTime() + ( ix.config.Get("hungerTime", 120) )
+        client:GetCharacter():SetHunger(100)
     end
 end
 
 local factionIgnore = {
     [FACTION_OTA] = true,
 }
-function PLUGIN:PlayerTick(ply)
-    if ( ply:IsValid() and ply:GetCharacter() ) then
-        if not ply.ixHungerTick or ply.ixHungerTick <= CurTime() then
-            if ( factionIgnore[ply:Team()] ) then return false end
-            if ( ply:GetMoveType() == MOVETYPE_NOCLIP ) then return false end
+function PLUGIN:PlayerTick(client)
+    if ( client:IsValid() and client:GetCharacter() ) then
+        if not client.ixHungerTick or client.ixHungerTick <= CurTime() then
+            if ( factionIgnore[client:Team()] ) then return false end
+            if ( client:GetMoveType() == MOVETYPE_NOCLIP ) then return false end
 
-            local char = ply:GetCharacter()
+            local char = client:GetCharacter()
 
             if ( char:GetHunger() == 0 ) then
-                ply:TakeDamage(math.random(10, 20))
-                ply:EmitSound("npc/barnacle/barnacle_digesting"..math.random(1,2)..".wav", 50)
-                ply:ChatNotify("You are dying of starvation!")
+                client:TakeDamage(math.random(10, 20))
+                client:EmitSound("npc/barnacle/barnacle_digesting"..math.random(1,2)..".wav", 50)
+                client:ChatNotify("You are dying of starvation!")
     
-                ply.ixHungerTick = CurTime() + 60
+                client.ixHungerTick = CurTime() + 60
                 return false
             end
 
@@ -31,7 +31,7 @@ function PLUGIN:PlayerTick(ply)
             
             char:SetHunger(newHunger)
 
-            ply.ixHungerTick = CurTime() + ( ix.config.Get("hungerTime", 120) )
+            client.ixHungerTick = CurTime() + ( ix.config.Get("hungerTime", 120) )
         end
     end
 end

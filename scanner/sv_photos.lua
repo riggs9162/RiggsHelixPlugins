@@ -3,10 +3,10 @@ local PLUGIN = PLUGIN
 util.AddNetworkString("ixScannerData")
 util.AddNetworkString("ixScannerPicture")
 
-net.Receive("ixScannerData", function(length, ply)
-    if (IsValid(ply.ixScn) and ply:GetViewEntity() == ply.ixScn and (ply.ixNextPic or 0) < CurTime()) then
+net.Receive("ixScannerData", function(length, client)
+    if (IsValid(client.ixScn) and client:GetViewEntity() == client.ixScn and (client.ixNextPic or 0) < CurTime()) then
         local delay = 15
-        ply.ixNextPic = CurTime() + delay - 1
+        client.ixNextPic = CurTime() + delay - 1
 
         local length = net.ReadUInt(16)
         local data = net.ReadData(length)
@@ -41,15 +41,15 @@ net.Receive("ixScannerData", function(length, ply)
     end
 end)
 
-net.Receive("ixScannerPicture", function(length, ply)
-    if (not IsValid(ply.ixScn)) then return end
-    if (ply:GetViewEntity() ~= ply.ixScn) then return end
-    if ((ply.ixNextFlash or 0) >= CurTime()) then return end
+net.Receive("ixScannerPicture", function(length, client)
+    if (not IsValid(client.ixScn)) then return end
+    if (client:GetViewEntity() ~= client.ixScn) then return end
+    if ((client.ixNextFlash or 0) >= CurTime()) then return end
 
-    ply.ixNextFlash = CurTime() + 1
-    ply.ixScn:flash()
+    client.ixNextFlash = CurTime() + 1
+    client.ixScn:flash()
 
-    for k, v in ipairs(ents.FindInSphere(ply.ixScn:GetPos(), 128)) do
+    for k, v in ipairs(ents.FindInSphere(client.ixScn:GetPos(), 128)) do
         if not ( IsValid(v) ) then
             continue
         end
@@ -58,7 +58,7 @@ net.Receive("ixScannerPicture", function(length, ply)
             continue
         end
 
-        if not ( v == ply ) then
+        if not ( v == client ) then
             v:ScreenFade(1, Color(255, 255, 255), 5, 2)
             v:SetDSP(31)
             timer.Simple(4, function() v:SetDSP(1) end)
