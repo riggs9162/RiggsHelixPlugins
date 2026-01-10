@@ -14,14 +14,17 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
-PLUGIN.delay = 0.33
+ix.config.Add("flashlightSpamDelay", 0.33, "The delay in seconds between flashlight toggles to prevent spam.", nil, {
+    data = { min = 0, max = 10, decimals = 2 },
+    category = "Performance"
+})
 
 if ( SERVER ) then
     function PLUGIN:PlayerSwitchFlashlight(client, state)
-        if not ( ( client.ixAntiSpamFlashlight or 0 ) < CurTime() ) then
-            client.ixAntiSpamFlashlight = CurTime() + PLUGIN.delay
-            
+        if ( client.ixNextFlashlight and client.ixNextFlashlight > CurTime() ) then
             return false
         end
+
+        client.ixNextFlashlight = CurTime() + ix.config.Get("flashlightSpamDelay", 0.33)
     end
 end
