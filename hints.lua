@@ -53,7 +53,7 @@ ix.hints.Register("Cause too much trouble and you may find yourself without a ra
 ix.hints.Register("Civil Protection is protecting civilized society, not you.")
 ix.hints.Register("Don't drink the water; they put something in it, to make you forget.")
 ix.hints.Register("Don't mess with the Combine, they took over Earth in 7 hours.")
-ix.hints.Register("Don't piss off Civil Protection, or you'll find yourself being re-educated, or worse. .. ")
+ix.hints.Register("Don't piss off Civil Protection, or you'll find yourself being re-educated, or worse...")
 ix.hints.Register("If you're looking for a way to get to a certain location, it's not a bad idea to ask for help.")
 ix.hints.Register("Life is bleak in the city without companions. Go make some friends.")
 ix.hints.Register("Obey the Combine, you'll be glad that you did.")
