@@ -31,4 +31,4 @@ end
 
 AMBIENCE_SKY_HELI = AMBIENCE.index
 
-print("[AMBIENCE] "..AMBIENCE.name.." loaded.")
+print("[AMBIENCE] " .. AMBIENCE.name .. " loaded.")

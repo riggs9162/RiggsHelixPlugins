@@ -42,10 +42,10 @@ PLUGIN.interactions = {
         end,
         action = function(client, target)
             target:SetRestricted(false)
-            target:SetAction("You are being untied...", 5)
+            target:SetAction("You are being untied. .. ", 5)
             target:SetNetVar("untying", true)
     
-            client:SetAction("Untying...", 5)
+            client:SetAction("Untying. .. ", 5)
     
             client:DoStaredAction(target, function()
                 target:SetRestricted(false)

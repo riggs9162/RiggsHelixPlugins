@@ -81,7 +81,7 @@ function PANEL:Init()
         local item = items:Add("ixMenuButton")
         item:Dock(TOP)
         item:SetTall(ScreenScale(10))
-        item:SetText("    "..v.name)
+        item:SetText("    " .. v.name)
         item:SetToolTip(v.description)
 
         local icon = item:Add("ixSpawnIcon")
@@ -117,7 +117,7 @@ function PANEL:Init()
 
         amount = amount + 1
         self.selectedItems[self.selectedItem] = amount
-        this:SetText("add to cart ("..amount..")")
+        this:SetText("add to cart (" .. amount .. ")")
 
         clear:SetEnabled(true)
         checkout:SetEnabled(true)

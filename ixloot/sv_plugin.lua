@@ -17,16 +17,16 @@ function PLUGIN:SearchLootContainer(ent, client)
                 end
 
                 client:Freeze(true)
-                client:SetAction("Searching...", 5, function()
+                client:SetAction("Searching. .. ", 5, function()
                     client:Freeze(false)
                     for i = 1, lootAmount do
                         if (randomChance == math.random(1,20)) then
                             randomLootItem = table.Random(PLUGIN.randomLoot.rare)
-                            client:ChatNotify("You have gained "..ix.item.Get(randomLootItem):GetName()..".")
+                            client:ChatNotify("You have gained " .. ix.item.Get(randomLootItem):GetName() .. ".")
                             client:GetCharacter():GetInventory():Add(randomLootItem)
                         else
                             randomLootItem = table.Random(PLUGIN.randomLoot.common)
-                            client:ChatNotify("You have gained "..ix.item.Get(randomLootItem):GetName()..".")
+                            client:ChatNotify("You have gained " .. ix.item.Get(randomLootItem):GetName() .. ".")
                             client:GetCharacter():GetInventory():Add(randomLootItem)
                         end
                     end

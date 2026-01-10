@@ -48,7 +48,7 @@ if ( SERVER ) then
                     client:SetPos(ent:GetPos())
                     client:SetEyeAngles(Angle(0, ent:GetAngles().yaw, 0))
 
-                    ent:EmitSound("npc/combine_soldier/zipline_hitground"..math.random(1,2)..".wav", 80)
+                    ent:EmitSound("npc/combine_soldier/zipline_hitground" .. math.random(1,2) .. ".wav", 80)
                     ent:Remove()
 
                     timer.Destroy("ixRappelCheck")
@@ -67,10 +67,10 @@ if ( SERVER ) then
             end)
             ent:AddRelationship("player D_LI")
 
-            ent:EmitSound("npc/combine_soldier/zipline_clip"..math.random(1,2)..".wav", 90)
+            ent:EmitSound("npc/combine_soldier/zipline_clip" .. math.random(1,2) .. ".wav", 90)
             timer.Simple(0.5, function()
                 if IsValid(ent) then
-                    ent:EmitSound("npc/combine_soldier/zipline"..math.random(1,2)..".wav", 90)
+                    ent:EmitSound("npc/combine_soldier/zipline" .. math.random(1,2) .. ".wav", 90)
                 end
             end)
 

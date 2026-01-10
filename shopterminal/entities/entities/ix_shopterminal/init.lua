@@ -22,7 +22,7 @@ function ENT:Use(client)
         return
     end
 
-    client:SetAction("Logging in...", 1)
+    client:SetAction("Logging in. .. ", 1)
     client:DoStaredAction(self, function()
         self:SetNetVar("InUse", true)
         net.Start("ixShopTerminal.Open")

@@ -30,7 +30,7 @@ function PLUGIN:EntityTakeDamage(ent)
         explosion:SetKeyValue("iMagnitude", "50")
         explosion:Fire("Explode", 0, 0)
 
-        ent:EmitSound("vo/npc/male01/pain0"..math.random(1, 9)..".wav", nil, 150)
+        ent:EmitSound("vo/npc/male01/pain0" .. math.random(1, 9) .. ".wav", nil, 150)
         ent:Remove()
     end
 end

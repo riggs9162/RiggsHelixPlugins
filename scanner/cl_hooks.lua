@@ -115,18 +115,18 @@ function PLUGIN:HUDPaint()
         local percent = math.Round(math.TimeFraction(self.lastPic - delay, self.lastPic, CurTime()), 2) * 100
         local glow = math.sin(RealTime() * 15) * 25
 
-        draw.SimpleText("RE-CHARGING: "..percent.."%", "ixScannerFont", x, y - 24, Color(255 + glow, 100 + glow, 25, 250))
+        draw.SimpleText("RE-CHARGING: " .. percent .. "%", "ixScannerFont", x, y - 24, Color(255 + glow, 100 + glow, 25, 250))
     end
 
     local position = LocalPlayer():GetPos()
     local angle = LocalPlayer():GetAimVector():Angle()
     local zone = LocalPlayer():GetArea() or "unknown"
 
-    draw.SimpleText("POS ("..math.floor(position[1])..", "..math.floor(position[2])..", "..math.floor(position[3])..")", "ixScannerFont", x + 8, y + 8, color_white)
-    draw.SimpleText("ANG ("..math.floor(angle[1])..", "..math.floor(angle[2])..", "..math.floor(angle[3])..")", "ixScannerFont", x + 8, y + 24, color_white)
-    draw.SimpleText("ID  ("..LocalPlayer():Name()..")", "ixScannerFont", x + 8, y + 40, color_white)
-    draw.SimpleText("ZM  ("..(math.Round(zoom / 40, 2) * 100).."%)", "ixScannerFont", x + 8, y + 56, color_white)
-    draw.SimpleText("ZONE("..(zone)..")", "ixScannerFont", x + 8, y + 88, color_white)
+    draw.SimpleText("POS (" .. math.floor(position[1]) .. ", " .. math.floor(position[2]) .. ", " .. math.floor(position[3]) .. ")", "ixScannerFont", x + 8, y + 8, color_white)
+    draw.SimpleText("ANG (" .. math.floor(angle[1]) .. ", " .. math.floor(angle[2]) .. ", " .. math.floor(angle[3]) .. ")", "ixScannerFont", x + 8, y + 24, color_white)
+    draw.SimpleText("ID  (" .. LocalPlayer():Name() .. ")", "ixScannerFont", x + 8, y + 40, color_white)
+    draw.SimpleText("ZM  (" .. (math.Round(zoom / 40, 2) * 100) .. "%)", "ixScannerFont", x + 8, y + 56, color_white)
+    draw.SimpleText("ZONE(" .. (zone) .. ")", "ixScannerFont", x + 8, y + 88, color_white)
 
     if (IsValid(self.lastViewEntity)) then
         data.start = self.lastViewEntity:GetPos()
@@ -141,7 +141,7 @@ function PLUGIN:HUDPaint()
             entity = "NULL"
         end
 
-        draw.SimpleText("TRG ("..entity..")", "ixScannerFont", x + 8, y + 72, color_white)
+        draw.SimpleText("TRG (" .. entity .. ")", "ixScannerFont", x + 8, y + 72, color_white)
     end
 
     surface.SetDrawColor(235, 235, 235, 230)

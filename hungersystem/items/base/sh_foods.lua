@@ -25,9 +25,9 @@ ITEM.functions.Consume = {
 
         if (item.useSound) then
             if ( string.find(item.useSound, "drink") ) then -- if you have custom sounds for drinking / eating, change this.
-                actiontext = "Drinking.."
+                actiontext = "Drinking .. "
             else
-                actiontext = "Eating.."
+                actiontext = "Eating .. "
             end
         end
 

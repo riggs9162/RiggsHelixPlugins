@@ -40,4 +40,4 @@ end
 
 AMBIENCE_NPC_DROPSHIP = AMBIENCE.index
 
-print("[AMBIENCE] "..AMBIENCE.name.." loaded.")
+print("[AMBIENCE] " .. AMBIENCE.name .. " loaded.")

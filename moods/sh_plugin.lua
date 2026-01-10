@@ -60,7 +60,7 @@ ix.command.Add("SetMood", {
         end
         
         client:GetCharacter():SetMood(moodType)
-        client:Notify("You set your character's mood type to "..moodType.."!")
+        client:Notify("You set your character's mood type to " .. moodType .. "!")
     end,
 })
 

@@ -83,12 +83,12 @@ CreateClientConVar("ix_music_debug", "0", false, false, "Prints details about th
 
 local function DebugPrint(msg)
     if GetConVar("ix_music_debug"):GetBool() then
-        print("[Helix] [musicdebug] "..msg)
+        print("[Helix] [musicdebug] " .. msg)
     end
 end
 
 local function ReadMusicKit(name)
-    local txt = file.Read("helix/musickits/"..name)
+    local txt = file.Read("helix/musickits/" .. name)
 
     if not txt then
         return "Failed to read music kit file."
@@ -119,7 +119,7 @@ local function ReadMusicKit(name)
 
     for v,k in pairs(json.Ambient) do
         if not istable(k) or not k.Sound or not k.Length or not isstring(k.Sound) or not isnumber(k.Length) then
-            return "Ambient track "..v.." is missing required data."
+            return "Ambient track " .. v .. " is missing required data."
         end
 
         if antiCrash[k.Sound] then
@@ -131,7 +131,7 @@ local function ReadMusicKit(name)
 
     for v,k in pairs(json.Combat) do
         if not istable(k) or not k.Sound or not k.Length or not isstring(k.Sound) or not isnumber(k.Length) then
-            return "Combat track "..v.." is missing required data."
+            return "Combat track " .. v .. " is missing required data."
         end
 
         if antiCrash[k.Sound] then
@@ -165,7 +165,7 @@ local function ReadMusicKit(name)
 
     CUSTOM_MUSICKITS[json.Name] = comp
 
-    print("[Helix] [musickits] Loaded "..json.Name.." ("..name..") music kit.")
+    print("[Helix] [musickits] Loaded " .. json.Name .. " (" .. name .. ") music kit.")
 end
 
 local function GetMusicKits()
@@ -176,7 +176,7 @@ local function GetMusicKits()
         local err = ReadMusicKit(k)
 
         if err then
-            print("[Helix] [musickits] Failed to load "..k.." | "..err)
+            print("[Helix] [musickits] Failed to load " .. k .. " | " .. err)
             continue
         end
     end
@@ -211,7 +211,7 @@ ix.option.Add("musicKit", ix.type.array, "Default", {
 })
 
 concommand.Add("ix_reloadmusickits", function()
-    print("[Helix] Reloading music kits...")
+    print("[Helix] Reloading music kits. .. ")
     CUSTOM_MUSICKITS = {}
 
     GetMusicKits()
@@ -351,7 +351,7 @@ local function GetRandomSong(style)
 
     lastSongs[r] = highest + 1
 
-    DebugPrint("Selected track "..r.." (length: "..t[2]..")")
+    DebugPrint("Selected track " .. r .. " (length: " .. t[2] .. ")")
 
     return r, t[2]
 end
@@ -451,7 +451,7 @@ function PLUGIN:Think()
                 timer.Remove("ixMusicPassiveTrackTime")
                 currentPassive:FadeOut(6)
                 currentPassiveFading = true
-                DebugPrint("Fading out ambient to move to combat...")
+                DebugPrint("Fading out ambient to move to combat. .. ")
 
                 timer.Simple(6, function()
                     currentPassive:Stop()
@@ -469,13 +469,13 @@ function PLUGIN:Think()
             currentCombat:PlayEx(0, 100)
             currentCombat:ChangeVolume(ix.option.Get("musicCombatVol"), 6)
 
-            DebugPrint("Playing combat track...")
+            DebugPrint("Playing combat track. .. ")
 
             timer.Remove("ixMusicCombatTrackTime")
             timer.Create("ixMusicCombatTrackTime", l, 1, function()
                 if currentCombat then
                     currentCombat:Stop()
-                    DebugPrint("Stopping combat track (track complete)...")
+                    DebugPrint("Stopping combat track (track complete). .. ")
                 end
             end)
         end
@@ -486,7 +486,7 @@ function PLUGIN:Think()
             timer.Remove("ixMusicCombatTrackTime")
             currentCombat:ChangeVolume(0, 120)
             currentCombatFading = true
-            DebugPrint("Fading out combat to move to ambient...")
+            DebugPrint("Fading out combat to move to ambient. .. ")
 
             timer.Simple(8, function()
                 currentCombat:Stop()
@@ -506,13 +506,13 @@ function PLUGIN:Think()
         currentPassive:PlayEx(0, 100)
         currentPassive:ChangeVolume(ix.option.Get("musicAmbientVol"), 12)
 
-        DebugPrint("Playing ambient track...")
+        DebugPrint("Playing ambient track. .. ")
 
         timer.Remove("ixMusicPassiveTrackTime")
         timer.Create("ixMusicPassiveTrackTime", l, 1, function()
             if currentPassive then
                 currentPassive:Stop()
-                DebugPrint("Stopping ambient track (track complete)...")
+                DebugPrint("Stopping ambient track (track complete). .. ")
             end
         end)
     end

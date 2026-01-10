@@ -72,6 +72,6 @@ net.Receive("ixShopTerminal.Checkout", function(len, client)
 
 		hook.Run("CreateShipment", client, entity)
     else
-        ix.util.Notify("You do not have enough "..ix.currency.plural.." to buy your cart!")
+        ix.util.Notify("You do not have enough " .. ix.currency.plural .. " to buy your cart!")
     end
 end)

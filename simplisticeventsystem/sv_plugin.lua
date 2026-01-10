@@ -11,7 +11,7 @@ end
 util.AddNetworkString("ixCreateVGUI")
 function PLAYER:OpenVGUI(panel)
     if not isstring(panel) then
-        ErrorNoHalt("Warning argument is required to be a string! Instead is "..type(panel).."\n")
+        ErrorNoHalt("Warning argument is required to be a string! Instead is " .. type(panel) .. "\n")
         return
     end
 

@@ -41,7 +41,7 @@ if ( SERVER ) then
         for k, v in player.Iterator() do
             if ( IsValid(v) and v:IsAdmin() ) then
                 if ( whitelistData.discord ) then
-                    v:ChatNotify("[WHITELIST] " .. client:SteamName() .. " has been kicked for not being whitelisted. Their noted discord name is: ".. self.whitelists[steamid].discord)
+                    v:ChatNotify("[WHITELIST] " .. client:SteamName() .. " has been kicked for not being whitelisted. Their noted discord name is: " ..  self.whitelists[steamid].discord)
 
                     return
                 end

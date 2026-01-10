@@ -18,7 +18,7 @@ ix.ambience = ix.ambience or {}
 ix.ambience.list = ix.ambience.list or {}
 
 function ix.ambience.LoadAmbiences(directory)
-    for _, v in ipairs(file.Find(directory.."/*.lua", "LUA")) do
+    for _, v in ipairs(file.Find(directory .. "/*.lua", "LUA")) do
         -- Get the name without the "sh_" prefix and ".lua" suffix.
         local niceName = v:sub(4, -5)
         -- Determine a numeric identifier for this ambience.
@@ -40,7 +40,7 @@ function ix.ambience.LoadAmbiences(directory)
             AMBIENCE.name = "Unknown"
             AMBIENCE.description = "No description available."
             
-            ix.util.Include(directory.."/"..v, "shared")
+            ix.util.Include(directory .. "/" .. v, "shared")
 
             ix.ambience.list[niceName] = AMBIENCE
         AMBIENCE = nil
@@ -67,7 +67,7 @@ if ( CLIENT ) then
     concommand.Add("ix_debug_pos", function(client)
         local pos = client:GetPos()
     
-        local output = "Vector("..pos.x..", "..pos.y..", "..pos.z..")"
+        local output = "Vector(" .. pos.x .. ", " .. pos.y .. ", " .. pos.z .. ")"
         chat.AddText(output)
     
         SetClipboardText(output)
@@ -76,7 +76,7 @@ if ( CLIENT ) then
     concommand.Add("ix_debug_eyepos", function(client)
         local pos = client:EyePos()
     
-        local output = "Vector("..pos.x..", "..pos.y..", "..pos.z..")"
+        local output = "Vector(" .. pos.x .. ", " .. pos.y .. ", " .. pos.z .. ")"
         chat.AddText(output)
     
         SetClipboardText(output)
@@ -85,7 +85,7 @@ if ( CLIENT ) then
     concommand.Add("ix_debug_ang", function(client)
         local pos = client:EyeAngles()
     
-        local output = "Angle("..pos.p..", "..pos.y..", "..pos.r..")"
+        local output = "Angle(" .. pos.p .. ", " .. pos.y .. ", " .. pos.r .. ")"
         chat.AddText(output)
     
         SetClipboardText(output)
@@ -96,4 +96,4 @@ function easedLerpVector(fraction, from, to)
 	return LerpVector(math.ease.InCubic(fraction), from, to)
 end
 
-ix.ambience.LoadAmbiences(engine.ActiveGamemode().."/plugins/proceduralambience/ambience")
+ix.ambience.LoadAmbiences(engine.ActiveGamemode() .. "/plugins/proceduralambience/ambience")

@@ -42,7 +42,7 @@ ix.config.Add("shipmentDeliverPositionZValue", "0", "The Z Position of where the
 })
 
 ix.command.Add("SetShipmentDeliverPosition", {
-    description = "Sets the "..PLUGIN.name.." Shipment Deliver Position.",
+    description = "Sets the " .. PLUGIN.name .. " Shipment Deliver Position.",
     adminOnly = true,
     OnRun = function(self, client)
         ix.config.Set("shipmentDeliverPositionXValue", client:GetPos().x)

@@ -17,10 +17,10 @@ AMBIENCE.onPlay = function(ambienceTable)
     end
 
     local helitrack = ents.Create("path_track")
-    helitrack:SetName(heli:EntIndex().."-Track5555")
+    helitrack:SetName(heli:EntIndex() .. "-Track5555")
     helitrack:SetPos(ambienceTable.endPos)
 
-    heli:Fire("flytospecifictrackviapath", heli:EntIndex().."-Track5555")
+    heli:Fire("flytospecifictrackviapath", heli:EntIndex() .. "-Track5555")
 
     hook.Add("Think", "NPCHeliThink", function()
         if ( heli:GetPos():Distance(ambienceTable.endPos) < 100 ) then
@@ -32,4 +32,4 @@ end
 
 AMBIENCE_NPC_HELI = AMBIENCE.index
 
-print("[AMBIENCE] "..AMBIENCE.name.." loaded.")
+print("[AMBIENCE] " .. AMBIENCE.name .. " loaded.")

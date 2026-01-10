@@ -31,7 +31,7 @@ local function CreateMusicButtons(self, type)
         if not ( v[1] == "" or v[2] == "" ) then
             self.musicbutton = self:Add("ixMenuButton")
             self.musicbutton:Dock(TOP)
-            self.musicbutton:SetText(v[1].."  |  "..v[2])
+            self.musicbutton:SetText(v[1] .. "  |  " .. v[2])
 
             self.musicbutton:SetFont("RiggsFont18")
             self.musicbutton:SetSize(0, 20)
@@ -44,7 +44,7 @@ local function CreateMusicButtons(self, type)
                         net.WriteString(v[2])
                     net.SendToServer()
                 end)
-                ix.util.Notify("Played "..v[1].." ("..v[2]..") to all players!")
+                ix.util.Notify("Played " .. v[1] .. " (" .. v[2] .. ") to all players!")
             end
 
             self.musicbutton.DoRightClick = function()
@@ -52,7 +52,7 @@ local function CreateMusicButtons(self, type)
                 timer.Simple(0.1, function()
                     LocalPlayer():EmitSound(v[2], 40)
                 end)
-                ix.util.Notify("You played "..v[1].." ("..v[2]..") only to yourself!")
+                ix.util.Notify("You played " .. v[1] .. " (" .. v[2] .. ") only to yourself!")
             end
         end
     end
@@ -172,7 +172,7 @@ function PANEL:Init()
     self.soundtreenode.gen = false
 
     local function FindSounds(node, dir)
-        local files, dirs = file.Find(dir.."*", "GAME")
+        local files, dirs = file.Find(dir .. "*", "GAME")
 
         for _, v in ipairs(dirs) do
             local newNode = node:AddNode(v)
@@ -181,7 +181,7 @@ function PANEL:Init()
 
             newNode.DoClick = function()
                 if !newNode.gen then
-                    FindSounds(newNode, dir..v.."/")
+                    FindSounds(newNode, dir..v .. "/")
                     newNode.gen = true
                 end
             end
@@ -208,7 +208,7 @@ function PANEL:Init()
             end
 
             if fileCount > fileLimit then
-                local newNode = node:AddNode("Click to load more files...")
+                local newNode = node:AddNode("Click to load more files. .. ")
                 newNode.Icon:SetImage("icon16/sound_add.png")
                 newNode.DoClick = function()
                     newNode:Remove()
@@ -256,7 +256,7 @@ function PANEL:Init()
                 net.WriteString(file)
             net.SendToServer()
         end)
-        ix.util.Notify("Played "..tostring(file).." to all players!")
+        ix.util.Notify("Played " .. tostring(file) .. " to all players!")
     end
 
     self.stopsoundall.DoClick = function()

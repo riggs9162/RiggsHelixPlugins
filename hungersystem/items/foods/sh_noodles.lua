@@ -1,7 +1,7 @@
 -- Item Statistics
 
 ITEM.name = "Noodles"
-ITEM.description = "Cheap microwaved noodles. Tasty.."
+ITEM.description = "Cheap microwaved noodles. Tasty .. "
 ITEM.category = "Consumeables"
 
 -- Item Configuration

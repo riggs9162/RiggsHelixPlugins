@@ -6,5 +6,5 @@ function PLUGIN:PlayerLoadedCharacter(client, char, oldChar)
         music = PLUGIN.introMusic[ix.option.Get(client, "introMusic", "hl1")].combineMusic
     end
 
-    client:ConCommand("play "..table.Random(music))
+    client:ConCommand("play " .. table.Random(music))
 end

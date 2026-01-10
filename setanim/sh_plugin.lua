@@ -28,7 +28,7 @@ ix.command.Add("SetAnimClass", {
 
         local modelTable = ix.anim.GetModelClass(model)
         if ( modelTable ) then
-            client:Notify("This model already has a custom animation class, overwriting it...")
+            client:Notify("This model already has a custom animation class, overwriting it. .. ")
         end
 
         if not ( ix.anim[animClass] ) then

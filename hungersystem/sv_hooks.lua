@@ -20,7 +20,7 @@ function PLUGIN:PlayerTick(client)
 
             if ( char:GetHunger() == 0 ) then
                 client:TakeDamage(math.random(10, 20))
-                client:EmitSound("npc/barnacle/barnacle_digesting"..math.random(1,2)..".wav", 50)
+                client:EmitSound("npc/barnacle/barnacle_digesting" .. math.random(1,2) .. ".wav", 50)
                 client:ChatNotify("You are dying of starvation!")
     
                 client.ixHungerTick = CurTime() + 60

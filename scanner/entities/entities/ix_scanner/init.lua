@@ -171,7 +171,7 @@ end
 function ENT:flash()
     local max = 30
     local value = max
-    local timerID = "ScannerFlash"..self:EntIndex()
+    local timerID = "ScannerFlash" .. self:EntIndex()
 
     self.flashSprite:SetColor(color_white)
     self:EmitSound("npc/scanner/scanner_photo1.wav")
@@ -180,7 +180,7 @@ function ENT:flash()
         net.WriteEntity(self)
     net.SendPVS(self:GetPos())
 
-    timer.Create("ScannerFlash"..self:EntIndex(), 0, max, function()
+    timer.Create("ScannerFlash" .. self:EntIndex(), 0, max, function()
         if (IsValid(self) and IsValid(self.flashSprite)) then
             self.flashSprite:SetColor(
                 Color(255, 0, 0, (value / max) * 255)

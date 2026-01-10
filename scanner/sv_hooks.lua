@@ -81,7 +81,7 @@ function PLUGIN:KeyPress(client, key)
             source = table.Random(SCANNER_SOUNDS)
             client.ixScnSoundDelay = CurTime() + 1.75
         elseif (key == IN_RELOAD) then
-            source = "npc/scanner/scanner_talk"..math.random(1, 2)..".wav"
+            source = "npc/scanner/scanner_talk" .. math.random(1, 2) .. ".wav"
             client.ixScnSoundDelay = CurTime() + 8
         elseif (key == IN_DUCK) then
             if (client:GetViewEntity() == client.ixScn) then

@@ -68,12 +68,12 @@ for k, v in ipairs(PLUGIN.gestures) do
     commandname = string.Replace(commandname, "antman_", "")
     commandname = string.Replace(commandname, "_", " ")
 
-    concommand.Add("ix_act_"..v.command, function(client, cmd, args)
+    concommand.Add("ix_act_" .. v.command, function(client, cmd, args)
         client:DoAnimationEvent(v.id)
     end)
 
-    ix.command.Add("Gesture"..v.command, {
-        description = "Play the "..commandname.." gesture.",
+    ix.command.Add("Gesture" .. v.command, {
+        description = "Play the " .. commandname .. " gesture.",
         OnCanRun = function(_, client)
             if client:IsFemale() then
                 return "Female variants are not supported."
@@ -81,7 +81,7 @@ for k, v in ipairs(PLUGIN.gestures) do
         end,
         OnRun = function(_, client)
             if ( SERVER ) then
-                client:ConCommand("ix_act_"..v.command)
+                client:ConCommand("ix_act_" .. v.command)
             end
         end
     })
