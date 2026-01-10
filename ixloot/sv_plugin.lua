@@ -17,7 +17,7 @@ function PLUGIN:SearchLootContainer(ent, client)
                 end
 
                 client:Freeze(true)
-                client:SetAction("Searching. .. ", 5, function()
+                client:SetAction("Searching...", 5, function()
                     client:Freeze(false)
                     for i = 1, lootAmount do
                         if (randomChance == math.random(1,20)) then
