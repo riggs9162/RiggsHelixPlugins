@@ -14,16 +14,15 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
---- you need lua knowledge to use this plugin
--- these are template functions that you can use to create your own
+-- you need lua knowledge to use this plugin; these are template functions that you can use to create your own
 PLUGIN.interactions = {
     ["search"] = {
         name = "Search",
         description = "Search the tied character infront of you.",
         check = function(client, target)
-            if not ( IsValid(target) and target:IsPlayer() and target:GetCharacter() and target:IsRestricted() ) then return false end
-            if ( client:IsRestricted() ) then return false end
-    
+            if ( !IsValid(target) or !target:IsPlayer() or !target:GetCharacter() or !target:IsRestricted() ) then return end
+            if ( client:IsRestricted() ) then return end
+
             return true
         end,
         action = function(client, target)
@@ -34,19 +33,20 @@ PLUGIN.interactions = {
         name = "Untie",
         description = "Untie the tied character infront of you.",
         check = function(client, target)
-            if not ( IsValid(target) and target:IsPlayer() and target:GetCharacter() and target:IsRestricted() ) then return end
+            if ( !IsValid(target) or !target:IsPlayer() or !target:GetCharacter() or !target:IsRestricted() ) then return end
+
             if ( target:GetNetVar("untying") ) then return end
             if ( client:IsRestricted() ) then return end
-    
+
             return true
         end,
         action = function(client, target)
             target:SetRestricted(false)
-            target:SetAction("You are being untied. .. ", 5)
+            target:SetAction("You are being untied...", 5)
             target:SetNetVar("untying", true)
-    
-            client:SetAction("Untying. .. ", 5)
-    
+
+            client:SetAction("Untying...", 5)
+
             client:DoStaredAction(target, function()
                 target:SetRestricted(false)
                 target:SetNetVar("untying")
@@ -55,7 +55,7 @@ PLUGIN.interactions = {
                     target:SetNetVar("untying")
                     target:SetAction()
                 end
-    
+
                 if ( IsValid(client) ) then
                     client:SetAction()
                 end
@@ -66,8 +66,8 @@ PLUGIN.interactions = {
         name = "Recognise",
         description = "Recognise the player infront of you.",
         check = function(client, target)
-            if not ( IsValid(target) and target:IsPlayer() and target:GetCharacter() ) then return end
-    
+            if ( !IsValid(target) or !target:IsPlayer() or !target:GetCharacter() ) then return end
+
             return true
         end,
         action = function(client, target)
@@ -79,16 +79,14 @@ PLUGIN.interactions = {
 if ( CLIENT ) then
     ix.gui.interactionMenu = nil
     function PLUGIN:Think()
-        if ( input.IsKeyDown(KEY_F6) ) then
-            if not ( ix.gui.interactionMenu ) then
-                local trace = {}
-                trace.start = LocalPlayer():EyePos()
-                trace.endpos = trace.start + LocalPlayer():GetAimVector() * 96
-                trace.filter = LocalPlayer()
+        if ( input.IsKeyDown(KEY_F6) and !ix.gui.interactionMenu ) then
+            local trace = {}
+            trace.start = LocalPlayer():EyePos()
+            trace.endpos = trace.start + LocalPlayer():GetAimVector() * 96
+            trace.filter = LocalPlayer()
 
-                ix.gui.interactionMenu = vgui.Create("ixInteractionMenu")
-                ix.gui.interactionMenu:SetTarget(util.TraceLine(trace).Entity)
-            end
+            ix.gui.interactionMenu = vgui.Create("ixInteractionMenu")
+            ix.gui.interactionMenu:SetTarget(util.TraceLine(trace).Entity)
         end
     end
 
@@ -107,7 +105,7 @@ if ( CLIENT ) then
 
         self.list = vgui.Create("DScrollPanel", self)
         self.list:Dock(FILL)
-        self.list:SetDrawBackground(false)
+        self.list:SetPaintBackground(false)
         self.list.VBar:SetWide(0)
 
         timer.Simple(0.1, function()
@@ -116,7 +114,7 @@ if ( CLIENT ) then
                     local button = vgui.Create("ixMenuButton", self.list)
                     button:Dock(TOP)
                     button:SetText(v.name)
-                    button:SetToolTip(v.description)
+                    button:SetTooltip(v.description)
                     button:SetTall(30)
                     button:SetFont("ixMenuButtonFontSmall")
                     button.DoClick = function()
@@ -143,7 +141,6 @@ if ( CLIENT ) then
     vgui.Register("ixInteractionMenu", PANEL, "DFrame")
 else
     util.AddNetworkString("ixInteraction")
-
     net.Receive("ixInteraction", function(len, client)
         local interaction = net.ReadString()
         local target = net.ReadEntity()
