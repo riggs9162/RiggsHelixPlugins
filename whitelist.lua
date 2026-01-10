@@ -26,23 +26,19 @@ if ( SERVER ) then
         local steamID64 = util.SteamIDTo64(steamid)
         local whitelistData = self.whitelists[steamid] or self.whitelists[steamID64]
 
-        if not ( whitelistData ) then
+        if ( !whitelistData ) then
             client:Kick("You are not whitelisted!")
-
             return
         end
 
-        if ( whitelistData.whitelisted ) then
-            return
-        end
+        if ( whitelistData.whitelisted ) then return end
 
-        client:Kick("You are not whitelisted.")
+        client:Kick("You are not whitelisted!")
 
         for k, v in player.Iterator() do
             if ( IsValid(v) and v:IsAdmin() ) then
                 if ( whitelistData.discord ) then
                     v:ChatNotify("[WHITELIST] " .. client:SteamName() .. " has been kicked for not being whitelisted. Their noted discord name is: " ..  self.whitelists[steamid].discord)
-
                     return
                 end
 
