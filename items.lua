@@ -106,11 +106,11 @@ for k, v in pairs(extendeditems) do
     ITEM.category = "Extended Items"
     ITEM.noBusiness = true
     ITEM.bDropOnDeath = true
-    
+
     function ITEM:GetDescription()
         return self.description
     end
-    
+
     function ITEM:PopulateTooltip(tooltip)
         if v.illegal then
             local warning = tooltip:AddRow("warning")
@@ -134,7 +134,7 @@ for k, v in pairs(ammoitems) do
     ITEM.category = "Ammo Items"
     ITEM.noBusiness = true
     ITEM.bDropOnDeath = true
-    
+
     ITEM.base = "base_ammo"
     ITEM.useSound = v.useSound or "items/ammo_pickup.wav"
     ITEM.ammo = v.ammo or "pistol"
@@ -143,7 +143,7 @@ for k, v in pairs(ammoitems) do
     function ITEM:GetDescription()
         return self.description
     end
-    
+
     function ITEM:PopulateTooltip(tooltip)
         local warning = tooltip:AddRow("warning")
         warning:SetBackgroundColor(derma.GetColor("Error", tooltip))
@@ -165,7 +165,7 @@ for k, v in pairs(weaponitems) do
     ITEM.category = "Weapon Items"
     ITEM.noBusiness = true
     ITEM.bDropOnDeath = true
-    
+
     ITEM.base = "base_weapons"
     ITEM.isWeapon = true
     ITEM.isGrenade = v.isGrenade or false
@@ -176,7 +176,7 @@ for k, v in pairs(weaponitems) do
     function ITEM:GetDescription()
         return self.description
     end
-    
+
     function ITEM:PopulateTooltip(tooltip)
         local warning = tooltip:AddRow("warning")
         warning:SetBackgroundColor(derma.GetColor("Error", tooltip))
