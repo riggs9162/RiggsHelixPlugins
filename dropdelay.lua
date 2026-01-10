@@ -1,4 +1,4 @@
-local PUGIN = PLUGIN
+local PLUGIN = PLUGIN
 
 PLUGIN.name = "Item Pickup & Drop Delay"
 PLUGIN.description = "Adds delays between dropping / taking items again."
@@ -36,8 +36,8 @@ if ( SERVER ) then
     function PLUGIN:PlayerInteractItem(client, action, item)
         if ( action == "drop" ) then
             client.dropDelay = true
-            
-            timer.Create("ixDropDelay."..client:SteamID64(), ix.config.Get("dropDelay", 1), 1, function()
+
+            timer.Create("ixDropDelay." .. client:SteamID64(), ix.config.Get("dropDelay", 1), 1, function()
                 if ( IsValid(client) ) then
                     client.dropDelay = nil
                 end
@@ -45,7 +45,7 @@ if ( SERVER ) then
         elseif ( action == "take" ) then
             client.takeDelay = true
 
-            timer.Create("ixTakeDelay."..client:SteamID64(), ix.config.Get("takeDelay", 1), 1, function()
+            timer.Create("ixTakeDelay." .. client:SteamID64(), ix.config.Get("takeDelay", 1), 1, function()
                 if ( IsValid(client) ) then
                     client.takeDelay = nil
                 end
