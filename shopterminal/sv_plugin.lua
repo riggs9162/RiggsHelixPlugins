@@ -5,17 +5,15 @@ util.AddNetworkString("ixShopTerminal.Close")
 util.AddNetworkString("ixShopTerminal.Checkout")
 
 net.Receive("ixShopTerminal.Close", function(len, client)
-    if not ( IsValid(client) and IsValid(client:GetEyeTrace().Entity) and client:GetEyeTrace().Entity:GetClass() == "ix_shopterminal" ) then
-        return
-    end
+    if ( !IsValid(client) or !IsValid(client:GetEyeTrace().Entity) or client:GetEyeTrace().Entity:GetClass() != "ix_shopterminal" ) then return end
     client:GetEyeTrace().Entity:SetNetVar("InUse", false)
 end)
 
+-- what kind of crack was i smoking when i wrote this lol
+
 net.Receive("ixShopTerminal.Checkout", function(len, client)
-    local char = client:GetCharacter()
-    if not ( IsValid(client) and char and char:GetClass() == PLUGIN.cwuClass or CLASS_CWU ) then
-        return
-    end
+    local character = client:GetCharacter()
+    if ( !IsValid(client) or !character or character:GetClass() != (PLUGIN.cwuClass or CLASS_CWU) ) then return end
 
     local indicies = net.ReadUInt(8)
     local items = {}
@@ -24,20 +22,17 @@ net.Receive("ixShopTerminal.Checkout", function(len, client)
         items[net.ReadString()] = net.ReadUInt(8)
     end
 
-    if ( table.IsEmpty(items) ) then
-        return
-    end
+    if ( table.IsEmpty(items) ) then return end
 
     local cost = 0
 
     for k, v in pairs(items) do
         local itemTable = ix.item.list[k]
-
-        if (itemTable) then
+        if ( itemTable ) then
             local amount = math.Clamp(tonumber(v) or 0, 0, 10)
             items[k] = amount
 
-            if (amount == 0) then
+            if ( amount == 0 ) then
                 items[k] = nil
             else
                 cost = cost + (amount * (itemTable.price or 0))
@@ -51,10 +46,8 @@ net.Receive("ixShopTerminal.Checkout", function(len, client)
         return
     end
 
-    PrintTable(items)
-
-    if ( char:HasMoney(cost) ) then
-        char:TakeMoney(cost)
+    if ( character:HasMoney(cost) ) then
+        character:TakeMoney(cost)
         client:Notify(ix.config.Get("shipmentDeliverMessage"))
 
         -- this might be messy and horrid, but meh. in the future i will find a better way..
@@ -64,13 +57,13 @@ net.Receive("ixShopTerminal.Checkout", function(len, client)
         entity:Spawn()
         entity:SetPos(deliverPos)
         entity:SetItems(items)
-        entity:SetNetVar("owner", char:GetID())
+        entity:SetNetVar("owner", character:GetID())
 
-        local shipments = char:GetVar("charEnts") or {}
+        local shipments = character:GetVar("charEnts") or {}
         table.insert(shipments, entity)
-        char:SetVar("charEnts", shipments, true)
+        character:SetVar("charEnts", shipments, true)
 
-		hook.Run("CreateShipment", client, entity)
+        hook.Run("CreateShipment", client, entity)
     else
         ix.util.Notify("You do not have enough " .. ix.currency.plural .. " to buy your cart!")
     end
