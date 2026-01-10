@@ -5,7 +5,7 @@ net.Receive("ixSetAnimClasses", function(len)
 
     for k, v in ipairs(PLUGIN.stored) do
         local modelTable = ix.anim.GetModelClass(k)
-        if not ( modelTable ) then
+        if ( !modelTable ) then
             ix.anim.SetModelClass(k, v)
         end
     end
