@@ -1,4 +1,4 @@
-// Kill Riggs
+-- Kill Riggs
 local achievement = {
     name = "Who's Riggs?",
     description = "Kill the Founder of Minerva Servers.",
@@ -9,7 +9,7 @@ local achievement = {
 
 ix.achievements:Register(achievement)
 
-// Kill a player with a headshot
+-- Kill a player with a headshot
 achievement = {
     name = "Headshot!",
     description = "Kill a player with a headshot.",
@@ -20,7 +20,7 @@ achievement = {
 
 ix.achievements:Register(achievement)
 
-// Kill a player with full health
+-- Kill a player with full health
 achievement = {
     name = "One Shot, One Kill",
     description = "Kill a player with full health.",

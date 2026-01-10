@@ -40,7 +40,7 @@ function ix.achievements:GetByIndex(index)
     return self.stored[index]
 end
 
-// Taken from my edit of the Helix Framework
+-- Taken from my edit of the Helix Framework
 local function advancedSearch(a, b)
     if (a and b) then
         a = tostring(a)

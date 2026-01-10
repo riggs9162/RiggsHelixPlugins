@@ -51,7 +51,7 @@ PLUGIN.binds[KEY_F2] = "ix_togglethirdperson"
 function PLUGIN:PlayerBindPress(client, bind, pressed)
     local data = self.binds[bind]
     if ( data ) then
-        // comment: the power of yandere dev else if statements
+        -- comment: the power of yandere dev else if statements
         if ( type(data) == "function" ) then
             return data(client, bind, pressed)
         elseif ( type(data) == "string" ) then

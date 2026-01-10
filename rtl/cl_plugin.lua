@@ -3,13 +3,13 @@ local PLUGIN = PLUGIN
 PLUGIN.sunInfo = PLUGIN.sunInfo or nil
 
 function PLUGIN:IsNightTime()
-    if ( StormFox2 and StormFox2.Time ) then // StormFox2
+    if ( StormFox2 and StormFox2.Time ) then -- StormFox2
         return StormFox2.Time.IsNight()
-    elseif ( SW ) then // Simple Weather
+    elseif ( SW ) then -- Simple Weather
         return ( SW.Time >= 23 or SW.Time <= 4 )
     end
 
-    return false // keep it on if no available weather system
+    return false -- keep it on if no available weather system
 end
 
 function PLUGIN:UpdateGlobalSun()
@@ -47,7 +47,7 @@ function PLUGIN:CreateProjectedTexture()
         projectedTexture:Remove()
     end
 
-    // Create a new projected texture
+    -- Create a new projected texture
     projectedTexture = ProjectedTexture()
     projectedTexture:SetTexture("minervahl2rp/mask_center")
     projectedTexture:SetConstantAttenuation(1)
@@ -70,7 +70,7 @@ function PLUGIN:CreateProjectedTextureRing()
         projectedTextureRing:Remove()
     end
 
-    // Create a new projected texture
+    -- Create a new projected texture
     projectedTextureRing = ProjectedTexture()
     projectedTextureRing:SetTexture("minervahl2rp/mask_ring")
     projectedTextureRing:SetConstantAttenuation(1)
@@ -93,7 +93,7 @@ function PLUGIN:UpdateProjectedTextures()
     local projectedTexture = self.projectedTexture
     local projectedTextureRing = self.projectedTextureRing
 
-    // Get the position and color of the sun
+    -- Get the position and color of the sun
     local sunInfo = util.GetSunInfo()
     local pitch, roll, yaw
     pitch = sunInfo.direction:Angle().pitch + 180
@@ -149,7 +149,7 @@ function PLUGIN:Think()
     end
 
     if ( ix.option.Get("realTimeLightingEnabled") ) then
-        // might be unefficient but meh
+        -- might be unefficient but meh
         if not ( self.sunInfo ) then
             return
         end

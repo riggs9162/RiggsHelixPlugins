@@ -63,7 +63,7 @@ ix.hints.Register("Running, jumping, and other uncivil actions can result in re-
 ix.hints.Register("The Combine don't like it when you talk, so whisper.")
 ix.hints.Register("The city is under constant surveillance. Be careful.")
 ix.hints.Register("The staff are here to help you. Show respect and cooperate with them and everyone will benefit from it.")
-ix.hints.Register("Type .// before your message to talk out of character locally.")
+ix.hints.Register("Type .-- before your message to talk out of character locally.")
 ix.hints.Register("Why don't you try cooking something every now and then? All you need is a stove and the right ingredients.")
 ix.hints.Register("Your designated inspection position is your room. Don't forget!")
 

@@ -306,7 +306,7 @@ function PANEL:Init()
 		ix.gui.characterMenu:Remove()
 	end
 
-	// mr alex grist, pls allow us to save ourselves, thx.
+	-- mr alex grist, pls allow us to save ourselves, thx.
 	ix.gui.characterMenu = self
 
 	self:SetSize(ScrW(), ScrH())

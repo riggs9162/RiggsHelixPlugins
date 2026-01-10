@@ -49,7 +49,7 @@ function PANEL:Init()
         end
 
         button = self.categories:Add("ixMenuButton")
-        button.padding = {12, 12, 12, 12} // left, top, right, bottom
+        button.padding = {12, 12, 12, 12} -- left, top, right, bottom
         button:Dock(LEFT)
         button:SetText(v.name)
         button:SetBackgroundColor(v.color)
@@ -96,7 +96,7 @@ function PANEL:PopulateCategories()
             end
 
             button = self.factionCategories:Add("ixMenuButton")
-            button.padding = {12, 12, 12, 12} // left, top, right, bottom
+            button.padding = {12, 12, 12, 12} -- left, top, right, bottom
             button:Dock(LEFT)
             button:SetText(v.category)
             button:SetFont("ixMenuButtonFontSmall")
@@ -143,7 +143,7 @@ function PANEL:PopulateClasses(category)
         local model = button:Add("ixSpawnIcon")
         model:Dock(LEFT)
         model:SetWide(button:GetTall())
-        model:SetModel(LocalPlayer():GetModel()) // TODO: change this
+        model:SetModel(LocalPlayer():GetModel()) -- TODO: change this
     end
 end
 

@@ -1,4 +1,4 @@
-// First Craft
+-- First Craft
 local achievement = {
     name = "First Craft",
     description = "Craft your first item, on any crafting station.",

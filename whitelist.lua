@@ -16,8 +16,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 PLUGIN.whitelists = {
     ["STEAM_0:1:1395956"] = {
-        discord = "riggs9162", // Discord name of the player.
-        whitelisted = true, // Allow or disallow the player to join.
+        discord = "riggs9162", -- Discord name of the player.
+        whitelisted = true, -- Allow or disallow the player to join.
     },
 }
 

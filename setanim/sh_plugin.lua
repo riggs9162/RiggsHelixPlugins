@@ -39,7 +39,7 @@ ix.command.Add("SetAnimClass", {
         ix.anim.SetModelClass(model, animClass)
         PLUGIN.stored[model] = animClass
 
-        // comment: Iterate through all players and set the model to itself to refresh the animation class if it's the same model.
+        -- comment: Iterate through all players and set the model to itself to refresh the animation class if it's the same model.
         for k, v in player.Iterator() do
             if ( string.lower(v:GetModel()) != model ) then
                 continue

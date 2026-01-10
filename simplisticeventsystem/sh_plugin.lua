@@ -52,7 +52,7 @@ ix.adminSystem = ix.adminSystem or {}
 ix.adminSystem.music = ix.adminSystem.music or {}
 ix.adminSystem.derma = ix.adminSystem.derma or {}
 
-// Configuration below.
+-- Configuration below.
 
 ix.adminSystem.music = {
     ["Half-Life 2 Music"] = {
@@ -104,7 +104,7 @@ ix.adminSystem.music = {
     },
     ["Custom Music"] = {
         {"Strider Battle Garage", "custom/music/strider_battle_garage.ogg"},
-        // If these values are blank, you will not see them in the menu. > ix_eventmenu
+        -- If these values are blank, you will not see them in the menu. > ix_eventmenu
         {"", ""},
         {"", ""},
         {"", ""},

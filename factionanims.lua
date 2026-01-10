@@ -39,13 +39,13 @@ If you want to use the default animations, you can simply remove the "animClass"
 
 local oldGetModelClass = oldGetModelClass or ix.anim.GetModelClass
 
-/// Gets a model's animation class.
-// @realm shared
-// @string model Model to get the animation class for
-// @treturn[1] string Animation class of the model
-// @treturn[2] nil If there was no animation associated with the given model
-// @usage ix.anim.GetModelClass("models/police.mdl")
-// > metrocop
+--- Gets a model's animation class.
+-- @realm shared
+-- @string model Model to get the animation class for
+-- @treturn[1] string Animation class of the model
+-- @treturn[2] nil If there was no animation associated with the given model
+-- @usage ix.anim.GetModelClass("models/police.mdl")
+-- > metrocop
 function ix.anim.GetModelClass(model)
     local client = LocalPlayer()
     local faction = client:Team()

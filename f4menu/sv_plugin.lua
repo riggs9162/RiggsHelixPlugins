@@ -42,7 +42,7 @@ function PLUGIN:FactionSwitch(client, oldFaction, newFaction, oldClass, newClass
     client:Spawn()
 end
 
-// networking
+-- networking
 util.AddNetworkString("ixFactionPanelSwitch")
 
 net.Receive("ixFactionPanelSwitch", function(len, client)

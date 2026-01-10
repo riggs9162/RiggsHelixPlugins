@@ -29,7 +29,7 @@ ix.command.Add("CharSetDescription", {
         bit.bor(ix.type.text, ix.type.optional)
     },
     OnRun = function(self, client, target, newDescription)
-        // display string request panel if no description was specified
+        -- display string request panel if no description was specified
         if ( newDescription:len() == 0 ) then
             return client:RequestString("@chgDescription", "@chgDescriptionDesc", function(text)
                 ix.command.Run(client, "CharSetDescription", {target:GetName(), text})

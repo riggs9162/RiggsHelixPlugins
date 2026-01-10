@@ -57,7 +57,7 @@ net.Receive("ixShopTerminal.Checkout", function(len, client)
         char:TakeMoney(cost)
         client:Notify(ix.config.Get("shipmentDeliverMessage"))
 
-        // this might be messy and horrid, but meh. in the future i will find a better way..
+        -- this might be messy and horrid, but meh. in the future i will find a better way..
         local deliverPos = Vector(tonumber(ix.config.Get("shipmentDeliverPositionXValue")), tonumber(ix.config.Get("shipmentDeliverPositionYValue")), tonumber(ix.config.Get("shipmentDeliverPositionZValue")))
 
         local entity = ents.Create("ix_shopterminal_shipment")

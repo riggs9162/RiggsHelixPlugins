@@ -15,9 +15,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ]]
 
 if ( CLIENT ) then
-    // check if the player is pressing anything
+    -- check if the player is pressing anything
     function PLUGIN:KeyPress()
-        // but dont run until we are actually playing
+        -- but dont run until we are actually playing
         if ( vgui.CursorVisible() ) then
             return
         end

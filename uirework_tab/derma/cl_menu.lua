@@ -289,7 +289,7 @@ function PANEL:SetupTab(name, info, sectionParent)
 		button:SetBackgroundColor(buttonColor)
 	end
 
-	button:SetFont("ixMenuButtonFontSmall") // trust me, u wanna keep it small :skull:
+	button:SetFont("ixMenuButtonFontSmall") -- trust me, u wanna keep it small :skull:
 
 	button:Dock(LEFT)
 	button:SetTextInset(0, 0)
@@ -325,7 +325,7 @@ function PANEL:PopulateTabs()
 
 	hook.Run("CreateMenuButtons", tabs)
 
-	// remove the shitty line on the settings
+	-- remove the shitty line on the settings
 	tabs["settings"].PopulateTabButton = function(info, button)
 		local menu = ix.gui.menu
 

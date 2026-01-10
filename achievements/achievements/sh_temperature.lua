@@ -1,4 +1,4 @@
-// hypothermia
+-- hypothermia
 local achievement = {
     name = "Hypothermia",
     description = "Get hypothermia.",
@@ -9,7 +9,7 @@ local achievement = {
 
 ix.achievements:Register(achievement)
 
-// hyperthermia
+-- hyperthermia
 achievement = {
     name = "Hyperthermia",
     description = "Get hyperthermia.",

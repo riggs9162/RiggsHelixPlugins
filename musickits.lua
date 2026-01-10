@@ -33,7 +33,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]
 
-// Credits to vin ( original creator )
+-- Credits to vin ( original creator )
 
 PLUGIN.passiveMusic = {
     {"music/HL2_song0.mp3", 39},
@@ -145,7 +145,7 @@ local function ReadMusicKit(name)
         return "DeathSound must be a string."
     end
 
-    // compile it
+    -- compile it
     local comp = {}
 
     comp.Ambient = {}
@@ -356,7 +356,7 @@ local function GetRandomSong(style)
     return r, t[2]
 end
 
-local function InCombat() // simple for now
+local function InCombat() -- simple for now
     local forcedCombat = GetConVar("ix_music_forcecombat"):GetBool()
 
     if forcedCombat then
