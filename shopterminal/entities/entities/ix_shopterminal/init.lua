@@ -6,7 +6,7 @@ include("shared.lua")
 
 function ENT:Initialize()
     self:SetModel("models/props_combine/breenconsole.mdl")
-    self:PhysicsInit(SOLID_VPHYSICS) 
+    self:PhysicsInit(SOLID_VPHYSICS)
     self:SetSolid(SOLID_VPHYSICS)
     self:SetUseType(SIMPLE_USE)
 end
@@ -22,7 +22,7 @@ function ENT:Use(client)
         return
     end
 
-    client:SetAction("Logging in. .. ", 1)
+    client:SetAction("Logging in...", 1)
     client:DoStaredAction(self, function()
         self:SetNetVar("InUse", true)
         net.Start("ixShopTerminal.Open")

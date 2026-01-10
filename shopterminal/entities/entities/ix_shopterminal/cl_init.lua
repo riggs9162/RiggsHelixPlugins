@@ -29,7 +29,7 @@ function ENT:Draw()
             draw.SimpleText("Waiting for input", "ShopTerminalFont", width / 2, height - 16, Color(205, 255, 180, alpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
         else
             draw.SimpleText(LocalPlayer():SteamID64(), "ShopTerminalFont", 5, 36, Color(90, 210, 255, alpha))
-            draw.SimpleText("Validating Input. .. ", "ShopTerminalFont", 5, 46, Color(102, 255, 255, alpha))
+            draw.SimpleText("Validating Input...", "ShopTerminalFont", 5, 46, Color(102, 255, 255, alpha))
         end
     cam.End3D2D()
 end
